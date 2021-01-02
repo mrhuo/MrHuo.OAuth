@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MrHuo.OAuth.Github\MrHuo.OAuth.Github.csproj" />
+    <ProjectReference Include="..\MrHuo.OAuth.Wechat\MrHuo.OAuth.Wechat.csproj" />
+    <ProjectReference Include="..\MrHuo.OAuth\MrHuo.OAuth.csproj" />
+  </ItemGroup>
+
+</Project>

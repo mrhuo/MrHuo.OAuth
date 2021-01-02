@@ -1,0 +1,8 @@
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\bin\Debug\netstandard2.0\MrHuo.OAuth.deps.json
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\bin\Debug\netstandard2.0\MrHuo.OAuth.dll
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\bin\Debug\netstandard2.0\MrHuo.OAuth.pdb
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\obj\Debug\netstandard2.0\MrHuo.OAuth.AssemblyInfoInputs.cache
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\obj\Debug\netstandard2.0\MrHuo.OAuth.AssemblyInfo.cs
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\obj\Debug\netstandard2.0\MrHuo.OAuth.csproj.CoreCompileInputs.cache
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\obj\Debug\netstandard2.0\MrHuo.OAuth.dll
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\obj\Debug\netstandard2.0\MrHuo.OAuth.pdb

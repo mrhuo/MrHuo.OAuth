@@ -1,0 +1,12 @@
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\bin\Debug\netstandard2.0\MrHuo.OAuth.Github.deps.json
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\bin\Debug\netstandard2.0\MrHuo.OAuth.Github.dll
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\bin\Debug\netstandard2.0\MrHuo.OAuth.Github.pdb
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\bin\Debug\netstandard2.0\MrHuo.OAuth.dll
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\bin\Debug\netstandard2.0\MrHuo.OAuth.pdb
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\obj\Debug\netstandard2.0\MrHuo.OAuth.Github.csprojAssemblyReference.cache
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\obj\Debug\netstandard2.0\MrHuo.OAuth.Github.AssemblyInfoInputs.cache
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\obj\Debug\netstandard2.0\MrHuo.OAuth.Github.AssemblyInfo.cs
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\obj\Debug\netstandard2.0\MrHuo.OAuth.Github.csproj.CoreCompileInputs.cache
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\obj\Debug\netstandard2.0\MrHuo.OAuth.Github.csproj.CopyComplete
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\obj\Debug\netstandard2.0\MrHuo.OAuth.Github.dll
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Github\obj\Debug\netstandard2.0\MrHuo.OAuth.Github.pdb
