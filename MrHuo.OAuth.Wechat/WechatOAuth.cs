@@ -33,17 +33,4 @@ namespace MrHuo.OAuth.Wechat
             return $"{ACCESS_TOKEN_URI}?appid={AppId}&secret={AppKey}&code={code}&grant_type=authorization_code";
         }
     }
-
-    public class WechatOAuthEx : WechatOAuth
-    {
-        public WechatOAuthEx(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
-            : base(configuration, httpContextAccessor)
-        {
-        }
-
-        protected override string GetRedirectAuthorizeUrl(string state)
-        {
-            return base.GetRedirectAuthorizeUrl(state);
-        }
-    }
 }
