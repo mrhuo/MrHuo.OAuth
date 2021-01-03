@@ -91,7 +91,7 @@ namespace MrHuo.OAuth
         /// <returns></returns>
         public virtual TUserInfo GetUserInfo(TAccessToken accessToken)
         {
-            return default(TUserInfo);
+            throw new NotImplementedException();
         }
     }
 }
