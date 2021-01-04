@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MrHuo.OAuth
+﻿namespace MrHuo.OAuth
 {
     /// <summary>
     /// 统一授权接口
     /// </summary>
     /// <typeparam name="TAccessToken"></typeparam>
     /// <typeparam name="TUserInfo"></typeparam>
-    public interface IOAuthApi<TAccessToken, TUserInfo>
+    internal interface IOAuthApi<TAccessToken, TUserInfo>
          where TAccessToken : IAccessTokenModel
          where TUserInfo : IUserInfoModel
     {

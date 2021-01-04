@@ -2,10 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>d10bad29-ab54-476f-b3fa-4cd64def858f</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MrHuo.OAuth.Github\MrHuo.OAuth.Github.csproj" />
+    <ProjectReference Include="..\MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Wechat\MrHuo.OAuth.Wechat.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth\MrHuo.OAuth.csproj" />
   </ItemGroup>

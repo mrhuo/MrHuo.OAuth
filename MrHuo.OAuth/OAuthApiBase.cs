@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
@@ -18,6 +15,12 @@ namespace MrHuo.OAuth
     {
         protected readonly IConfiguration _configuration;
         protected readonly IHttpContextAccessor _httpContextAccessor;
+
+        /// <summary>
+        /// 允许 state 检查（防止跨站请求伪造（CSRF）攻击），默认为 true
+        /// </summary>
+        public bool EnableStateCheck { get; set; } = true;
+
         public OAuthApiBase(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             this._configuration = configuration;
@@ -47,7 +50,8 @@ namespace MrHuo.OAuth
         /// <returns></returns>
         protected virtual TAccessToken ResolveAccessTokenFromString(string accessTokenResponse)
         {
-            return JsonSerializer.Deserialize<TAccessToken>(accessTokenResponse);
+            OAuthLog.Log("ResolveAccessTokenFromString [{0}]", accessTokenResponse);
+            return Json.Deserialize<TAccessToken>(accessTokenResponse);
         }
 
         /// <summary>
@@ -57,9 +61,17 @@ namespace MrHuo.OAuth
         {
             if (_httpContextAccessor.HttpContext == null)
             {
-                throw new Exception("请确保在 Web 环境下使用！（HttpContext 为 null）");
+                throw new OAuthException("请确保在 Web 环境下使用！（HttpContext 为 null）");
             }
-            var state = OAuthStateManager.RequestState(_httpContextAccessor.HttpContext, GetType());
+            OAuthLog.Log("Start authorize [{0}]", _httpContextAccessor.HttpContext.Request.Path);
+            var state = "";
+            if (EnableStateCheck)
+            {
+                state = OAuthStateManager.RequestState(_httpContextAccessor.HttpContext, GetType());
+            }
+            OAuthLog.Log("Start authorize [{0}], state=[{1}]", _httpContextAccessor.HttpContext.Request.Path, state);
+            var redirectUrl = GetRedirectAuthorizeUrl(state);
+            OAuthLog.Log("Authorize [{0}], start redirect=[{1}]", _httpContextAccessor.HttpContext.Request.Path, redirectUrl);
             _httpContextAccessor.HttpContext.Response.Redirect(GetRedirectAuthorizeUrl(state));
         }
 
@@ -73,13 +85,21 @@ namespace MrHuo.OAuth
         {
             if (_httpContextAccessor.HttpContext == null)
             {
-                throw new Exception("请确保在 Web 环境下使用！（HttpContext 为 null）");
+                throw new OAuthException("请确保在 Web 环境下使用！（HttpContext 为 null）");
             }
-            if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(state) || !OAuthStateManager.IsStateExist(state))
+            OAuthLog.Log("Start GetAccessToken code=[{0}], state=[{1}]", code, state);
+            if (string.IsNullOrEmpty(code))
             {
-                throw OAuthStateManager.NoCSRF();
+                throw new OAuthException("缺少 code 参数！");
             }
-            OAuthStateManager.RemoveState(_httpContextAccessor.HttpContext, GetType());
+            if (EnableStateCheck)
+            {
+                if (string.IsNullOrEmpty(state) || !OAuthStateManager.IsStateExist(state))
+                {
+                    throw OAuthStateManager.NoCSRF();
+                }
+                OAuthStateManager.RemoveState(_httpContextAccessor.HttpContext, state);
+            }
             var serverResponse = API.Post(GetAccessTokenUrl(code, state));
             return ResolveAccessTokenFromString(serverResponse);
         }

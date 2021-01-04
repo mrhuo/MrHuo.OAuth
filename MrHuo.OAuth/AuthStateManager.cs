@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using Microsoft.AspNetCore.Http;
 
 namespace MrHuo.OAuth
@@ -17,7 +15,6 @@ namespace MrHuo.OAuth
         /// 内部用于保存状态的列表
         /// </summary>
         private static ConcurrentDictionary<string, string> oauthStates = new ConcurrentDictionary<string, string>();
-        private static object lockObj = new object();
 
         /// <summary>
         /// 获取授权状态
@@ -29,30 +26,32 @@ namespace MrHuo.OAuth
         {
             //加入线程锁，保证每次获取状态都正确
             var sessionId = httpContext.Session.Id;
-            var stateKey = $"{type.Name}_{sessionId}";
-            Monitor.Enter(lockObj);
+            var sessionKey = $"OAuthState_{type.Name}_{sessionId}";
+            OAuthLog.Log("Start request state for [{0}], state key=[{1}]", type.FullName, sessionKey);
             try
             {
                 //如果同一sessionId和登录平台有未处理完成的状态，就移除
-                var exists = oauthStates.Where((p) => p.Key == stateKey).ToArray();
+                var exists = oauthStates.Where((p) => p.Key == sessionKey).ToArray();
                 if (exists.Count() > 0)
                 {
+                    OAuthLog.Log("Exists state [{0}], removing...", exists.Count());
                     for (int i = 0; i < exists.Count(); i++)
                     {
-                        oauthStates.TryRemove(stateKey, out var _);
+                        oauthStates.TryRemove(sessionKey, out var _);
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
 
             //生成新的状态，此状态会在登录完成后移除
             var state = Guid.NewGuid().ToString("N");
-            var sessionKey = $"OAuthState_{type.Name}_{sessionId}";
+            OAuthLog.Log("Generated new state [{0}]", state);
             oauthStates.TryAdd(sessionKey, state);
+            OAuthLog.Log("Added new state to oauthStates, count=[{0}]", oauthStates.Count);
             httpContext.Session.Set(sessionKey, Encoding.UTF8.GetBytes(state));
-            Monitor.Exit(lockObj);
+            OAuthLog.Log("Added new state to session=[{0}]", sessionKey);
             return state;
         }
 
@@ -70,18 +69,22 @@ namespace MrHuo.OAuth
         /// 在登录操作完毕之后会移除此状态
         /// </summary>
         /// <param name="httpContext"></param>
-        /// <param name="type"></param>
-        public static void RemoveState(HttpContext httpContext, Type type)
+        /// <param name="state"></param>
+        public static void RemoveState(HttpContext httpContext, string state)
         {
-            Monitor.Enter(lockObj);
             var sessionId = httpContext.Session.Id;
-            var sessionKey = $"OAuthState_{type.Name}_{sessionId}";
-            if (!oauthStates.TryRemove(sessionKey, out var _))
-            { 
+            var sessionKey = oauthStates.FirstOrDefault(p => p.Value == state).Key;
+            if (string.IsNullOrEmpty(sessionKey))
+            {
                 throw NoCSRF();
             }
-            httpContext.Session.Remove(sessionKey);
-            Monitor.Exit(lockObj);
+            else
+            {
+                oauthStates.TryRemove(sessionKey, out var _);
+                OAuthLog.Log("Remove state [{0}] success.", state);
+                httpContext.Session.Remove(sessionKey);
+                OAuthLog.Log("Remove session [{0}] success.", sessionKey);
+            }
         }
 
         /// <summary>
@@ -96,9 +99,10 @@ namespace MrHuo.OAuth
         /// 统一 CSRF 异常
         /// </summary>
         /// <returns></returns>
-        public static Exception NoCSRF()
+        public static OAuthException NoCSRF()
         {
-            return new Exception("禁止跨站请求伪造（CSRF）攻击！");
+            OAuthLog.Log("Trigger an CSRF exception.");
+            return new OAuthException("禁止跨站请求伪造（CSRF）攻击！");
         }
     }
 }

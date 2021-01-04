@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json;
+﻿using System.Collections.Generic;
+using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
 namespace MrHuo.OAuth.Github
 {
+    /// <summary>
+    /// Github OAuth 相关文档参考：
+    /// <para>http://www.ruanyifeng.com/blog/2019/04/github-oauth.html</para>
+    /// </summary>
     public class GithubOAuth : OAuthApiBase<GithubAccessTokenModel, GithubUserModel>
     {
         private const string AUTHORIZE_URI = "https://github.com/login/oauth/authorize";
@@ -16,12 +19,12 @@ namespace MrHuo.OAuth.Github
         private readonly string RedirectUri;
         private readonly string Scope;
 
-        public GithubOAuth(IConfiguration configuration, IHttpContextAccessor httpContextAccessor) 
+        public GithubOAuth(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
             : base(configuration, httpContextAccessor)
         {
             AppId = _configuration["oauth:github:app_id"];
             AppKey = _configuration["oauth:github:app_key"];
-            RedirectUri = _configuration["oauth:github:redirect_uri"];
+            RedirectUri = HttpUtility.UrlEncode(_configuration["oauth:github:redirect_uri"]);
             Scope = _configuration["oauth:github:scope"];
         }
 
@@ -41,7 +44,7 @@ namespace MrHuo.OAuth.Github
             {
                 ["Authorization"] = $"token {accessToken.AccessToken}"
             });
-            return JsonSerializer.Deserialize<GithubUserModel>(json);
+            return Json.Deserialize<GithubUserModel>(json);
         }
     }
 }

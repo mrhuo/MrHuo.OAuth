@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MrHuo.OAuth
+﻿namespace MrHuo.OAuth
 {
     /// <summary>
     /// UserInfo 基础模型接口

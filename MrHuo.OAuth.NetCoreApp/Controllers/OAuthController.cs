@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using MrHuo.OAuth.Wechat;
 using MrHuo.OAuth.Github;
+using MrHuo.OAuth.QQ;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -15,10 +16,12 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
     {
         private readonly GithubOAuth githubOauth = null;
         private readonly WechatOAuth wechatOAuth = null;
-        public OAuthController(GithubOAuth githubOauth, WechatOAuth wechatOAuth)
+        private readonly QQOAuth qqOAuth = null;
+        public OAuthController(GithubOAuth githubOauth, WechatOAuth wechatOAuth, QQOAuth qqOAuth)
         {
             this.githubOauth = githubOauth;
             this.wechatOAuth = wechatOAuth;
+            this.qqOAuth = qqOAuth;
         }
 
         [HttpGet("oauth/{type}")]
@@ -31,16 +34,14 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         githubOauth.Authorize();
                         break;
                     }
-                case "wechat-qrcode":
+                case "wechat":
                     {
-                        wechatOAuth.SetWechatOAuthType(WechatOAuthType.Qrcode);
                         wechatOAuth.Authorize();
                         break;
                     }
-                case "wechat-client":
+                case "qq":
                     {
-                        wechatOAuth.SetWechatOAuthType(WechatOAuthType.Client);
-                        wechatOAuth.Authorize();
+                        qqOAuth.Authorize();
                         break;
                     }
                 default:
@@ -52,27 +53,39 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
         [HttpGet("oauth/{type}callback")]
         public IActionResult LoginCallback(string type)
         {
+            var code = Request.Query["code"];
+            var state = Request.Query["state"];
             switch (type.ToLower())
             {
                 case "github":
                     {
-                        var accessToken = githubOauth.GetAccessToken(Request.Query["code"], Request.Query["state"]);
+                        var accessToken = githubOauth.GetAccessToken(code, state);
                         var userInfo = githubOauth.GetUserInfo(accessToken);
-                        return Json(new
+                        return Content(MrHuo.OAuth.Json.Serialize(new
                         {
                             accessToken,
                             userInfo
-                        });
+                        }));
                     }
                 case "wechat":
                     {
-                        var accessToken = wechatOAuth.GetAccessToken(Request.Query["code"], Request.Query["state"]);
+                        var accessToken = wechatOAuth.GetAccessToken(code, state);
                         var userInfo = wechatOAuth.GetUserInfo(accessToken);
-                        return Json(new
+                        return Content(MrHuo.OAuth.Json.Serialize(new
                         {
                             accessToken,
                             userInfo
-                        });
+                        }));
+                    }
+                case "qq":
+                    {
+                        var accessToken = qqOAuth.GetAccessToken(code, state);
+                        //var userInfo = wechatOAuth.GetUserInfo(accessToken);
+                        return Content(MrHuo.OAuth.Json.Serialize(new
+                        {
+                            accessToken,
+                            //userInfo
+                        }));
                     }
             }
             return Content($"没有实现【{type}】登录！");

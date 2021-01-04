@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
-using System.Linq;
 
 namespace MrHuo.OAuth
 {
@@ -12,7 +9,18 @@ namespace MrHuo.OAuth
     public class API
     {
         private const string DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66";
-       
+
+        private static HttpClient CreateHttpClient()
+        {
+            var handler = new HttpClientHandler
+            {
+                AllowAutoRedirect = true,
+                ClientCertificateOptions = ClientCertificateOption.Automatic,
+                ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true
+            };
+            return new HttpClient(handler);
+        }
+
         /// <summary>
         /// 发起 GET 请求
         /// </summary>
@@ -21,8 +29,9 @@ namespace MrHuo.OAuth
         /// <returns></returns>
         public static string Get(string api, Dictionary<string, string> header = null)
         {
-            using (var httpClient = new HttpClient())
+            using (var httpClient = CreateHttpClient())
             {
+                OAuthLog.Log("GET [{0}]", api);
                 if (header == null)
                 {
                     header = new Dictionary<string, string>();
@@ -38,10 +47,13 @@ namespace MrHuo.OAuth
                 foreach (var headerItem in header)
                 {
                     httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+                    OAuthLog.Log("GET Head [{0}={1}]", headerItem.Key, headerItem.Value);
                 }
                 var response = httpClient.GetAsync(api).Result;
                 response.EnsureSuccessStatusCode();
-                return response.Content.ReadAsStringAsync().Result;
+                var responseText = response.Content.ReadAsStringAsync().Result;
+                OAuthLog.Log("GET status code={0}, response text=[{1}]", response.StatusCode, responseText);
+                return responseText;
             }
         }
 
@@ -54,8 +66,9 @@ namespace MrHuo.OAuth
         /// <returns></returns>
         public static string Post(string api, Dictionary<string, string> form = null, Dictionary<string, string> header = null)
         {
-            using (var httpClient = new HttpClient())
+            using (var httpClient = CreateHttpClient())
             {
+                OAuthLog.Log("POST [{0}]", api);
                 if (form == null)
                 {
                     form = new Dictionary<string, string>();
@@ -75,10 +88,13 @@ namespace MrHuo.OAuth
                 foreach (var headerItem in header)
                 {
                     httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+                    OAuthLog.Log("POST Head [{0}={1}]", headerItem.Key, headerItem.Value);
                 }
                 var response = httpClient.PostAsync(api, new FormUrlEncodedContent(form)).Result;
                 response.EnsureSuccessStatusCode();
-                return response.Content.ReadAsStringAsync().Result;
+                var responseText = response.Content.ReadAsStringAsync().Result;
+                OAuthLog.Log("POST status code={0}, response text=[{1}]", response.StatusCode, responseText);
+                return responseText;
             }
         }
     }

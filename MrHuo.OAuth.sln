@@ -15,12 +15,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.WebForm", "3.WebForm", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.NetCoreApp", "MrHuo.OAuth.NetCoreApp\MrHuo.OAuth.NetCoreApp.csproj", "{C24C5272-1A72-496E-BB4E-9F84EE6BB665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.Wechat", "MrHuo.OAuth.Wechat\MrHuo.OAuth.Wechat.csproj", "{A7441045-8BD8-4C73-B8E5-9DD1DF72FED0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.Wechat", "MrHuo.OAuth.Wechat\MrHuo.OAuth.Wechat.csproj", "{A7441045-8BD8-4C73-B8E5-9DD1DF72FED0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Other", "4.Other", "{A1FED815-21ED-431D-AF25-1EBC453AB1B7}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.QQ", "MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj", "{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{A7441045-8BD8-4C73-B8E5-9DD1DF72FED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7441045-8BD8-4C73-B8E5-9DD1DF72FED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7441045-8BD8-4C73-B8E5-9DD1DF72FED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{08BF7584-2CB9-4500-A6D9-7A14F7ED199D} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{C24C5272-1A72-496E-BB4E-9F84EE6BB665} = {04AC789A-5D36-4048-BB4D-44A4F2D4338C}
 		{A7441045-8BD8-4C73-B8E5-9DD1DF72FED0} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
+		{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DE1505-2557-43FC-BF2C-9AAB19B51971}
