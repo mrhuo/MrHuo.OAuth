@@ -4,6 +4,19 @@
 
 快速接入 OAuth 登录。
 
+#### 已支持平台
+
+- [x] Github
+- [x] QQ
+- [x] 微信
+- [ ] Gitee
+- [ ] 百度
+- [ ] 支付宝
+- [ ] CSDN
+- [ ] 钉钉
+- [ ] Microsoft
+...更多平台开发中
+
 1.`Startup.cs`
 
 ```
@@ -102,4 +115,5 @@ public class OAuthController : Controller
 <!--在代码中放置授权按钮-->
 <a href="/oauth/github" class="btn btn-primary">Github 登录</a>
 <a href="/oauth/wechat" class="btn btn-primary">Wechat 扫码登录</a>
+<!-- //其他登录方式照样子往下写 -->
 ```
