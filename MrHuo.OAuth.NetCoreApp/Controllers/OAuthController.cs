@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using MrHuo.OAuth.Wechat;
+using MrHuo.OAuth.Github;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
     public class OAuthController : Controller
     {
-        private readonly Github.GithubOAuth githubOauth = null;
-        private readonly Wechat.WechatOAuth wechatOAuth = null;
-        public OAuthController(
-            Github.GithubOAuth githubOauth,
-            Wechat.WechatOAuth wechatOAuth
-        )
+        private readonly GithubOAuth githubOauth = null;
+        private readonly WechatOAuth wechatOAuth = null;
+        public OAuthController(GithubOAuth githubOauth, WechatOAuth wechatOAuth)
         {
             this.githubOauth = githubOauth;
             this.wechatOAuth = wechatOAuth;
@@ -32,8 +31,15 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         githubOauth.Authorize();
                         break;
                     }
-                case "wechat":
+                case "wechat-qrcode":
                     {
+                        wechatOAuth.SetWechatOAuthType(WechatOAuthType.Qrcode);
+                        wechatOAuth.Authorize();
+                        break;
+                    }
+                case "wechat-client":
+                    {
+                        wechatOAuth.SetWechatOAuthType(WechatOAuthType.Client);
                         wechatOAuth.Authorize();
                         break;
                     }

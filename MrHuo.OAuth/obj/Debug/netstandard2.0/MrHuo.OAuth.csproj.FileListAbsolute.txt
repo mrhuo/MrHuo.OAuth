@@ -6,3 +6,4 @@ D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\obj\Debug\netstandard2.0\MrHuo.OAuth.
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\obj\Debug\netstandard2.0\MrHuo.OAuth.csproj.CoreCompileInputs.cache
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\obj\Debug\netstandard2.0\MrHuo.OAuth.dll
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\obj\Debug\netstandard2.0\MrHuo.OAuth.pdb
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth\obj\Debug\netstandard2.0\MrHuo.OAuth.csprojAssemblyReference.cache

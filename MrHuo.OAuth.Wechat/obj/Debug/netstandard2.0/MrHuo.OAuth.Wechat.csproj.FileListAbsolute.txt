@@ -9,3 +9,4 @@ D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Wechat\obj\Debug\netstandard2.0\MrHuo
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Wechat\obj\Debug\netstandard2.0\MrHuo.OAuth.Wechat.csproj.CopyComplete
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Wechat\obj\Debug\netstandard2.0\MrHuo.OAuth.Wechat.dll
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Wechat\obj\Debug\netstandard2.0\MrHuo.OAuth.Wechat.pdb
+D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.Wechat\obj\Debug\netstandard2.0\MrHuo.OAuth.Wechat.csprojAssemblyReference.cache
