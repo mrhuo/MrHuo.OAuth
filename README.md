@@ -4,6 +4,8 @@
 
 快速接入 OAuth 登录。
 
+体验网址：[https://oauthlogin.net/](https://oauthlogin.net/)
+
 #### 已支持平台
 
 - [x] Github

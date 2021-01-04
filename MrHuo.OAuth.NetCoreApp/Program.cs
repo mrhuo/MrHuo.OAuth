@@ -21,7 +21,7 @@ namespace MrHuo.OAuth.NetCoreApp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://*:52000");
+                    webBuilder.UseUrls("http://localhost:53000");
                 });
     }
 }
