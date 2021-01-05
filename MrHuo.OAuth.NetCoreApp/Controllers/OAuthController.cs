@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
-using MrHuo.OAuth.Wechat;
 using MrHuo.OAuth.Github;
 using MrHuo.OAuth.QQ;
-using System.Text.Json;
+using MrHuo.OAuth.Wechat;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {

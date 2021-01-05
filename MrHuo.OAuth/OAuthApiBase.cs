@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
@@ -44,16 +43,32 @@ namespace MrHuo.OAuth
         public abstract string GetAccessTokenUrl(string code, string state);
 
         /// <summary>
-        /// 检查授权完成后的回调地址 URL 中，是否包含错误，没有错误请返回 null
+        /// 获取用户信息接口 URL
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public abstract string GetUserInfoUrl(TAccessToken accessToken);
+
+        /// <summary>
+        /// 检查授权完成后的回调地址 URL 中，是否包含错误，没有错误请返回 null。
+        /// <para>默认检查 URL 中是否包含 error 和 error_description 字段</para>
         /// </summary>
         /// <returns></returns>
         protected virtual OAuthException GetAuthorizeCallbackException()
         {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var error = request.Query["error"];
+            var errorDescription = request.Query["error_description"];
+            if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(errorDescription))
+            {
+                return new OAuthException(errorDescription);
+            }
             return null;
         }
 
         /// <summary>
         /// 虚方法，从 accessTokenResponse 解析 TAccessToken。
+        /// <para>提供此方法的原因是因为 QQ 这个平台，接口返回的并非是 JSON 格式，而是 QueryString 格式。</para>
         /// <para>默认使用：JsonSerializer.Deserialize</para>
         /// </summary>
         /// <param name="accessTokenResponse"></param>
@@ -130,13 +145,13 @@ namespace MrHuo.OAuth
         }
 
         /// <summary>
-        /// 获取用户信息，默认未实现，返回 null
+        /// 虚方法，获取用户信息
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
         public virtual TUserInfo GetUserInfo(TAccessToken accessToken)
         {
-            throw new NotImplementedException();
+            return JsonSerializer.Deserialize<TUserInfo>(API.Get(GetUserInfoUrl(accessToken)));
         }
     }
 }

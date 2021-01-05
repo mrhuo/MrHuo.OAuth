@@ -39,21 +39,14 @@ namespace MrHuo.OAuth.Github
             return $"{ACCESS_TOKEN_URI}?client_id={AppId}&client_secret={AppKey}&code={code}";
         }
 
-        protected override OAuthException GetAuthorizeCallbackException()
+        public override string GetUserInfoUrl(GithubAccessTokenModel accessToken)
         {
-            var request = _httpContextAccessor.HttpContext.Request;
-            var error = request.Query["error"];
-            var errorDescription = request.Query["error_description"];
-            if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(errorDescription))
-            {
-                return new OAuthException(errorDescription);
-            }
-            return null;
+            return USERINFO_URI;
         }
 
         public override GithubUserModel GetUserInfo(GithubAccessTokenModel accessToken)
         {
-            var json = API.Get(USERINFO_URI, new Dictionary<string, string>()
+            var json = API.Get(GetUserInfoUrl(accessToken), new Dictionary<string, string>()
             {
                 ["Authorization"] = $"token {accessToken.AccessToken}"
             });

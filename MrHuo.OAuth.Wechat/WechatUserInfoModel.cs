@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace MrHuo.OAuth.Wechat
@@ -38,12 +36,6 @@ namespace MrHuo.OAuth.Wechat
         public List<string> Privilege { get; set; }
 
         [JsonPropertyName("unionid")]
-        public string Unionid { get; set; }
-
-        [JsonPropertyName("errcode")]
-        public int ErrorCode { get; set; }
-
-        [JsonPropertyName("errmsg")]
-        public string ErrorMessage { get; set; }
+        public string UnionId { get; set; }
     }
 }

@@ -1,5 +1,3 @@
-using System;
-
 namespace MrHuo.OAuth.NetCoreApp.Models
 {
     public class ErrorViewModel

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.Json;
-using System.Web;
+﻿using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
@@ -39,16 +37,9 @@ namespace MrHuo.OAuth.Wechat
             return $"{ACCESS_TOKEN_URI}?appid={AppId}&secret={AppKey}&code={code}&grant_type=authorization_code";
         }
 
-        public override WechatUserInfoModel GetUserInfo(WechatAccessTokenModel accessToken)
+        public override string GetUserInfoUrl(WechatAccessTokenModel accessToken)
         {
-            var api = $"{USERINFO_URI}?access_token={accessToken.AccessToken}&openid={accessToken.OpenId}&lang=zh_CN";
-            var json = API.Get(api);
-            var userInfo = JsonSerializer.Deserialize<WechatUserInfoModel>(json);
-            if (userInfo.ErrorCode != 0)
-            {
-                throw new OAuthException(json);
-            }
-            return userInfo;
+            return $"{USERINFO_URI}?access_token={accessToken.AccessToken}&openid={accessToken.OpenId}&lang=zh_CN";
         }
     }
 }

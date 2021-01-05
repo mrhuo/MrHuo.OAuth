@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace MrHuo.OAuth.Github
 {
-    public class GithubUserModel: IUserInfoModel
+    public class GithubUserModel : IUserInfoModel
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }
