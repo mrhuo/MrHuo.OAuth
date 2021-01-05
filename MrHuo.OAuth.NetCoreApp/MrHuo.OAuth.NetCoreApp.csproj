@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MrHuo.OAuth.Gitee\MrHuo.OAuth.Gitee.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Github\MrHuo.OAuth.Github.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Huawei\MrHuo.OAuth.Huawei.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj" />

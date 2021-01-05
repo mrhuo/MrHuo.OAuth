@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using MrHuo.OAuth.Gitee;
 using MrHuo.OAuth.Github;
 using MrHuo.OAuth.Huawei;
 using MrHuo.OAuth.QQ;
@@ -13,18 +14,21 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
         private readonly WechatOAuth wechatOAuth = null;
         private readonly QQOAuth qqOAuth = null;
         private readonly HuaweiOAuth huaweiOAuth = null;
+        private readonly GiteeOAuth giteeOAuth = null;
 
         public OAuthController(
             GithubOAuth githubOauth, 
             WechatOAuth wechatOAuth, 
             QQOAuth qqOAuth,
-            HuaweiOAuth huaweiOAuth
+            HuaweiOAuth huaweiOAuth,
+            GiteeOAuth giteeOAuth
         )
         {
             this.githubOauth = githubOauth;
             this.wechatOAuth = wechatOAuth;
             this.qqOAuth = qqOAuth;
             this.huaweiOAuth = huaweiOAuth;
+            this.giteeOAuth = giteeOAuth;
         }
 
         [HttpGet("oauth/{type}")]
@@ -50,6 +54,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 case "huawei":
                     {
                         huaweiOAuth.Authorize();
+                        break;
+                    }
+                case "gitee":
+                    {
+                        giteeOAuth.Authorize();
                         break;
                     }
                 default:
@@ -97,6 +106,16 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     {
                         var accessToken = huaweiOAuth.AuthorizeCallback();
                         var userInfo = huaweiOAuth.GetUserInfo(accessToken);
+                        return Content(JsonSerializer.Serialize(new
+                        {
+                            accessToken,
+                            userInfo
+                        }));
+                    }
+                case "gitee":
+                    {
+                        var accessToken = giteeOAuth.AuthorizeCallback();
+                        var userInfo = giteeOAuth.GetUserInfo(accessToken);
                         return Content(JsonSerializer.Serialize(new
                         {
                             accessToken,

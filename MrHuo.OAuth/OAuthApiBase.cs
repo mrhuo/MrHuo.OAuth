@@ -94,7 +94,7 @@ namespace MrHuo.OAuth
             OAuthLog.Log("Start authorize [{0}], state=[{1}]", requestPath, state);
             var redirectUrl = GetAuthorizeUrl(state);
             OAuthLog.Log("Authorize [{0}], start redirect=[{1}]", requestPath, redirectUrl);
-            _httpContextAccessor.HttpContext.Response.Redirect(redirectUrl, true);
+            _httpContextAccessor.HttpContext.Response.Redirect(redirectUrl);
         }
 
         /// <summary>

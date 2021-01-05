@@ -11,7 +11,8 @@
 - [x] Github
 - [x] QQ
 - [x] 微信
-- [ ] Gitee
+- [x] 华为
+- [x] Gitee
 - [ ] 百度
 - [ ] 支付宝
 - [ ] CSDN
