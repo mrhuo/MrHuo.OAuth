@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using MrHuo.OAuth.Github;
+using MrHuo.OAuth.Huawei;
 using MrHuo.OAuth.QQ;
 using MrHuo.OAuth.Wechat;
 
@@ -11,15 +12,23 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
         private readonly GithubOAuth githubOauth = null;
         private readonly WechatOAuth wechatOAuth = null;
         private readonly QQOAuth qqOAuth = null;
-        public OAuthController(GithubOAuth githubOauth, WechatOAuth wechatOAuth, QQOAuth qqOAuth)
+        private readonly HuaweiOAuth huaweiOAuth = null;
+
+        public OAuthController(
+            GithubOAuth githubOauth, 
+            WechatOAuth wechatOAuth, 
+            QQOAuth qqOAuth,
+            HuaweiOAuth huaweiOAuth
+        )
         {
             this.githubOauth = githubOauth;
             this.wechatOAuth = wechatOAuth;
             this.qqOAuth = qqOAuth;
+            this.huaweiOAuth = huaweiOAuth;
         }
 
         [HttpGet("oauth/{type}")]
-        public void Index(string type)
+        public IActionResult Index(string type)
         {
             switch (type.ToLower())
             {
@@ -38,10 +47,15 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         qqOAuth.Authorize();
                         break;
                     }
+                case "huawei":
+                    {
+                        huaweiOAuth.Authorize();
+                        break;
+                    }
                 default:
-                    HttpContext.Response.StatusCode = 404;
-                    break;
+                    return Content($"没有实现【{type}】登录！");
             }
+            return Content("");
         }
 
         [HttpGet("oauth/{type}callback")]
@@ -72,11 +86,21 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 case "qq":
                     {
                         var accessToken = qqOAuth.AuthorizeCallback();
-                        //var userInfo = wechatOAuth.GetUserInfo(accessToken);
+                        var userInfo = qqOAuth.GetUserInfo(accessToken);
                         return Content(JsonSerializer.Serialize(new
                         {
                             accessToken,
-                            //userInfo
+                            userInfo
+                        }));
+                    }
+                case "huawei":
+                    {
+                        var accessToken = huaweiOAuth.AuthorizeCallback();
+                        var userInfo = huaweiOAuth.GetUserInfo(accessToken);
+                        return Content(JsonSerializer.Serialize(new
+                        {
+                            accessToken,
+                            userInfo
                         }));
                     }
             }

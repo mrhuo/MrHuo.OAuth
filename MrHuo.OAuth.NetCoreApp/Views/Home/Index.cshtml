@@ -1,14 +1,39 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "最好用的 .netcore 第三方平台 OAuth 登录组件";
 }
 
 <div class="text-center mt-5">
-    <h1 class="display-4">现支持以下 OAuth 登录方式</h1>
+    <h1 class="display-5">最好用的 .netcore 第三方平台 OAuth 登录组件</h1>
 
-    <div class="text-center mt-4">
-        <a href="/oauth/github" class="btn btn-primary">Github 登录</a>
-        <a href="/oauth/wechat" class="btn btn-primary">Wechat 登录</a>
-        <a href="/oauth/qq" class="btn btn-primary">QQ 登录</a>
-@*        <a href="/oauth/microsoft" class="btn btn-primary">Microsoft 登录</a>*@
-    </div>
+    <table class="table table-bordered mt-4">
+        <thead class="thead-light">
+            <tr>
+                <th>平台</th>
+                <th>测试入口</th>
+                <th>nuget</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Github</td>
+                <td><a href="/oauth/github" class="btn btn-primary">Github 登录</a><span class="pl-1 text-success">（正常可用）</span></td>
+                <td><span class="pl-3 text-danger">暂未发布</span></td>
+            </tr>
+            <tr>
+                <td>Wechat</td>
+                <td><a href="/oauth/wechat" class="btn btn-primary">Wechat 登录</a><span class="pl-1 text-success">（正常可用）</span></td>
+                <td><span class="pl-3 text-danger">暂未发布</span></td>
+            </tr>
+            <tr>
+                <td>QQ</td>
+                <td><a href="/oauth/qq" class="btn btn-primary">QQ 登录</a><span class="pl-1 text-warning">（待测试）</span></td>
+                <td><span class="pl-3 text-danger">暂未发布</span></td>
+            </tr>
+            <tr>
+                <td>Huawei</td>
+                <td><a href="/oauth/huawei" class="btn btn-primary">Huawei 登录</a><span class="pl-1 text-warning">（待测试）</span></td>
+                <td><span class="pl-3 text-danger">暂未发布</span></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
