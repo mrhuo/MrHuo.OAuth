@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
@@ -32,7 +33,7 @@ namespace MrHuo.OAuth
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        protected abstract string GetRedirectAuthorizeUrl(string state);
+        public abstract string GetAuthorizeUrl(string state);
 
         /// <summary>
         /// 获取 AccessToken 请求 URL
@@ -40,7 +41,16 @@ namespace MrHuo.OAuth
         /// <param name="code"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        protected abstract string GetAccessTokenUrl(string code, string state);
+        public abstract string GetAccessTokenUrl(string code, string state);
+
+        /// <summary>
+        /// 检查授权完成后的回调地址 URL 中，是否包含错误，没有错误请返回 null
+        /// </summary>
+        /// <returns></returns>
+        protected virtual OAuthException GetAuthorizeCallbackException()
+        {
+            return null;
+        }
 
         /// <summary>
         /// 虚方法，从 accessTokenResponse 解析 TAccessToken。
@@ -51,7 +61,7 @@ namespace MrHuo.OAuth
         protected virtual TAccessToken ResolveAccessTokenFromString(string accessTokenResponse)
         {
             OAuthLog.Log("ResolveAccessTokenFromString [{0}]", accessTokenResponse);
-            return Json.Deserialize<TAccessToken>(accessTokenResponse);
+            return JsonSerializer.Deserialize<TAccessToken>(accessTokenResponse);
         }
 
         /// <summary>
@@ -59,20 +69,44 @@ namespace MrHuo.OAuth
         /// </summary>
         public virtual void Authorize()
         {
-            if (_httpContextAccessor.HttpContext == null)
-            {
-                throw new OAuthException("请确保在 Web 环境下使用！（HttpContext 为 null）");
-            }
-            OAuthLog.Log("Start authorize [{0}]", _httpContextAccessor.HttpContext.Request.Path);
+            var requestPath = _httpContextAccessor.HttpContext.Request.Path;
+            OAuthLog.Log("Start authorize [{0}]", requestPath);
             var state = "";
             if (EnableStateCheck)
             {
                 state = OAuthStateManager.RequestState(_httpContextAccessor.HttpContext, GetType());
             }
-            OAuthLog.Log("Start authorize [{0}], state=[{1}]", _httpContextAccessor.HttpContext.Request.Path, state);
-            var redirectUrl = GetRedirectAuthorizeUrl(state);
-            OAuthLog.Log("Authorize [{0}], start redirect=[{1}]", _httpContextAccessor.HttpContext.Request.Path, redirectUrl);
-            _httpContextAccessor.HttpContext.Response.Redirect(GetRedirectAuthorizeUrl(state));
+            OAuthLog.Log("Start authorize [{0}], state=[{1}]", requestPath, state);
+            var redirectUrl = GetAuthorizeUrl(state);
+            OAuthLog.Log("Authorize [{0}], start redirect=[{1}]", requestPath, redirectUrl);
+            _httpContextAccessor.HttpContext.Response.Redirect(redirectUrl, true);
+        }
+
+        /// <summary>
+        /// 虚方法，执行授权回调
+        /// </summary>
+        /// <returns></returns>
+        public virtual TAccessToken AuthorizeCallback()
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var queryStrings = request.QueryString.ToString();
+            OAuthLog.Log("Start AuthorizeCallback, query string=[{0}]", queryStrings);
+            var exception = GetAuthorizeCallbackException();
+            if (exception != null)
+            {
+                throw exception;
+            }
+            var code = request.Query["code"];
+            var state = request.Query["state"];
+            if (string.IsNullOrEmpty(code))
+            {
+                throw Errors.ParameterMissing(nameof(code));
+            }
+            if (string.IsNullOrEmpty(state))
+            {
+                throw Errors.ParameterMissing(nameof(state));
+            }
+            return GetAccessToken(code, state);
         }
 
         /// <summary>
@@ -83,25 +117,16 @@ namespace MrHuo.OAuth
         /// <returns></returns>
         public virtual TAccessToken GetAccessToken(string code, string state)
         {
-            if (_httpContextAccessor.HttpContext == null)
-            {
-                throw new OAuthException("请确保在 Web 环境下使用！（HttpContext 为 null）");
-            }
             OAuthLog.Log("Start GetAccessToken code=[{0}], state=[{1}]", code, state);
-            if (string.IsNullOrEmpty(code))
-            {
-                throw new OAuthException("缺少 code 参数！");
-            }
             if (EnableStateCheck)
             {
                 if (string.IsNullOrEmpty(state) || !OAuthStateManager.IsStateExist(state))
                 {
-                    throw OAuthStateManager.NoCSRF();
+                    throw Errors.ForbidCSRFException();
                 }
                 OAuthStateManager.RemoveState(_httpContextAccessor.HttpContext, state);
             }
-            var serverResponse = API.Post(GetAccessTokenUrl(code, state));
-            return ResolveAccessTokenFromString(serverResponse);
+            return ResolveAccessTokenFromString(API.Post(GetAccessTokenUrl(code, state)));
         }
 
         /// <summary>

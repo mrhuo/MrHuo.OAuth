@@ -45,6 +45,5 @@ D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.NetCoreApp\bin\Debug\netcoreapp3.1\Mr
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.NetCoreApp\bin\Debug\netcoreapp3.1\MrHuo.OAuth.pdb
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.NetCoreApp\bin\Debug\netcoreapp3.1\MrHuo.OAuth.Wechat.dll
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.NetCoreApp\bin\Debug\netcoreapp3.1\MrHuo.OAuth.Wechat.pdb
-D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.NetCoreApp\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.NetCoreApp\bin\Debug\netcoreapp3.1\MrHuo.OAuth.QQ.dll
 D:\work\dotnetcore\MrHuo.OAuth\MrHuo.OAuth.NetCoreApp\bin\Debug\netcoreapp3.1\MrHuo.OAuth.QQ.pdb

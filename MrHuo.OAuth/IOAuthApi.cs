@@ -3,16 +3,15 @@
     /// <summary>
     /// 统一授权接口
     /// </summary>
-    /// <typeparam name="TAccessToken"></typeparam>
-    /// <typeparam name="TUserInfo"></typeparam>
     internal interface IOAuthApi<TAccessToken, TUserInfo>
          where TAccessToken : IAccessTokenModel
          where TUserInfo : IUserInfoModel
     {
         /// <summary>
-        /// 执行授权
+        /// 获取授权跳转URL
         /// </summary>
-        void Authorize();
+        /// <returns></returns>
+        string GetAuthorizeUrl(string state);
         /// <summary>
         /// 获取 AccessToken
         /// </summary>

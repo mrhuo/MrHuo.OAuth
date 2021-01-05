@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Other", "4.Other", "{A1FE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.QQ", "MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj", "{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.QQ", "MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj", "{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

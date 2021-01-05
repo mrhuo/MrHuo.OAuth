@@ -29,6 +29,9 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton<Github.GithubOAuth>();
             services.AddSingleton<Wechat.WechatOAuth>();
             services.AddSingleton<QQ.QQOAuth>();
+
+            //∆Ù”√»’÷æ
+            OAuth.OAuthLog.Enabled = true;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

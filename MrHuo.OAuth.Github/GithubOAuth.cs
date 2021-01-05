@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -28,14 +29,26 @@ namespace MrHuo.OAuth.Github
             Scope = _configuration["oauth:github:scope"];
         }
 
-        protected override string GetRedirectAuthorizeUrl(string state)
+        public override string GetAuthorizeUrl(string state)
         {
             return $"{AUTHORIZE_URI}?client_id={AppId}&redirect_uri={RedirectUri}&state={state}&scope={Scope}";
         }
 
-        protected override string GetAccessTokenUrl(string code, string state)
+        public override string GetAccessTokenUrl(string code, string state)
         {
             return $"{ACCESS_TOKEN_URI}?client_id={AppId}&client_secret={AppKey}&code={code}";
+        }
+
+        protected override OAuthException GetAuthorizeCallbackException()
+        {
+            var request = _httpContextAccessor.HttpContext.Request;
+            var error = request.Query["error"];
+            var errorDescription = request.Query["error_description"];
+            if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(errorDescription))
+            {
+                return new OAuthException(errorDescription);
+            }
+            return null;
         }
 
         public override GithubUserModel GetUserInfo(GithubAccessTokenModel accessToken)
@@ -44,7 +57,7 @@ namespace MrHuo.OAuth.Github
             {
                 ["Authorization"] = $"token {accessToken.AccessToken}"
             });
-            return Json.Deserialize<GithubUserModel>(json);
+            return JsonSerializer.Deserialize<GithubUserModel>(json);
         }
     }
 }

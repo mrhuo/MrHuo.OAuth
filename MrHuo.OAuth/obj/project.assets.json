@@ -665,7 +665,6 @@
       "Microsoft.AspNetCore.Http.Abstractions >= 2.2.0",
       "Microsoft.Extensions.Configuration >= 5.0.0",
       "NETStandard.Library >= 2.0.3",
-      "System.Text.Encodings.Web >= 5.0.0",
       "System.Text.Json >= 5.0.0"
     ]
   },
@@ -732,10 +731,6 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
-          },
-          "System.Text.Encodings.Web": {
-            "target": "Package",
-            "version": "[5.0.0, )"
           },
           "System.Text.Json": {
             "target": "Package",

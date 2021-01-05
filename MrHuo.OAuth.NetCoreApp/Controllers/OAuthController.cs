@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using MrHuo.OAuth.Wechat;
 using MrHuo.OAuth.Github;
 using MrHuo.OAuth.QQ;
+using System.Text.Json;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -53,15 +54,13 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
         [HttpGet("oauth/{type}callback")]
         public IActionResult LoginCallback(string type)
         {
-            var code = Request.Query["code"];
-            var state = Request.Query["state"];
             switch (type.ToLower())
             {
                 case "github":
                     {
-                        var accessToken = githubOauth.GetAccessToken(code, state);
+                        var accessToken = githubOauth.AuthorizeCallback();
                         var userInfo = githubOauth.GetUserInfo(accessToken);
-                        return Content(MrHuo.OAuth.Json.Serialize(new
+                        return Content(JsonSerializer.Serialize(new
                         {
                             accessToken,
                             userInfo
@@ -69,9 +68,9 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     }
                 case "wechat":
                     {
-                        var accessToken = wechatOAuth.GetAccessToken(code, state);
+                        var accessToken = wechatOAuth.AuthorizeCallback();
                         var userInfo = wechatOAuth.GetUserInfo(accessToken);
-                        return Content(MrHuo.OAuth.Json.Serialize(new
+                        return Content(JsonSerializer.Serialize(new
                         {
                             accessToken,
                             userInfo
@@ -79,9 +78,9 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     }
                 case "qq":
                     {
-                        var accessToken = qqOAuth.GetAccessToken(code, state);
+                        var accessToken = qqOAuth.AuthorizeCallback();
                         //var userInfo = wechatOAuth.GetUserInfo(accessToken);
-                        return Content(MrHuo.OAuth.Json.Serialize(new
+                        return Content(JsonSerializer.Serialize(new
                         {
                             accessToken,
                             //userInfo

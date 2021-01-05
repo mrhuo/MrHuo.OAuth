@@ -191,7 +191,6 @@
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.Extensions.Configuration": "5.0.0",
-          "System.Text.Encodings.Web": "5.0.0",
           "System.Text.Json": "5.0.0"
         },
         "compile": {

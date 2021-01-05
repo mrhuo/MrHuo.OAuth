@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -28,12 +29,12 @@ namespace MrHuo.OAuth.Wechat
             Scope = _configuration["oauth:wechat:scope"];
         }
 
-        protected override string GetRedirectAuthorizeUrl(string state)
+        public override string GetAuthorizeUrl(string state)
         {
             return $"{AUTHORIZE_URI}?appid={AppId}&redirect_uri={RedirectUri}&response_type=code&state={state}&scope={Scope}#wechat_redirect";
         }
 
-        protected override string GetAccessTokenUrl(string code, string state)
+        public override string GetAccessTokenUrl(string code, string state)
         {
             return $"{ACCESS_TOKEN_URI}?appid={AppId}&secret={AppKey}&code={code}&grant_type=authorization_code";
         }
@@ -42,10 +43,10 @@ namespace MrHuo.OAuth.Wechat
         {
             var api = $"{USERINFO_URI}?access_token={accessToken.AccessToken}&openid={accessToken.OpenId}&lang=zh_CN";
             var json = API.Get(api);
-            var userInfo = Json.Deserialize<WechatUserInfoModel>(json);
+            var userInfo = JsonSerializer.Deserialize<WechatUserInfoModel>(json);
             if (userInfo.ErrorCode != 0)
             {
-                throw new Exception(json);
+                throw new OAuthException(json);
             }
             return userInfo;
         }

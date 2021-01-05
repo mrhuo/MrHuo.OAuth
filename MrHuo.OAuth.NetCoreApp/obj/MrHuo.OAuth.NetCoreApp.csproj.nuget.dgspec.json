@@ -141,12 +141,6 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "dependencies": {
-            "System.Text.Encodings.Web": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -388,10 +382,6 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
-            },
-            "System.Text.Encodings.Web": {
-              "target": "Package",
-              "version": "[5.0.0, )"
             },
             "System.Text.Json": {
               "target": "Package",

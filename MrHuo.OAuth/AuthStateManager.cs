@@ -9,12 +9,12 @@ namespace MrHuo.OAuth
     /// <summary>
     /// 状态管理器
     /// </summary>
-    internal class OAuthStateManager
+    public class OAuthStateManager
     {
         /// <summary>
         /// 内部用于保存状态的列表
         /// </summary>
-        private static ConcurrentDictionary<string, string> oauthStates = new ConcurrentDictionary<string, string>();
+        private static readonly ConcurrentDictionary<string, string> oauthStates = new ConcurrentDictionary<string, string>();
 
         /// <summary>
         /// 获取授权状态
@@ -24,10 +24,8 @@ namespace MrHuo.OAuth
         /// <returns>AuthState</returns>
         public static string RequestState(HttpContext httpContext, Type type)
         {
-            //加入线程锁，保证每次获取状态都正确
-            var sessionId = httpContext.Session.Id;
-            var sessionKey = $"OAuthState_{type.Name}_{sessionId}";
-            OAuthLog.Log("Start request state for [{0}], state key=[{1}]", type.FullName, sessionKey);
+            var sessionKey = $"OAuthState_{type.Name}_{httpContext.Session.Id}";
+            OAuthLog.Log("Start request state for [{0}], state key=[{1}]", type.Name, sessionKey);
             try
             {
                 //如果同一sessionId和登录平台有未处理完成的状态，就移除
@@ -72,37 +70,23 @@ namespace MrHuo.OAuth
         /// <param name="state"></param>
         public static void RemoveState(HttpContext httpContext, string state)
         {
-            var sessionId = httpContext.Session.Id;
             var sessionKey = oauthStates.FirstOrDefault(p => p.Value == state).Key;
             if (string.IsNullOrEmpty(sessionKey))
             {
-                throw NoCSRF();
+                throw Errors.ForbidCSRFException();
             }
-            else
-            {
-                oauthStates.TryRemove(sessionKey, out var _);
-                OAuthLog.Log("Remove state [{0}] success.", state);
-                httpContext.Session.Remove(sessionKey);
-                OAuthLog.Log("Remove session [{0}] success.", sessionKey);
-            }
+            oauthStates.TryRemove(sessionKey, out var _);
+            OAuthLog.Log("Remove state [{0}] success.", state);
+            httpContext.Session.Remove(sessionKey);
+            OAuthLog.Log("Remove session [{0}] success.", sessionKey);
         }
 
         /// <summary>
-        /// 清空状态集合，用于OAuth类销毁之后清理资源
+        /// 清空状态集合
         /// </summary>
         public static void Clear()
         {
             oauthStates.Clear();
-        }
-
-        /// <summary>
-        /// 统一 CSRF 异常
-        /// </summary>
-        /// <returns></returns>
-        public static OAuthException NoCSRF()
-        {
-            OAuthLog.Log("Trigger an CSRF exception.");
-            return new OAuthException("禁止跨站请求伪造（CSRF）攻击！");
         }
     }
 }
