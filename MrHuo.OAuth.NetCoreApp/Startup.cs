@@ -27,6 +27,7 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton<Huawei.HuaweiOAuth>();
             services.AddSingleton<Gitee.GiteeOAuth>();
             services.AddSingleton<Baidu.BaiduOAuth>();
+            services.AddSingleton<Alipay.AlipayOAuth>();
 
             //∆Ù”√»’÷æ
             OAuth.OAuthLog.Enabled = true;

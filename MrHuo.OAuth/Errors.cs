@@ -1,6 +1,6 @@
 ﻿namespace MrHuo.OAuth
 {
-    internal class Errors
+    public class Errors
     {
         public static OAuthException ForbidCSRFException()
         {

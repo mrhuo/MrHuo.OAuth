@@ -6,6 +6,7 @@ using MrHuo.OAuth.Github;
 using MrHuo.OAuth.Huawei;
 using MrHuo.OAuth.QQ;
 using MrHuo.OAuth.Wechat;
+using MrHuo.OAuth.Alipay;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -17,6 +18,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
         private readonly HuaweiOAuth huaweiOAuth = null;
         private readonly GiteeOAuth giteeOAuth = null;
         private readonly BaiduOAuth baiduOAuth = null;
+        private readonly AlipayOAuth alipayOAuth = null;
 
         public OAuthController(
             GithubOAuth githubOauth, 
@@ -24,7 +26,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             QQOAuth qqOAuth,
             HuaweiOAuth huaweiOAuth,
             GiteeOAuth giteeOAuth,
-            BaiduOAuth baiduOAuth
+            BaiduOAuth baiduOAuth,
+            AlipayOAuth alipayOAuth
         )
         {
             this.githubOauth = githubOauth;
@@ -33,6 +36,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             this.huaweiOAuth = huaweiOAuth;
             this.giteeOAuth = giteeOAuth;
             this.baiduOAuth = baiduOAuth;
+            this.alipayOAuth = alipayOAuth;
+            this.alipayOAuth.EnableStateCheck = false;
         }
 
         [HttpGet("oauth/{type}")]
@@ -68,6 +73,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 case "baidu":
                     {
                         baiduOAuth.Authorize();
+                        break;
+                    }
+                case "alipay":
+                    {
+                        alipayOAuth.Authorize();
                         break;
                     }
                 default:
@@ -139,6 +149,16 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         {
                             accessToken,
                             userInfo
+                        }));
+                    }
+                case "alipay":
+                    {
+                        var accessToken = alipayOAuth.AuthorizeCallback();
+                        //var userInfo = alipayOAuth.GetUserInfo(accessToken);
+                        return Content(JsonSerializer.Serialize(new
+                        {
+                            accessToken,
+                            //userInfo
                         }));
                     }
             }

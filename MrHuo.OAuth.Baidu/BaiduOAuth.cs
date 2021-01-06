@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 namespace MrHuo.OAuth.Baidu
 {
     /// <summary>
+    /// <para>http://developer.baidu.com/console#app/project</para>
     /// <para>http://developer.baidu.com/wiki/index.php?title=docs/oauth</para>
     /// <para>http://developer.baidu.com/wiki/index.php?title=docs/oauth/rest/file_data_apis_list</para>
     /// </summary>
@@ -37,7 +38,7 @@ namespace MrHuo.OAuth.Baidu
 
         public override string GetAccessTokenUrl(string code, string state)
         {
-            return $"{ACCESS_TOKEN_URI}?grant_type=client_credentials&client_id={AppId}&client_secret={AppKey}";
+            return $"{ACCESS_TOKEN_URI}?grant_type=authorization_code&code={code}&client_id={AppId}&client_secret={AppKey}&redirect_uri={RedirectUri}";
         }
 
         public override string GetUserInfoUrl(BaiduAccessTokenModel accessToken)
