@@ -24,9 +24,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Other", "4.Other", "{A1FE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.QQ", "MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj", "{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.Huawei", "MrHuo.OAuth.Huawei\MrHuo.OAuth.Huawei.csproj", "{B968C0D1-A3A6-42B6-B8B1-4FF4A27C8587}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.Huawei", "MrHuo.OAuth.Huawei\MrHuo.OAuth.Huawei.csproj", "{B968C0D1-A3A6-42B6-B8B1-4FF4A27C8587}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.Gitee", "MrHuo.OAuth.Gitee\MrHuo.OAuth.Gitee.csproj", "{D99C21CE-856C-4BA2-8C30-28325355424C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.Gitee", "MrHuo.OAuth.Gitee\MrHuo.OAuth.Gitee.csproj", "{D99C21CE-856C-4BA2-8C30-28325355424C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.Baidu", "MrHuo.OAuth.Baidu\MrHuo.OAuth.Baidu.csproj", "{9862811A-0F81-46C2-9E1B-DED98A8EA015}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,10 @@ Global
 		{D99C21CE-856C-4BA2-8C30-28325355424C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D99C21CE-856C-4BA2-8C30-28325355424C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D99C21CE-856C-4BA2-8C30-28325355424C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9862811A-0F81-46C2-9E1B-DED98A8EA015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9862811A-0F81-46C2-9E1B-DED98A8EA015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9862811A-0F81-46C2-9E1B-DED98A8EA015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9862811A-0F81-46C2-9E1B-DED98A8EA015}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{B968C0D1-A3A6-42B6-B8B1-4FF4A27C8587} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{D99C21CE-856C-4BA2-8C30-28325355424C} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
+		{9862811A-0F81-46C2-9E1B-DED98A8EA015} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DE1505-2557-43FC-BF2C-9AAB19B51971}

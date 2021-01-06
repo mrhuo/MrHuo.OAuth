@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using MrHuo.OAuth.Baidu;
 using MrHuo.OAuth.Gitee;
 using MrHuo.OAuth.Github;
 using MrHuo.OAuth.Huawei;
@@ -15,13 +16,15 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
         private readonly QQOAuth qqOAuth = null;
         private readonly HuaweiOAuth huaweiOAuth = null;
         private readonly GiteeOAuth giteeOAuth = null;
+        private readonly BaiduOAuth baiduOAuth = null;
 
         public OAuthController(
             GithubOAuth githubOauth, 
             WechatOAuth wechatOAuth, 
             QQOAuth qqOAuth,
             HuaweiOAuth huaweiOAuth,
-            GiteeOAuth giteeOAuth
+            GiteeOAuth giteeOAuth,
+            BaiduOAuth baiduOAuth
         )
         {
             this.githubOauth = githubOauth;
@@ -29,6 +32,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             this.qqOAuth = qqOAuth;
             this.huaweiOAuth = huaweiOAuth;
             this.giteeOAuth = giteeOAuth;
+            this.baiduOAuth = baiduOAuth;
         }
 
         [HttpGet("oauth/{type}")]
@@ -59,6 +63,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 case "gitee":
                     {
                         giteeOAuth.Authorize();
+                        break;
+                    }
+                case "baidu":
+                    {
+                        baiduOAuth.Authorize();
                         break;
                     }
                 default:
@@ -116,6 +125,16 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     {
                         var accessToken = giteeOAuth.AuthorizeCallback();
                         var userInfo = giteeOAuth.GetUserInfo(accessToken);
+                        return Content(JsonSerializer.Serialize(new
+                        {
+                            accessToken,
+                            userInfo
+                        }));
+                    }
+                case "baidu":
+                    {
+                        var accessToken = baiduOAuth.AuthorizeCallback();
+                        var userInfo = baiduOAuth.GetUserInfo(accessToken);
                         return Content(JsonSerializer.Serialize(new
                         {
                             accessToken,

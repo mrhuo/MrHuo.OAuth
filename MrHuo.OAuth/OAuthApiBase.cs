@@ -117,7 +117,7 @@ namespace MrHuo.OAuth
             {
                 throw Errors.ParameterMissing(nameof(code));
             }
-            if (string.IsNullOrEmpty(state))
+            if (EnableStateCheck && string.IsNullOrEmpty(state))
             {
                 throw Errors.ParameterMissing(nameof(state));
             }
