@@ -1,6 +1,18 @@
 ﻿@{
-    ViewData["Title"] = "授权结果";
+    ViewData["Title"] = "授权成功";
 }
+
+<style type="text/css">
+    .code {
+        background: #f5f5f5; 
+        display: block; 
+        text-align:left; 
+        padding: 10px; 
+        border-radius: 8px;
+        line-height: 180%; 
+        white-space: pre;
+    }
+</style>
 
 <div class="text-center mt-5">
     <h1 class="display-5">恭喜，@(ViewBag.OAuthPlatform)授权成功！</h1>
@@ -8,5 +20,5 @@
     <h4 class="mt-2">@(ViewBag.OAuthUser.Name)</h4>
     <hr />
     <h6>详细信息：</h6>
-    <code class="mt-2" style="background: #f5f5f5; display: block; padding: 10px; border-radius: 10px;line-height: 180%;">@(ViewBag.OAuthUserDetail)</code>
+    <code class="code mt-2">@(ViewBag.OAuthUserDetail)</code>
 </div>
