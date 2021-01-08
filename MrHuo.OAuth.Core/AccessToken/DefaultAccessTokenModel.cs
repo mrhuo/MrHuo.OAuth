@@ -35,7 +35,7 @@ namespace MrHuo.OAuth
         /// AccessToken 过期时间
         /// </summary>
         [JsonPropertyName("expires_in")]
-        public virtual int ExpiresIn { get; set; }
+        public virtual dynamic ExpiresIn { get; set; }
 
         /// <summary>
         /// 错误代码

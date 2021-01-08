@@ -27,7 +27,8 @@
 
         /// <summary>
         /// AccessToken 过期时间
+        /// <para>2021.1.9 修改为动态类型，因为 coding.net 中过期时间为字符串，非整数</para>
         /// </summary>
-        int ExpiresIn { get; set; }
+        dynamic ExpiresIn { get; set; }
     }
 }

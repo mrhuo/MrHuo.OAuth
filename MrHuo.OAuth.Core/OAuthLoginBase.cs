@@ -155,7 +155,7 @@ namespace MrHuo.OAuth
         {
             var param = BuildAuthorizeParams(state);
             param.RemoveEmptyValueItems();
-            return $"{AuthorizeUrl}?{param.ToQueryString()}";
+            return $"{AuthorizeUrl}{(AuthorizeUrl.Contains("?") ? "&" : "?")}{param.ToQueryString()}";
         }
 
         /// <summary>

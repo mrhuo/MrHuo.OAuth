@@ -10,6 +10,7 @@ using MrHuo.OAuth.Baidu;
 using Microsoft.AspNetCore.Http;
 using MrHuo.OAuth.Gitee;
 using MrHuo.OAuth.Github;
+using MrHuo.OAuth.Coding;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -23,7 +24,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] GitlabOAuth gitlabOAuth,
             [FromServices] GiteeOAuth giteeOAuth,
             [FromServices] GithubOAuth githubOAuth,
-            [FromServices] HuaweiOAuth huaweiOAuth
+            [FromServices] HuaweiOAuth huaweiOAuth,
+            [FromServices] CodingOAuth codingOAuth
         )
         {
             var redirectUrl = "";
@@ -59,6 +61,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         redirectUrl = huaweiOAuth.GetAuthorizeUrl();
                         break;
                     }
+                case "coding":
+                    {
+                        redirectUrl = codingOAuth.GetAuthorizeUrl();
+                        break;
+                    }
                 default:
                     return ReturnToError($"没有实现【{type}】登录方式！");
             }
@@ -74,6 +81,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] GiteeOAuth giteeOAuth,
             [FromServices] GithubOAuth githubOAuth,
             [FromServices] HuaweiOAuth huaweiOAuth,
+            [FromServices] CodingOAuth codingOAuth,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -145,6 +153,17 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     case "huawei":
                         {
                             var authorizeResult = await huaweiOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "coding":
+                        {
+                            var authorizeResult = await codingOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
                                 throw new Exception(authorizeResult.ErrorMessage);

@@ -32,7 +32,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.Alipay", "MrHuo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.Gitlab", "MrHuo.OAuth.Gitlab\MrHuo.OAuth.Gitlab.csproj", "{B5EBFBC4-5276-40A1-9A21-5915B041CF12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.Core", "MrHuo.OAuth.Core\MrHuo.OAuth.Core.csproj", "{897E1826-9E4D-41EE-B45E-04CA1C718560}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.Core", "MrHuo.OAuth.Core\MrHuo.OAuth.Core.csproj", "{897E1826-9E4D-41EE-B45E-04CA1C718560}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.Coding", "MrHuo.OAuth.Coding\MrHuo.OAuth.Coding.csproj", "{F6EC7E26-9D89-4C8E-9371-4EDBEB9C3BF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +82,10 @@ Global
 		{897E1826-9E4D-41EE-B45E-04CA1C718560}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{897E1826-9E4D-41EE-B45E-04CA1C718560}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{897E1826-9E4D-41EE-B45E-04CA1C718560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6EC7E26-9D89-4C8E-9371-4EDBEB9C3BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6EC7E26-9D89-4C8E-9371-4EDBEB9C3BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6EC7E26-9D89-4C8E-9371-4EDBEB9C3BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6EC7E26-9D89-4C8E-9371-4EDBEB9C3BF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{80216091-1B3F-4F96-81E1-D1D8F5386039} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{B5EBFBC4-5276-40A1-9A21-5915B041CF12} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{897E1826-9E4D-41EE-B45E-04CA1C718560} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
+		{F6EC7E26-9D89-4C8E-9371-4EDBEB9C3BF8} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DE1505-2557-43FC-BF2C-9AAB19B51971}

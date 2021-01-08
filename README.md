@@ -14,6 +14,7 @@
 - [x] Gitee
 - [x] Github
 - [x] 华为
+- [x] Coding.net
 ...更多平台持续开发中
 
 1.`Startup.cs`
