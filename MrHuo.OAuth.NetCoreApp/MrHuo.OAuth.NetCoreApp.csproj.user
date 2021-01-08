@@ -7,5 +7,6 @@
     <ActiveDebugProfile>MrHuo.OAuth.NetCoreApp</ActiveDebugProfile>
     <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
     <NameOfLastUsedPublishProfile>FolderProfile</NameOfLastUsedPublishProfile>
+    <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
 </Project>

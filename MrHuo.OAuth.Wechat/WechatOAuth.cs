@@ -21,9 +21,12 @@ namespace MrHuo.OAuth.Wechat
                 ["appid"] = oauthConfig.AppId,
                 ["redirect_uri"] = System.Web.HttpUtility.UrlEncode(oauthConfig.RedirectUri),
                 ["scope"] = oauthConfig.Scope,
-                ["state"] = state + "#wechat_redirect",
-                //,
+                ["state"] = state
             };
+        }
+        public override string GetAuthorizeUrl(string state = "")
+        {
+            return $"{base.GetAuthorizeUrl(state)}#wechat_redirect";
         }
         protected override Dictionary<string, string> BuildGetAccessTokenParams(Dictionary<string, string> authorizeCallbackParams)
         {

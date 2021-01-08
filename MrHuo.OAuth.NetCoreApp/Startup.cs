@@ -14,38 +14,20 @@ namespace MrHuo.OAuth.NetCoreApp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSession();
             services.AddControllersWithViews();
 
+            //将第三方登录组件注入进去
             services.AddSingleton(new Baidu.BaiduOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:baidu")));
             services.AddSingleton(new Wechat.WechatOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:wechat")));
             services.AddSingleton(new Gitlab.GitlabOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitlab")));
-
-            //services.AddSingleton<Github.GithubOAuth>();
-            //services.AddSingleton<Wechat.WechatOAuth>();
-            //services.AddSingleton<QQ.QQOAuth>();
-            //services.AddSingleton<Huawei.HuaweiOAuth>();
-            //services.AddSingleton<Gitee.GiteeOAuth>();
-            //services.AddSingleton<Alipay.AlipayOAuth>();
-
-            //启用日志
-            //OAuth.OAuthLog.Enabled = true;
+            services.AddSingleton(new Gitee.GiteeOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitee")));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/Home/Error");
-            //}
             app.UseSession();
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();

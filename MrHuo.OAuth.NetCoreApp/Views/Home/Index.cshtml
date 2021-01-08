@@ -1,28 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "最好用的 .netcore 第三方平台 OAuth 登录组件";
+    ViewData["Title"] = "做最好用的 .netcore 第三方平台 OAuth 登录组件";
     var supported = new List<(string plat, bool available, string nuget)>()
     {
-        ("Wechat", true, null),
-        ("QQ", false, null),
         ("Baidu", true, null),
-        ("Github", true, null),
+        ("Wechat", true, null),
         ("Gitlab", true, null),
-        ("Gitee", true, null),
-        ("Huawei", false, null),
-        ("Alipay", false, null),
-        ("Gitlab", true, null)
     };
 }
 
 <div class="text-center mt-5">
-    <h1 class="display-5">最好用的 .netcore 第三方平台 OAuth 登录组件</h1>
+    <h2>@(ViewData["Title"])</h1>
 
     <table class="table table-bordered mt-4">
         <thead class="thead-light">
             <tr>
-                <th>平台</th>
-                <th>测试入口</th>
-                <th>nuget</th>
+                <th width="33.3%">登录</th>
+                <th width="33.3%">可用</th>
+                <th width="33.3%">nuget</th>
             </tr>
         </thead>
         <tbody>
@@ -30,17 +24,16 @@
                 foreach (var item in supported.OrderByDescending(p => p.available))
                 {
                 <tr>
-                    <td>@(item.plat)</td>
+                    <td><a href="/oauth/@(item.plat)" class="btn btn-primary">@(item.plat) 登录</a></td>
                     <td>
-                        <a href="/oauth/@(item.plat)" class="btn btn-primary">@(item.plat) 登录</a>
                         @{
                             if (item.available)
                             {
-                            <span class="pl-1 text-success">（正常可用）</span>
+                            <span class="text-success">可用</span>
                             }
                             else
                             {
-                            <span class="pl-1 text-warning">（待测试）</span>
+                            <span class="text-warning">待测试</span>
                             }
                         }
                     </td>
@@ -48,11 +41,11 @@
                         @{
                             if(item.nuget == null) 
                             {
-                            <span class="pl-3 text-danger">暂未发布</span>
+                            <span class="text-danger">未发布</span>
                             }
                             else
                             {
-                            <span class="pl-3 text-success"><a href="@(item.nuget)" target="_blank">Nuget</a></span>
+                            <span class="text-success"><a href="@(item.nuget)" target="_blank">Nuget</a></span>
                             }
                         }
                     </td>
@@ -60,6 +53,6 @@
                 }
             }
         </tbody>
-        <tfoot><tr><td colspan="3" class="text-danger">待测试：未注册应用测试，欢迎提供测试appid。联系邮箱：admin@mrhuo.com </td></tr></tfoot>
+        <tfoot><tr><td colspan="3" class="text-danger">待测试：未注册应用测试，欢迎提供测试appid。<br />联系邮箱：admin@mrhuo.com </td></tr></tfoot>
     </table>
 </div>

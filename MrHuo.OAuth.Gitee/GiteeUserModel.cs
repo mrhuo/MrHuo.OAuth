@@ -37,5 +37,8 @@ namespace MrHuo.OAuth.Gitee
 
         [JsonPropertyName("following")]
         public int Following { get; set; }
+
+        [JsonPropertyName("message")]
+        public string ErrorMessage { get; set; }
     }
 }
