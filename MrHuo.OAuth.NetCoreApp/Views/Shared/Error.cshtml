@@ -4,7 +4,18 @@
 }
 
 <h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<h2 class="text-danger">
+    @{
+        if (Model.ErrorMessage != null)
+        { 
+            <text>@(Model.ErrorMessage)</text>
+        }
+        else
+        {
+            <text>An error occurred while processing your request.</text>
+        }
+    }
+</h2>
 
 @if (Model.ShowRequestId)
 {

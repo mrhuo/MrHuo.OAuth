@@ -37,5 +37,8 @@ namespace MrHuo.OAuth.Wechat
 
         [JsonPropertyName("unionid")]
         public string UnionId { get; set; }
+
+        [JsonPropertyName("errmsg")]
+        public string ErrorMessage { get; set; }
     }
 }

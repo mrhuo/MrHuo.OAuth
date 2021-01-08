@@ -18,19 +18,21 @@ namespace MrHuo.OAuth.NetCoreApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSession();
-            services.AddHttpContextAccessor();
             services.AddControllersWithViews();
 
-            services.AddSingleton<Github.GithubOAuth>();
-            services.AddSingleton<Wechat.WechatOAuth>();
-            services.AddSingleton<QQ.QQOAuth>();
-            services.AddSingleton<Huawei.HuaweiOAuth>();
-            services.AddSingleton<Gitee.GiteeOAuth>();
-            services.AddSingleton<Baidu.BaiduOAuth>();
-            services.AddSingleton<Alipay.AlipayOAuth>();
+            services.AddSingleton(new Baidu.BaiduOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:baidu")));
+            services.AddSingleton(new Wechat.WechatOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:wechat")));
+            services.AddSingleton(new Gitlab.GitlabOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitlab")));
+
+            //services.AddSingleton<Github.GithubOAuth>();
+            //services.AddSingleton<Wechat.WechatOAuth>();
+            //services.AddSingleton<QQ.QQOAuth>();
+            //services.AddSingleton<Huawei.HuaweiOAuth>();
+            //services.AddSingleton<Gitee.GiteeOAuth>();
+            //services.AddSingleton<Alipay.AlipayOAuth>();
 
             //ÆôÓÃÈÕÖ¾
-            OAuth.OAuthLog.Enabled = true;
+            //OAuth.OAuthLog.Enabled = true;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,11 +46,11 @@ namespace MrHuo.OAuth.NetCoreApp
             //{
             //    app.UseExceptionHandler("/Home/Error");
             //}
+            app.UseSession();
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
-            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace MrHuo.OAuth.Baidu
 {
@@ -33,20 +32,9 @@ namespace MrHuo.OAuth.Baidu
         }
 
         /// <summary>
-        /// 错误码
-        /// </summary>
-        [JsonPropertyName("error_code")]
-        public int ErrorCode { get; set; }
-    
-        /// <summary>
         /// 错误信息
         /// </summary>
         [JsonPropertyName("error_msg")]
         public string ErrorMessage { get; set; }
-
-        public bool HasError()
-        {
-            return ErrorCode != 0 && !string.IsNullOrEmpty(ErrorMessage);
-        }
     }
 }

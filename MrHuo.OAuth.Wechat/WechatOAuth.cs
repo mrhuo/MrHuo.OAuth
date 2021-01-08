@@ -1,6 +1,4 @@
-﻿using System.Web;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+﻿using System.Collections.Generic;
 
 namespace MrHuo.OAuth.Wechat
 {
@@ -8,38 +6,43 @@ namespace MrHuo.OAuth.Wechat
     /// Wechat OAuth 相关文档参考：
     /// <para>https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html</para>
     /// </summary>
-    public class WechatOAuth : OAuthApiBase<WechatAccessTokenModel, WechatUserInfoModel>
+    public class WechatOAuth : OAuthLoginBase<WechatAccessTokenModel, WechatUserInfoModel>
     {
-        private const string AUTHORIZE_URI = "https://open.weixin.qq.com/connect/oauth2/authorize";
-        private const string ACCESS_TOKEN_URI = "https://api.weixin.qq.com/sns/oauth2/access_token";
-        private const string USERINFO_URI = "https://api.weixin.qq.com/sns/userinfo";
-        private readonly string Scope;
-        private readonly string AppId;
-        private readonly string AppKey;
-        private readonly string RedirectUri;
+        public WechatOAuth(OAuthConfig oauthConfig) : base(oauthConfig) { }
 
-        public WechatOAuth(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
-            : base(configuration, httpContextAccessor)
+        protected override string AuthorizeUrl => "https://open.weixin.qq.com/connect/oauth2/authorize";
+        protected override string AccessTokenUrl => "https://api.weixin.qq.com/sns/oauth2/access_token";
+        protected override string UserInfoUrl => "https://api.weixin.qq.com/sns/userinfo";
+        protected override Dictionary<string, string> BuildAuthorizeParams(string state)
         {
-            AppId = _configuration["oauth:wechat:app_id"];
-            AppKey = _configuration["oauth:wechat:app_key"];
-            RedirectUri = HttpUtility.UrlEncode(_configuration["oauth:wechat:redirect_uri"]);
-            Scope = _configuration["oauth:wechat:scope"];
+            return new Dictionary<string, string>()
+            {
+                ["response_type"] = "code",
+                ["appid"] = oauthConfig.AppId,
+                ["redirect_uri"] = System.Web.HttpUtility.UrlEncode(oauthConfig.RedirectUri),
+                ["scope"] = oauthConfig.Scope,
+                ["state"] = state + "#wechat_redirect",
+                //,
+            };
         }
-
-        public override string GetAuthorizeUrl(string state)
+        protected override Dictionary<string, string> BuildGetAccessTokenParams(Dictionary<string, string> authorizeCallbackParams)
         {
-            return $"{AUTHORIZE_URI}?appid={AppId}&redirect_uri={RedirectUri}&response_type=code&state={state}&scope={Scope}#wechat_redirect";
+            return new Dictionary<string, string>()
+            {
+                ["grant_type"] = "authorization_code",
+                ["appid"] = $"{oauthConfig.AppId}",
+                ["secret"] = $"{oauthConfig.AppKey}",
+                ["code"] = $"{authorizeCallbackParams["code"]}"
+            };
         }
-
-        public override string GetAccessTokenUrl(string code, string state)
+        protected override Dictionary<string, string> BuildGetUserInfoParams(WechatAccessTokenModel accessTokenModel)
         {
-            return $"{ACCESS_TOKEN_URI}?appid={AppId}&secret={AppKey}&code={code}&grant_type=authorization_code";
-        }
-
-        public override string GetUserInfoUrl(WechatAccessTokenModel accessToken)
-        {
-            return $"{USERINFO_URI}?access_token={accessToken.AccessToken}&openid={accessToken.OpenId}&lang=zh_CN";
+            return new Dictionary<string, string>()
+            {
+                ["access_token"] = accessTokenModel.AccessToken,
+                ["openid"] = accessTokenModel.OpenId,
+                ["lang"] = "zh_CN",
+            };
         }
     }
 }

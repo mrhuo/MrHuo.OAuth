@@ -1,168 +1,122 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-using MrHuo.OAuth.Baidu;
-using MrHuo.OAuth.Gitee;
-using MrHuo.OAuth.Github;
-using MrHuo.OAuth.Huawei;
-using MrHuo.OAuth.QQ;
+//using MrHuo.OAuth.Baidu;
+//using MrHuo.OAuth.Gitee;
+//using MrHuo.OAuth.Github;
+//using MrHuo.OAuth.Huawei;
+//using MrHuo.OAuth.QQ;
+//using MrHuo.OAuth.Alipay;
 using MrHuo.OAuth.Wechat;
-using MrHuo.OAuth.Alipay;
+using MrHuo.OAuth.Gitlab;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System;
+using MrHuo.OAuth.Baidu;
+using Microsoft.AspNetCore.Http;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
     public class OAuthController : Controller
     {
-        private readonly GithubOAuth githubOauth = null;
-        private readonly WechatOAuth wechatOAuth = null;
-        private readonly QQOAuth qqOAuth = null;
-        private readonly HuaweiOAuth huaweiOAuth = null;
-        private readonly GiteeOAuth giteeOAuth = null;
-        private readonly BaiduOAuth baiduOAuth = null;
-        private readonly AlipayOAuth alipayOAuth = null;
-
-        public OAuthController(
-            GithubOAuth githubOauth, 
-            WechatOAuth wechatOAuth, 
-            QQOAuth qqOAuth,
-            HuaweiOAuth huaweiOAuth,
-            GiteeOAuth giteeOAuth,
-            BaiduOAuth baiduOAuth,
-            AlipayOAuth alipayOAuth
+        [HttpGet("oauth/{type}")]
+        public IActionResult Index(
+            [FromServices] BaiduOAuth baiduOAuth,
+            [FromServices] WechatOAuth wechatOAuth,
+            [FromServices] GitlabOAuth gitlabOAuth,
+            string type
         )
         {
-            this.githubOauth = githubOauth;
-            this.wechatOAuth = wechatOAuth;
-            this.qqOAuth = qqOAuth;
-            this.huaweiOAuth = huaweiOAuth;
-            this.giteeOAuth = giteeOAuth;
-            this.baiduOAuth = baiduOAuth;
-            this.alipayOAuth = alipayOAuth;
-            this.alipayOAuth.EnableStateCheck = false;
-        }
-
-        [HttpGet("oauth/{type}")]
-        public IActionResult Index(string type)
-        {
+            var redirectUrl = "";
             switch (type.ToLower())
             {
-                case "github":
+                case "baidu":
                     {
-                        githubOauth.Authorize();
+                        redirectUrl = baiduOAuth.GetAuthorizeUrl();
                         break;
                     }
                 case "wechat":
                     {
-                        wechatOAuth.Authorize();
+                        redirectUrl = wechatOAuth.GetAuthorizeUrl();
                         break;
                     }
-                case "qq":
+                case "gitlab":
                     {
-                        qqOAuth.Authorize();
-                        break;
-                    }
-                case "huawei":
-                    {
-                        huaweiOAuth.Authorize();
-                        break;
-                    }
-                case "gitee":
-                    {
-                        giteeOAuth.Authorize();
-                        break;
-                    }
-                case "baidu":
-                    {
-                        baiduOAuth.Authorize();
-                        break;
-                    }
-                case "alipay":
-                    {
-                        alipayOAuth.Authorize();
+                        redirectUrl = gitlabOAuth.GetAuthorizeUrl();
                         break;
                     }
                 default:
-                    return Content($"没有实现【{type}】登录！");
+                    return ReturnToError($"没有实现【{type}】登录！");
             }
-            return Content("");
+            return Redirect(redirectUrl);
         }
 
         [HttpGet("oauth/{type}callback")]
-        public IActionResult LoginCallback(string type)
+        public async Task<IActionResult> LoginCallback(
+            string type,
+            [FromServices] WechatOAuth wechatOAuth,
+            [FromServices] GitlabOAuth gitlabOAuth,
+            [FromQuery] string code,
+            [FromQuery] string state)
         {
-            switch (type.ToLower())
+            try
             {
-                case "github":
-                    {
-                        var accessToken = githubOauth.AuthorizeCallback();
-                        var userInfo = githubOauth.GetUserInfo(accessToken);
-                        return Content(JsonSerializer.Serialize(new
+                HttpContext.Session.SetString("OAuthPlatform", type.ToLower());
+                switch (type.ToLower())
+                {
+                    case "wechat":
                         {
-                            accessToken,
-                            userInfo
-                        }));
-                    }
-                case "wechat":
-                    {
-                        var accessToken = wechatOAuth.AuthorizeCallback();
-                        var userInfo = wechatOAuth.GetUserInfo(accessToken);
-                        return Content(JsonSerializer.Serialize(new
+                            var authorizeResult = await wechatOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo);
+                            break;
+                        }
+                    case "gitlab":
                         {
-                            accessToken,
-                            userInfo
-                        }));
-                    }
-                case "qq":
-                    {
-                        var accessToken = qqOAuth.AuthorizeCallback();
-                        var userInfo = qqOAuth.GetUserInfo(accessToken);
-                        return Content(JsonSerializer.Serialize(new
-                        {
-                            accessToken,
-                            userInfo
-                        }));
-                    }
-                case "huawei":
-                    {
-                        var accessToken = huaweiOAuth.AuthorizeCallback();
-                        var userInfo = huaweiOAuth.GetUserInfo(accessToken);
-                        return Content(JsonSerializer.Serialize(new
-                        {
-                            accessToken,
-                            userInfo
-                        }));
-                    }
-                case "gitee":
-                    {
-                        var accessToken = giteeOAuth.AuthorizeCallback();
-                        var userInfo = giteeOAuth.GetUserInfo(accessToken);
-                        return Content(JsonSerializer.Serialize(new
-                        {
-                            accessToken,
-                            userInfo
-                        }));
-                    }
-                case "baidu":
-                    {
-                        var accessToken = baiduOAuth.AuthorizeCallback();
-                        var userInfo = baiduOAuth.GetUserInfo(accessToken);
-                        return Content(JsonSerializer.Serialize(new
-                        {
-                            accessToken,
-                            userInfo
-                        }));
-                    }
-                case "alipay":
-                    {
-                        var accessToken = alipayOAuth.AuthorizeCallback();
-                        //var userInfo = alipayOAuth.GetUserInfo(accessToken);
-                        return Content(JsonSerializer.Serialize(new
-                        {
-                            accessToken,
-                            //userInfo
-                        }));
-                    }
+                            var authorizeResult = await gitlabOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo);
+                            break;
+                        }
+                    default:
+                        throw new Exception($"没有实现【{type}】登录！");
+                }
+                return RedirectToAction("Result");
             }
-            return Content($"没有实现【{type}】登录！");
+            catch (Exception ex)
+            {
+                HttpContext.Session.Remove("OAuthPlatform");
+                HttpContext.Session.Remove("OAuthUser");
+                HttpContext.Session.Remove("OAuthUserDetail");
+                return ReturnToError(ex.Message);
+            }
+        }
+
+        public IActionResult Result()
+        {
+            var oauthPlatform = HttpContext.Session.GetString("OAuthPlatform");
+            var userInfo = HttpContext.Session.GetString("OAuthUser");
+            var userInfoDetail = HttpContext.Session.GetString("OAuthUserDetail");
+            if (string.IsNullOrEmpty(oauthPlatform) || string.IsNullOrEmpty(userInfoDetail))
+            {
+                return ReturnToError("OAuth授权失败！");
+            }
+            ViewBag.OAuthPlatform = oauthPlatform;
+            ViewBag.OAuthUser = JsonSerializer.Deserialize<UserInfoBase>(userInfo);
+            ViewBag.OAuthUserDetail = userInfoDetail;
+            return View();
+        }
+
+        private IActionResult ReturnToError(string error)
+        {
+            return RedirectToAction("Error", "Home", new { error });
         }
     }
 }

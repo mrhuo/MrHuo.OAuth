@@ -54,3 +54,4 @@ _ReSharper*
 
 .vs/
 .gitignore
+appsettings.Development.json

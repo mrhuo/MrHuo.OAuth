@@ -8,6 +8,7 @@ namespace MrHuo.OAuth.Github
 {
     /// <summary>
     /// Github OAuth 相关文档参考：
+    /// <para>https://docs.github.com/v3/oauth/</para>
     /// <para>http://www.ruanyifeng.com/blog/2019/04/github-oauth.html</para>
     /// </summary>
     public class GithubOAuth : OAuthApiBase<GithubAccessTokenModel, GithubUserModel>
