@@ -24,6 +24,7 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton(new Wechat.WechatOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:wechat")));
             services.AddSingleton(new Gitlab.GitlabOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitlab")));
             services.AddSingleton(new Gitee.GiteeOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitee")));
+            services.AddSingleton(new Github.GithubOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:github")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

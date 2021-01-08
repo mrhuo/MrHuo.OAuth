@@ -14,6 +14,7 @@ using System;
 using MrHuo.OAuth.Baidu;
 using Microsoft.AspNetCore.Http;
 using MrHuo.OAuth.Gitee;
+using MrHuo.OAuth.Github;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -25,7 +26,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] BaiduOAuth baiduOAuth,
             [FromServices] WechatOAuth wechatOAuth,
             [FromServices] GitlabOAuth gitlabOAuth,
-            [FromServices] GiteeOAuth giteeOAuth
+            [FromServices] GiteeOAuth giteeOAuth,
+            [FromServices] GithubOAuth githubOAuth
         )
         {
             var redirectUrl = "";
@@ -51,6 +53,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         redirectUrl = giteeOAuth.GetAuthorizeUrl();
                         break;
                     }
+                case "github":
+                    {
+                        redirectUrl = githubOAuth.GetAuthorizeUrl();
+                        break;
+                    }
                 default:
                     return ReturnToError($"没有实现【{type}】登录方式！");
             }
@@ -64,6 +71,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] WechatOAuth wechatOAuth,
             [FromServices] GitlabOAuth gitlabOAuth,
             [FromServices] GiteeOAuth giteeOAuth,
+            [FromServices] GithubOAuth githubOAuth,
             [FromQuery] string code,
             [FromQuery] string state)
         {
@@ -108,6 +116,17 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     case "gitee":
                         {
                             var authorizeResult = await giteeOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "github":
+                        {
+                            var authorizeResult = await githubOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
                                 throw new Exception(authorizeResult.ErrorMessage);

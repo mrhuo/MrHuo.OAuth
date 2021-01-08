@@ -1,11 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "做最好用的 .netcore 第三方平台 OAuth 登录组件";
+    ViewData["Title"] = "做最好用的 OAuth 登录组件";
     var supported = new List<(string plat, bool available, string nuget)>()
     {
         ("Baidu", true, null),
         ("Wechat", true, null),
         ("Gitlab", true, null),
         ("Gitee", true, null),
+        ("Github", true, null),
     };
 }
 
@@ -25,7 +26,7 @@
                 foreach (var item in supported.OrderByDescending(p => p.available))
                 {
                 <tr>
-                    <td><a href="/oauth/@(item.plat)" class="btn btn-primary">@(item.plat) 登录</a></td>
+                    <td><a href="/oauth/@(item.plat)" class="btn btn-primary">@(item.plat)</a></td>
                     <td>
                         @{
                             if (item.available)

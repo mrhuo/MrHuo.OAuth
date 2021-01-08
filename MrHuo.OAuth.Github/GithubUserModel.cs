@@ -40,5 +40,8 @@ namespace MrHuo.OAuth.Github
 
         [JsonPropertyName("following")]
         public int Following { get; set; }
+
+        [JsonPropertyName("message")]
+        public string ErrorMessage { get; set; }
     }
 }

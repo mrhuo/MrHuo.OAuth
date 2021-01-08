@@ -12,6 +12,7 @@
 - [x] 微信
 - [x] Gitlab
 - [x] Gitee
+- [x] Github
 ...更多平台持续开发中
 
 1.`Startup.cs`
