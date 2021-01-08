@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -53,6 +54,7 @@ namespace MrHuo.OAuth
         public static async Task<T> GetAsync<T>(string api, Dictionary<string, string> query = null, Dictionary<string, string> header = null)
         {
             var responseText = await GetStringAsync(api, query, header);
+            Console.WriteLine($"GET [{api}], reponse=[{responseText}]");
             return JsonSerializer.Deserialize<T>(responseText);
         }
 
@@ -89,6 +91,7 @@ namespace MrHuo.OAuth
         public static async Task<T> PostAsync<T>(string api, Dictionary<string, string> form = null, Dictionary<string, string> header = null)
         {
             var responseText = await PostStringAsync(api, form, header);
+            Console.WriteLine($"POST [{api}], reponse=[{responseText}]");
             return JsonSerializer.Deserialize<T>(responseText);
         }
     }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using MrHuo.OAuth.Gitee;
 using MrHuo.OAuth.Github;
 using MrHuo.OAuth.Coding;
+using MrHuo.OAuth.SinaWeibo;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -25,7 +26,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] GiteeOAuth giteeOAuth,
             [FromServices] GithubOAuth githubOAuth,
             [FromServices] HuaweiOAuth huaweiOAuth,
-            [FromServices] CodingOAuth codingOAuth
+            [FromServices] CodingOAuth codingOAuth,
+            [FromServices] SinaWeiboOAuth sinaWeiboOAuth
         )
         {
             var redirectUrl = "";
@@ -66,6 +68,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         redirectUrl = codingOAuth.GetAuthorizeUrl();
                         break;
                     }
+                case "sinaweibo":
+                    {
+                        redirectUrl = sinaWeiboOAuth.GetAuthorizeUrl();
+                        break;
+                    }
                 default:
                     return ReturnToError($"没有实现【{type}】登录方式！");
             }
@@ -82,6 +89,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] GithubOAuth githubOAuth,
             [FromServices] HuaweiOAuth huaweiOAuth,
             [FromServices] CodingOAuth codingOAuth,
+            [FromServices] SinaWeiboOAuth sinaWeiboOAuth,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -162,6 +170,17 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                             break;
                         }
                     case "coding":
+                        {
+                            var authorizeResult = await codingOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "sinaweibo":
                         {
                             var authorizeResult = await codingOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)

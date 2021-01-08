@@ -27,6 +27,7 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton(new Github.GithubOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:github")));
             services.AddSingleton(new Huawei.HuaweiOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:huawei")));
             services.AddSingleton(new Coding.CodingOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:coding"), Configuration["oauth:coding:team"]));
+            services.AddSingleton(new SinaWeibo.SinaWeiboOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:sinaweibo")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

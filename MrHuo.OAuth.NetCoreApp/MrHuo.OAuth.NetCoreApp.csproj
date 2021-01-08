@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="appsettings.Development.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MrHuo.OAuth.Baidu\MrHuo.OAuth.Baidu.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Coding\MrHuo.OAuth.Coding.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Core\MrHuo.OAuth.Core.csproj" />
@@ -17,6 +13,7 @@
     <ProjectReference Include="..\MrHuo.OAuth.Github\MrHuo.OAuth.Github.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Gitlab\MrHuo.OAuth.Gitlab.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Huawei\MrHuo.OAuth.Huawei.csproj" />
+    <ProjectReference Include="..\MrHuo.OAuth.SinaWeibo\MrHuo.OAuth.SinaWeibo.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Wechat\MrHuo.OAuth.Wechat.csproj" />
   </ItemGroup>
 
