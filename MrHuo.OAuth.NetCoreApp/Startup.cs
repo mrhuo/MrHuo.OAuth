@@ -25,6 +25,7 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton(new Gitlab.GitlabOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitlab")));
             services.AddSingleton(new Gitee.GiteeOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitee")));
             services.AddSingleton(new Github.GithubOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:github")));
+            services.AddSingleton(new Huawei.HuaweiOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:huawei")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

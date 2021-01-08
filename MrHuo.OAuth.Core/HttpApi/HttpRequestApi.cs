@@ -44,7 +44,7 @@ namespace MrHuo.OAuth
                 {
                     httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                 }
-                api = $"{api}?{query.ToQueryString()}";
+                api = $"{api}{(api.Contains("?") ? "&" : "?")}{query.ToQueryString()}";
                 var response = await httpClient.GetAsync(api);
                 return await response.Content.ReadAsStringAsync();
             }

@@ -3,7 +3,7 @@
     /// <summary>
     /// 用户信息。默认提供姓名和头像
     /// </summary>
-    public interface IUserInfoModel: IApiErrorModel
+    public interface IUserInfoModel : IApiErrorModel
     {
         /// <summary>
         /// 昵称

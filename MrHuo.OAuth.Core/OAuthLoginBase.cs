@@ -136,7 +136,7 @@ namespace MrHuo.OAuth
         public virtual async Task<TUserInfoModel> GetUserInfoAsync(TAccessTokenModel accessTokenModel)
         {
             var userInfoModel = await HttpRequestApi.GetAsync<TUserInfoModel>(
-                UserInfoUrl, 
+                UserInfoUrl,
                 BuildGetUserInfoParams(accessTokenModel)
             );
             if (userInfoModel.HasError())

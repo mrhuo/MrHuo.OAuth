@@ -1,11 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-//using MrHuo.OAuth.Baidu;
-//using MrHuo.OAuth.Gitee;
-//using MrHuo.OAuth.Github;
-//using MrHuo.OAuth.Huawei;
-//using MrHuo.OAuth.QQ;
-//using MrHuo.OAuth.Alipay;
+using MrHuo.OAuth.Huawei;
 using MrHuo.OAuth.Wechat;
 using MrHuo.OAuth.Gitlab;
 using System.Collections.Generic;
@@ -27,7 +22,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] WechatOAuth wechatOAuth,
             [FromServices] GitlabOAuth gitlabOAuth,
             [FromServices] GiteeOAuth giteeOAuth,
-            [FromServices] GithubOAuth githubOAuth
+            [FromServices] GithubOAuth githubOAuth,
+            [FromServices] HuaweiOAuth huaweiOAuth
         )
         {
             var redirectUrl = "";
@@ -58,6 +54,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         redirectUrl = githubOAuth.GetAuthorizeUrl();
                         break;
                     }
+                case "huawei":
+                    {
+                        redirectUrl = huaweiOAuth.GetAuthorizeUrl();
+                        break;
+                    }
                 default:
                     return ReturnToError($"没有实现【{type}】登录方式！");
             }
@@ -72,11 +73,17 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] GitlabOAuth gitlabOAuth,
             [FromServices] GiteeOAuth giteeOAuth,
             [FromServices] GithubOAuth githubOAuth,
+            [FromServices] HuaweiOAuth huaweiOAuth,
             [FromQuery] string code,
-            [FromQuery] string state)
+            [FromQuery] string state,
+            [FromQuery] string error_description = "")
         {
             try
             {
+                if (!string.IsNullOrEmpty(error_description))
+                {
+                    throw new Exception(error_description);
+                }
                 HttpContext.Session.SetString("OAuthPlatform", type.ToLower());
                 switch (type.ToLower())
                 {
@@ -127,6 +134,17 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     case "github":
                         {
                             var authorizeResult = await githubOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "huawei":
+                        {
+                            var authorizeResult = await huaweiOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
                                 throw new Exception(authorizeResult.ErrorMessage);

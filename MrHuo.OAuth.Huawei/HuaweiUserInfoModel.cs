@@ -40,5 +40,8 @@ namespace MrHuo.OAuth.Huawei
 
         [JsonPropertyName("email")]
         public string Email { get; set; }
+
+        [JsonPropertyName("error")]
+        public string ErrorMessage { get; set; }
     }
 }
