@@ -39,8 +39,8 @@ namespace MrHuo.OAuth.Alipay
             Factory.SetOptions(config);
         }
 
-        protected override string AuthorizeUrl => "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm";
-        protected override string AccessTokenUrl => "https://openapi.alipay.com/gateway.do";
+        protected override string AuthorizeUrl => throw new NotImplementedException();
+        protected override string AccessTokenUrl => throw new NotImplementedException();
         protected override string UserInfoUrl => throw new NotImplementedException();
 
         protected override Dictionary<string, string> BuildAuthorizeParams(string state)
