@@ -14,6 +14,7 @@ using MrHuo.OAuth.Coding;
 using MrHuo.OAuth.SinaWeibo;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using MrHuo.OAuth.Alipay;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -29,7 +30,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] GithubOAuth githubOAuth,
             [FromServices] HuaweiOAuth huaweiOAuth,
             [FromServices] CodingOAuth codingOAuth,
-            [FromServices] SinaWeiboOAuth sinaWeiboOAuth
+            [FromServices] SinaWeiboOAuth sinaWeiboOAuth,
+            [FromServices] AlipayOAuth alipayOAuth
         )
         {
             var redirectUrl = "";
@@ -75,6 +77,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         redirectUrl = sinaWeiboOAuth.GetAuthorizeUrl();
                         break;
                     }
+                case "alipay":
+                    {
+                        redirectUrl = alipayOAuth.GetAuthorizeUrl();
+                        break;
+                    }
                 default:
                     return ReturnToError($"没有实现【{type}】登录方式！");
             }
@@ -92,6 +99,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] HuaweiOAuth huaweiOAuth,
             [FromServices] CodingOAuth codingOAuth,
             [FromServices] SinaWeiboOAuth sinaWeiboOAuth,
+            [FromServices] AlipayOAuth alipayOAuth,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -194,6 +202,19 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                             HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
                             break;
                         }
+                    case "alipay":
+                        {
+                            code = HttpContext.Request.Query["auth_code"];
+                            //var token = await alipayOAuth.GetAccessTokenAsync(code, state);
+                            var authorizeResult = await alipayOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
                     default:
                         throw new Exception($"没有实现【{type}】登录回调！");
                 }
@@ -204,7 +225,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 HttpContext.Session.Remove("OAuthPlatform");
                 HttpContext.Session.Remove("OAuthUser");
                 HttpContext.Session.Remove("OAuthUserDetail");
-                return ReturnToError(ex.Message);
+                Console.WriteLine(ex.ToString());
+                return ReturnToError(ex.ToString());
             }
         }
 

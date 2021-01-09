@@ -43,5 +43,6 @@ namespace MrHuo.OAuth.Alipay
         /// </summary>
         [JsonPropertyName("gender")]
         public string Gender { get; set; }
+        public string ErrorMessage { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

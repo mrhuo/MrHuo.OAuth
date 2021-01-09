@@ -1,3 +1,5 @@
+using System;
+using System.Net;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +20,11 @@ namespace MrHuo.OAuth.NetCoreApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            //ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            //AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+            AppContext.SetSwitch("System.Net.Http.UseSocketsHttpHandler", false);
+
             services.AddSession();
             services.AddControllersWithViews().AddJsonOptions(options =>
             {
@@ -33,6 +40,12 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton(new Huawei.HuaweiOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:huawei")));
             services.AddSingleton(new Coding.CodingOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:coding"), Configuration["oauth:coding:team"]));
             services.AddSingleton(new SinaWeibo.SinaWeiboOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:sinaweibo")));
+            services.AddSingleton(new Alipay.AlipayOAuth(
+                OAuthConfig.LoadFrom(Configuration, "oauth:alipay"),
+                Configuration["oauth:alipay:private_key"],
+                Configuration["oauth:alipay:public_key"],
+                Configuration["oauth:alipay:encrypt_key"]
+            ));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

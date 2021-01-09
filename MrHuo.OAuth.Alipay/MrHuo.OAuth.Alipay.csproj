@@ -1,17 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-    <PackageReference Include="System.Text.Json" Version="5.0.0" />
+    <Compile Remove="AlipayApiRequest.cs" />
+    <Compile Remove="AlipaySignTool.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MrHuo.OAuth\MrHuo.OAuth.csproj" />
+    <PackageReference Include="AlipayEasySDK" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MrHuo.OAuth.Core\MrHuo.OAuth.Core.csproj" />
   </ItemGroup>
 
 </Project>
