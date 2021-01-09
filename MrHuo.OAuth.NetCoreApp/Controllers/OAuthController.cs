@@ -12,6 +12,8 @@ using MrHuo.OAuth.Gitee;
 using MrHuo.OAuth.Github;
 using MrHuo.OAuth.Coding;
 using MrHuo.OAuth.SinaWeibo;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -94,6 +96,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromQuery] string state,
             [FromQuery] string error_description = "")
         {
+            Console.WriteLine($"LoginCallback [{HttpContext.Request.Path}]");
             try
             {
                 if (!string.IsNullOrEmpty(error_description))
@@ -182,7 +185,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         }
                     case "sinaweibo":
                         {
-                            var authorizeResult = await codingOAuth.AuthorizeCallback(code, state);
+                            var authorizeResult = await sinaWeiboOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
                                 throw new Exception(authorizeResult.ErrorMessage);

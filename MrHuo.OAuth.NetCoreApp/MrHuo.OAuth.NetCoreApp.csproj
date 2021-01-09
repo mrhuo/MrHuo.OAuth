@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MrHuo.OAuth.Baidu\MrHuo.OAuth.Baidu.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Coding\MrHuo.OAuth.Coding.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Core\MrHuo.OAuth.Core.csproj" />

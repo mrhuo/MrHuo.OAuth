@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace MrHuo.OAuth
@@ -9,6 +11,11 @@ namespace MrHuo.OAuth
     public class HttpRequestApi
     {
         private const string DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66";
+        private static void DebugLog(string msg)
+        {
+            Console.WriteLine(msg);
+        }
+
         private static HttpClient CreateHttpClient()
         {
             var handler = new HttpClientHandler
@@ -29,6 +36,7 @@ namespace MrHuo.OAuth
                     query = new Dictionary<string, string>();
                 }
                 query.RemoveEmptyValueItems();
+                DebugLog($"GET [{api}]");
                 if (header == null)
                 {
                     header = new Dictionary<string, string>();
@@ -44,18 +52,19 @@ namespace MrHuo.OAuth
                 foreach (var headerItem in header)
                 {
                     httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+                    DebugLog($"GET Header [{headerItem.Key}]=[{headerItem.Value}]");
                 }
                 api = $"{api}{(api.Contains("?") ? "&" : "?")}{query.ToQueryString()}";
                 var response = await httpClient.GetAsync(api);
-                return await response.Content.ReadAsStringAsync();
+                var responseText = await response.Content.ReadAsStringAsync();
+                DebugLog($"GET [{api}], reponse=[{responseText}]");
+                return responseText;
             }
         }
 
         public static async Task<T> GetAsync<T>(string api, Dictionary<string, string> query = null, Dictionary<string, string> header = null)
         {
-            var responseText = await GetStringAsync(api, query, header);
-            Console.WriteLine($"GET [{api}], reponse=[{responseText}]");
-            return JsonSerializer.Deserialize<T>(responseText);
+            return JsonSerializer.Deserialize<T>(await GetStringAsync(api, query, header));
         }
 
         public static async Task<string> PostStringAsync(string api, Dictionary<string, string> form = null, Dictionary<string, string> header = null)
@@ -67,6 +76,11 @@ namespace MrHuo.OAuth
                     form = new Dictionary<string, string>();
                 }
                 form.RemoveEmptyValueItems();
+                DebugLog($"POST [{api}]");
+                foreach (var item in form)
+                {
+                    DebugLog($"POST [{item.Key}]=[{item.Value}]");
+                }
                 if (header == null)
                 {
                     header = new Dictionary<string, string>();
@@ -82,17 +96,18 @@ namespace MrHuo.OAuth
                 foreach (var headerItem in header)
                 {
                     httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+                    DebugLog($"POST Header [{headerItem.Key}]=[{headerItem.Value}]");
                 }
                 var response = await httpClient.PostAsync(api, new FormUrlEncodedContent(form));
-                return await response.Content.ReadAsStringAsync();
+                var responseText = await response.Content.ReadAsStringAsync();
+                DebugLog($"POST [{api}], reponse=[{responseText}]");
+                return responseText;
             }
         }
 
         public static async Task<T> PostAsync<T>(string api, Dictionary<string, string> form = null, Dictionary<string, string> header = null)
         {
-            var responseText = await PostStringAsync(api, form, header);
-            Console.WriteLine($"POST [{api}], reponse=[{responseText}]");
-            return JsonSerializer.Deserialize<T>(responseText);
+            return JsonSerializer.Deserialize<T>(await PostStringAsync(api, form, header));
         }
     }
 }

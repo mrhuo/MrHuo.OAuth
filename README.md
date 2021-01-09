@@ -15,6 +15,8 @@
 - [x] Github
 - [x] 华为
 - [x] Coding.net
+- [x] 新浪微博
+
 ...更多平台持续开发中
 
 1.`Startup.cs`
