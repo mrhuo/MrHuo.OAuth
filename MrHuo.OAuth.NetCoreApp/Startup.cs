@@ -23,7 +23,7 @@ namespace MrHuo.OAuth.NetCoreApp
             //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             //ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             //AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            AppContext.SetSwitch("System.Net.Http.UseSocketsHttpHandler", false);
+            //AppContext.SetSwitch("System.Net.Http.UseSocketsHttpHandler", false);
 
             services.AddSession();
             services.AddControllersWithViews().AddJsonOptions(options =>

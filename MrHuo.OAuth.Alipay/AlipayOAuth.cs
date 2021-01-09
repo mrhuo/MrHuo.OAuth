@@ -39,7 +39,7 @@ namespace MrHuo.OAuth.Alipay
             Factory.SetOptions(config);
         }
 
-        protected override string AuthorizeUrl => throw new NotImplementedException();
+        protected override string AuthorizeUrl => "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm";
         protected override string AccessTokenUrl => throw new NotImplementedException();
         protected override string UserInfoUrl => throw new NotImplementedException();
 
@@ -53,6 +53,21 @@ namespace MrHuo.OAuth.Alipay
                 ["scope"] = $"{oauthConfig.Scope}",
                 ["state"] = $"{state}"
             };
+        }
+
+        public override async Task<AuthorizeResult<AlipayAccessTokenModel, AlipayUserInfoModel>> AuthorizeCallback(Dictionary<string, string> authorizeCallbackParams)
+        {
+            try
+            {
+                var accessTokenModel = await GetAccessTokenAsync(authorizeCallbackParams);
+                var userInfoModel = await GetUserInfoAsync(accessTokenModel);
+                return AuthorizeResult<AlipayAccessTokenModel, AlipayUserInfoModel>.Ok(accessTokenModel, userInfoModel);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return AuthorizeResult<AlipayAccessTokenModel, AlipayUserInfoModel>.Error(ex);
+            }
         }
 
         public override async Task<AlipayAccessTokenModel> GetAccessTokenAsync(Dictionary<string, string> authorizeCallbackParams)

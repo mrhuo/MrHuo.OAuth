@@ -205,7 +205,6 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     case "alipay":
                         {
                             code = HttpContext.Request.Query["auth_code"];
-                            //var token = await alipayOAuth.GetAccessTokenAsync(code, state);
                             var authorizeResult = await alipayOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
