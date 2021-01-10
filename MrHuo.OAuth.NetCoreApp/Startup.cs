@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using Microsoft.AspNetCore.Builder;
@@ -24,6 +25,8 @@ namespace MrHuo.OAuth.NetCoreApp
             //ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             //AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             //AppContext.SetSwitch("System.Net.Http.UseSocketsHttpHandler", false);
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             services.AddSession();
             services.AddControllersWithViews().AddJsonOptions(options =>

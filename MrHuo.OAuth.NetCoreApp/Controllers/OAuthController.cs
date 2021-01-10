@@ -225,7 +225,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 HttpContext.Session.Remove("OAuthUser");
                 HttpContext.Session.Remove("OAuthUserDetail");
                 Console.WriteLine(ex.ToString());
-                return ReturnToError(ex.ToString());
+                return ReturnToError(ex.Message);
             }
         }
 

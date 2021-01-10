@@ -43,6 +43,20 @@ namespace MrHuo.OAuth.Alipay
         /// </summary>
         [JsonPropertyName("gender")]
         public string Gender { get; set; }
-        public string ErrorMessage { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        [JsonPropertyName("code")]
+        public string Code { get; set; }
+
+        [JsonPropertyName("error_response")]
+        public string ErrorResponse { get; set; }
+
+        [JsonPropertyName("sub_code")]
+        public string SubCode { get; set; }
+
+        [JsonPropertyName("sub_msg")]
+        public string SubMsg { get; set; }
+
+        //没有实现
+        public string ErrorMessage { get; set; }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Alipay.EasySDK.Factory;
-using Alipay.EasySDK.Kernel;
 
 namespace MrHuo.OAuth.Alipay
 {
@@ -14,29 +12,16 @@ namespace MrHuo.OAuth.Alipay
     /// </summary>
     public class AlipayOAuth : OAuthLoginBase<AlipayAccessTokenModel, AlipayUserInfoModel>
     {
+        private readonly AlipayApiRequest alipayApiRequest;
+
         public AlipayOAuth(OAuthConfig oauthConfig, string privateRSAKey, string publicRSAKey, string encryptKey) : base(oauthConfig)
         {
-            var config = new Config()
+            alipayApiRequest = new AlipayApiRequest()
             {
-                Protocol = "http",
-                GatewayHost = "openapi.alipay.com",
-                SignType = "RSA2",
-
-                AppId = oauthConfig.AppId,
-
-                // 为避免私钥随源码泄露，推荐从文件中读取私钥字符串而不是写入源码中
-                MerchantPrivateKey = privateRSAKey,
-
-                // 如果采用非证书模式，则无需赋值上面的三个证书路径，改为赋值如下的支付宝公钥字符串即可
-                AlipayPublicKey = publicRSAKey,
-
-                //可设置异步通知接收服务地址（可选）
-                NotifyUrl = oauthConfig.RedirectUri,
-
-                //可设置AES密钥，调用AES加解密相关接口时需要（可选）
-                EncryptKey = encryptKey
+                PrivateRSAKey = privateRSAKey,
+                PublicRSAKey = publicRSAKey,
+                AppId = oauthConfig.AppId
             };
-            Factory.SetOptions(config);
         }
 
         protected override string AuthorizeUrl => "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm";
@@ -55,52 +40,47 @@ namespace MrHuo.OAuth.Alipay
             };
         }
 
-        public override async Task<AuthorizeResult<AlipayAccessTokenModel, AlipayUserInfoModel>> AuthorizeCallback(Dictionary<string, string> authorizeCallbackParams)
+        protected override Dictionary<string, string> BuildGetAccessTokenParams(Dictionary<string, string> authorizeCallbackParams)
         {
-            try
+            return new Dictionary<string, string>()
             {
-                var accessTokenModel = await GetAccessTokenAsync(authorizeCallbackParams);
-                var userInfoModel = await GetUserInfoAsync(accessTokenModel);
-                return AuthorizeResult<AlipayAccessTokenModel, AlipayUserInfoModel>.Ok(accessTokenModel, userInfoModel);
-            }
-            catch (Exception ex)
+                ["grant_type"] = "authorization_code",
+                ["code"] = authorizeCallbackParams["code"]
+            };
+        }
+
+        protected override Dictionary<string, string> BuildGetUserInfoParams(AlipayAccessTokenModel accessTokenModel)
+        {
+            return new Dictionary<string, string>()
             {
-                Console.WriteLine(ex);
-                return AuthorizeResult<AlipayAccessTokenModel, AlipayUserInfoModel>.Error(ex);
-            }
+                ["auth_token"] = accessTokenModel.AccessToken
+            };
         }
 
         public override async Task<AlipayAccessTokenModel> GetAccessTokenAsync(Dictionary<string, string> authorizeCallbackParams)
         {
-            var token = await Factory.Base.OAuth().GetTokenAsync(authorizeCallbackParams["code"]);
-            if (!string.IsNullOrEmpty(token.SubMsg))
+            var getAccessTokenResponse = await alipayApiRequest.PostAsync<AlipayApiResponse>(
+                "alipay.system.oauth.token", 
+                BuildGetAccessTokenParams(authorizeCallbackParams)
+            );
+            if (getAccessTokenResponse.AccessTokenResponse.SubMsg != null)
             {
-                throw new Exception(token.SubMsg);
+                throw new Exception(getAccessTokenResponse.AccessTokenResponse.SubMsg);
             }
-            return new AlipayAccessTokenModel()
-            {
-                AccessToken = token.AccessToken,
-                Error = token.SubCode,
-                ErrorDescription = token.SubMsg,
-                ExpiresIn = token.ExpiresIn,
-                RefreshToken = token.RefreshToken,
-                UserId = token.UserId
-            };
+            return getAccessTokenResponse.AccessTokenResponse;
         }
 
         public override async Task<AlipayUserInfoModel> GetUserInfoAsync(AlipayAccessTokenModel accessTokenModel)
         {
-            var user = await Factory.Util.Generic()
-                .ExecuteAsync("alipay.user.info.share", new Dictionary<string, string>()
-                {
-                    ["auth_token"] = accessTokenModel.AccessToken
-                }, new Dictionary<string, object>());
-            if (!string.IsNullOrEmpty(user.SubMsg))
+            var getUserInfoResponse = await alipayApiRequest.PostAsync<AlipayApiResponse>(
+                "alipay.user.info.share",
+                BuildGetUserInfoParams(accessTokenModel)
+            );
+            if (getUserInfoResponse.AlipayUserInfoModel.SubMsg != null)
             {
-                throw new Exception(user.SubMsg);
+                throw new Exception(getUserInfoResponse.AlipayUserInfoModel.SubMsg);
             }
-            Console.WriteLine($"GetUserInfoAsync: {user.HttpBody}");
-            return System.Text.Json.JsonSerializer.Deserialize<AlipayUserInfoModel>(user.HttpBody);
+            return getUserInfoResponse.AlipayUserInfoModel;
         }
     }
 }
