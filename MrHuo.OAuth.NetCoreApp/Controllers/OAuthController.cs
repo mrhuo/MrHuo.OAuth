@@ -15,6 +15,8 @@ using MrHuo.OAuth.SinaWeibo;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using MrHuo.OAuth.Alipay;
+using MrHuo.OAuth.QQ;
+using MrHuo.OAuth.OSChina;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -31,7 +33,9 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] HuaweiOAuth huaweiOAuth,
             [FromServices] CodingOAuth codingOAuth,
             [FromServices] SinaWeiboOAuth sinaWeiboOAuth,
-            [FromServices] AlipayOAuth alipayOAuth
+            [FromServices] AlipayOAuth alipayOAuth,
+            [FromServices] QQOAuth qqOAuth,
+            [FromServices] OSChinaOAuth oschinaOAuth
         )
         {
             var redirectUrl = "";
@@ -82,6 +86,16 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         redirectUrl = alipayOAuth.GetAuthorizeUrl();
                         break;
                     }
+                case "qq":
+                    {
+                        redirectUrl = qqOAuth.GetAuthorizeUrl();
+                        break;
+                    }
+                case "oschina":
+                    {
+                        redirectUrl = oschinaOAuth.GetAuthorizeUrl();
+                        break;
+                    }
                 default:
                     return ReturnToError($"没有实现【{type}】登录方式！");
             }
@@ -100,6 +114,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] CodingOAuth codingOAuth,
             [FromServices] SinaWeiboOAuth sinaWeiboOAuth,
             [FromServices] AlipayOAuth alipayOAuth,
+            [FromServices] QQOAuth qqOAuth,
+            [FromServices] OSChinaOAuth oschinaOAuth,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -206,6 +222,28 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         {
                             code = HttpContext.Request.Query["auth_code"];
                             var authorizeResult = await alipayOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "qq":
+                        {
+                            var authorizeResult = await qqOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "oschina":
+                        {
+                            var authorizeResult = await oschinaOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
                                 throw new Exception(authorizeResult.ErrorMessage);

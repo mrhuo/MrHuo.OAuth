@@ -95,5 +95,6 @@ namespace MrHuo.OAuth.QQ
         /// </summary>
         [JsonPropertyName("is_yellow_year_vip")]
         public string IsYellowYearVip { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

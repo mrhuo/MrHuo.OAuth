@@ -49,6 +49,8 @@ namespace MrHuo.OAuth.NetCoreApp
                 Configuration["oauth:alipay:public_key"],
                 Configuration["oauth:alipay:encrypt_key"]
             ));
+            services.AddSingleton(new QQ.QQOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:qq")));
+            services.AddSingleton(new OSChina.OSChinaOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:oschina")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

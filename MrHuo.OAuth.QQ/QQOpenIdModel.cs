@@ -6,8 +6,5 @@ namespace MrHuo.OAuth.QQ
     {
         [JsonPropertyName("openid")]
         public string OpenId { get; set; }
-
-        //[JsonPropertyName("client_id")]
-        //public string AppId { get; set; }
     }
 }

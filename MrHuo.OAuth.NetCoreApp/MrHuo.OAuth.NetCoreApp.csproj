@@ -18,6 +18,8 @@
     <ProjectReference Include="..\MrHuo.OAuth.Github\MrHuo.OAuth.Github.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Gitlab\MrHuo.OAuth.Gitlab.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Huawei\MrHuo.OAuth.Huawei.csproj" />
+    <ProjectReference Include="..\MrHuo.OAuth.OSChina\MrHuo.OAuth.OSChina.csproj" />
+    <ProjectReference Include="..\MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.SinaWeibo\MrHuo.OAuth.SinaWeibo.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Wechat\MrHuo.OAuth.Wechat.csproj" />
   </ItemGroup>
