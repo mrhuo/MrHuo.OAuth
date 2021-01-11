@@ -3,16 +3,19 @@
 
 <div align="center">
 
+![Travis (.org)](https://img.shields.io/travis/mrhuo/MrHuo.OAuth)
 [![GitHub stars](https://img.shields.io/github/stars/mrhuo/MrHuo.OAuth)](https://github.com/mrhuo/MrHuo.OAuth/stargazers)
 [![GitHub license](https://img.shields.io/github/license/mrhuo/MrHuo.OAuth)](https://github.com/mrhuo/MrHuo.OAuth/blob/main/LICENSE)
 
 </div>
 
-> 致力于做最好的 .net 框架下最好的 OAuth2 登录组件，.net core 项目或 .net framework 4.6 项目均可使用
+> .net core 项目或 .net framework 4.6 项目均可使用
 
 体验网址：[https://oauthlogin.net/](https://oauthlogin.net/)
 
-#### 已支持平台
+<hr />
+
+## 已支持平台
 
 - [x] 百度（可用）
 - [x] 微信公众号（可用）
@@ -27,7 +30,7 @@
 - [ ] QQ（待测试）
 - [ ] 抖音（待测试）
 
-#### 计划开发
+## 计划
 
 - 微信开放平台
 - 钉钉
@@ -52,10 +55,9 @@
 - 京东
 - 阿里云
 - 喜马拉雅
-- 美团
-...
+- 美团...
 
-...更多平台持续开发中
+## 使用方法
 
 1.`Startup.cs`
 
@@ -250,3 +252,7 @@ public class WechatOAuth : OAuthLoginBase<WechatAccessTokenModel, WechatUserInfo
     }
 }
 ```
+
+## License
+
+<a href="/mrhuo/MrHuo.OAuth/blob/main/LICENSE" class="muted-link">Apache-2.0 License</a>
