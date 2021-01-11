@@ -1,7 +1,9 @@
 <div align="center">
 
 ![Travis (.org)](https://img.shields.io/travis/mrhuo/MrHuo.OAuth)
+
 [![GitHub stars](https://img.shields.io/github/stars/mrhuo/MrHuo.OAuth)](https://github.com/mrhuo/MrHuo.OAuth/stargazers)
+
 [![GitHub license](https://img.shields.io/github/license/mrhuo/MrHuo.OAuth)](https://github.com/mrhuo/MrHuo.OAuth/blob/main/LICENSE)
 
 </div>
@@ -58,7 +60,7 @@
 
 1.`Startup.cs`
 
-```
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     //将第三方登录组件注入进去
@@ -72,7 +74,7 @@ public void ConfigureServices(IServiceCollection services)
 
 2.`OAuthController.cs` 根据实际需要自行命名
 
-```
+```csharp
 public class OAuthController : Controller
 {
     [HttpGet("oauth/{type}")]
@@ -145,7 +147,7 @@ public class OAuthController : Controller
 
 3.`Views`
 
-```
+```html
 <!--在代码中放置授权按钮-->
 <a href="/oauth/baidu">Baidu 登录</a>
 <a href="/oauth/wechat">Wechat 扫码登录</a>
@@ -161,7 +163,7 @@ public class OAuthController : Controller
 
 > 根据自己需要和接口标准，扩展用户属性
 
-```
+```csharp
 public class GiteeUserModel : IUserInfoModel
 {
     [JsonPropertyName("name")]
@@ -185,7 +187,7 @@ public class GiteeUserModel : IUserInfoModel
 
 ##### 第二步：写对应平台的授权接口
 
-```
+```csharp
 /// <summary>
 /// https://gitee.com/api/v5/oauth_doc#/
 /// </summary>
@@ -202,7 +204,7 @@ public class GiteeOAuth : OAuthLoginBase<GiteeUserModel>
 
 就连修改字段的微信登录实现，也不过复杂，只需要定义基本参数就OK。代码如下：
 
-```
+```csharp
 /// <summary>
 /// Wechat OAuth 相关文档参考：
 /// <para>https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html</para>
