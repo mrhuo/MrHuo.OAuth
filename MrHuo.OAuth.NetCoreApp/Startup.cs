@@ -51,6 +51,7 @@ namespace MrHuo.OAuth.NetCoreApp
             ));
             services.AddSingleton(new QQ.QQOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:qq")));
             services.AddSingleton(new OSChina.OSChinaOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:oschina")));
+            services.AddSingleton(new DouYin.DouYinOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:douyin")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

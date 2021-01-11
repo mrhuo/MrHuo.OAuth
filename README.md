@@ -1,71 +1,81 @@
+<h1 align="center">MrHuo.OAuth</h1>
+<p align="center">æ˜¯ .net é¡¹ç›®é›†æˆ OAuth2 ç™»å½•æœ€å…¨é¢çš„ã€æœ€æ–¹ä¾¿çš„æ¡†æ¶</p>
+
+
+
+
+
 # MrHuo.OAuth
 
-> Ç°ÖÃÌõ¼ş£º.net core ÏîÄ¿»ò .net framework 4.6 ÒÔÉÏ
+è‡´åŠ›äºåšæœ€å¥½çš„ .net æ¡†æ¶ä¸‹
 
-¿ìËÙ½ÓÈë OAuth µÇÂ¼¡£
+> å‰ç½®æ¡ä»¶ï¼š.net core é¡¹ç›®æˆ– .net framework 4.6 ä»¥ä¸Š
 
-ÌåÑéÍøÖ·£º[https://oauthlogin.net/](https://oauthlogin.net/)
+å¿«é€Ÿæ¥å…¥ OAuth ç™»å½•ã€‚
 
-#### ÒÑÖ§³ÖÆ½Ì¨
+ä½“éªŒç½‘å€ï¼š[https://oauthlogin.net/](https://oauthlogin.net/)
 
-- [x] °Ù¶È£¨¿ÉÓÃ£©
-- [x] Î¢ĞÅ¹«ÖÚºÅ£¨¿ÉÓÃ£©
-- [x] Gitlab£¨¿ÉÓÃ£©
-- [x] Gitee£¨¿ÉÓÃ£©
-- [x] Github£¨¿ÉÓÃ£©
-- [x] »ªÎª£¨¿ÉÓÃ£©
-- [x] Coding.net£¨¿ÉÓÃ£©
-- [x] ĞÂÀËÎ¢²©£¨¿ÉÓÃ£©
-- [x] Ö§¸¶±¦£¨¿ÉÓÃ£©
-- [x] QQ£¨´ı²âÊÔ£©
-- [x] OSChina£¨¿ÉÓÃ£©
+#### å·²æ”¯æŒå¹³å°
 
-#### ¼Æ»®¿ª·¢
+- [x] ç™¾åº¦ï¼ˆå¯ç”¨ï¼‰
+- [x] å¾®ä¿¡å…¬ä¼—å·ï¼ˆå¯ç”¨ï¼‰
+- [x] Gitlabï¼ˆå¯ç”¨ï¼‰
+- [x] Giteeï¼ˆå¯ç”¨ï¼‰
+- [x] Githubï¼ˆå¯ç”¨ï¼‰
+- [x] åä¸ºï¼ˆå¯ç”¨ï¼‰
+- [x] Coding.netï¼ˆå¯ç”¨ï¼‰
+- [x] æ–°æµªå¾®åšï¼ˆå¯ç”¨ï¼‰
+- [x] æ”¯ä»˜å®ï¼ˆå¯ç”¨ï¼‰
+- [x] QQï¼ˆå¾…æµ‹è¯•ï¼‰
+- [x] OSChinaï¼ˆå¯ç”¨ï¼‰
+- [ ] æŠ–éŸ³ï¼ˆå¾…æµ‹è¯•ï¼‰
 
-- Î¢ĞÅ¿ª·ÅÆ½Ì¨
-- ¶¤¶¤
-- ·ÉÊé
-- ÌÔ±¦
-- ¶¶Òô
-- Ğ¡Ã×
-- ½ñÈÕÍ·Ìõ
-- ÈËÈËÍø
-- ÁìÓ¢
-- ¹È¸è
+#### è®¡åˆ’å¼€å‘
+
+- å¾®ä¿¡å¼€æ”¾å¹³å°
+- é’‰é’‰
+- é£ä¹¦
+- æ·˜å®
+- è¥¿ç“œ
+- å°ç±³
+- ä»Šæ—¥å¤´æ¡
+- äººäººç½‘
+- é¢†è‹±
+- è°·æ­Œ
 - Facebook
-- Î¢Èí
+- å¾®è½¯
 - Teambition
 - Pinterest
 - Twitter
 - Stack Overflow
-- ÆóÒµÎ¢ĞÅ¶şÎ¬ÂëµÇÂ¼
-- ÆóÒµÎ¢ĞÅÍøÒ³µÇÂ¼
-- ¿á¼ÒÀÖ
-- ÃÀÍÅ
-- ¶öÁËÃ´
-- ¾©¶«
-- °¢ÀïÔÆ
-- Ï²ÂíÀ­ÑÅ
-- Ï²ÂíÀ­ÑÅ
+- ä¼ä¸šå¾®ä¿¡äºŒç»´ç ç™»å½•
+- ä¼ä¸šå¾®ä¿¡ç½‘é¡µç™»å½•
+- é…·å®¶ä¹
+- ç¾å›¢
+- é¥¿äº†ä¹ˆ
+- äº¬ä¸œ
+- é˜¿é‡Œäº‘
+- å–œé©¬æ‹‰é›…
+- å–œé©¬æ‹‰é›…
 ...
 
-...¸ü¶àÆ½Ì¨³ÖĞø¿ª·¢ÖĞ
+...æ›´å¤šå¹³å°æŒç»­å¼€å‘ä¸­
 
 1.`Startup.cs`
 
 ```
 public void ConfigureServices(IServiceCollection services)
 {
-    //½«µÚÈı·½µÇÂ¼×é¼ş×¢Èë½øÈ¥
+    //å°†ç¬¬ä¸‰æ–¹ç™»å½•ç»„ä»¶æ³¨å…¥è¿›å»
     services.AddSingleton(new Baidu.BaiduOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:baidu")));
     services.AddSingleton(new Wechat.WechatOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:wechat")));
     services.AddSingleton(new Gitlab.GitlabOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitlab")));
     services.AddSingleton(new Gitee.GiteeOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitee")));
-    //... ÆäËûµÇÂ¼·½Ê½
+    //... å…¶ä»–ç™»å½•æ–¹å¼
 }
 ```
 
-2.`OAuthController.cs` ¸ù¾İÊµ¼ÊĞèÒª×ÔĞĞÃüÃû
+2.`OAuthController.cs` æ ¹æ®å®é™…éœ€è¦è‡ªè¡Œå‘½å
 
 ```
 public class OAuthController : Controller
@@ -91,7 +101,7 @@ public class OAuthController : Controller
                     break;
                 }
             default:
-                return ReturnToError($"Ã»ÓĞÊµÏÖ¡¾{type}¡¿µÇÂ¼·½Ê½£¡");
+                return ReturnToError($"æ²¡æœ‰å®ç°ã€{type}ã€‘ç™»å½•æ–¹å¼ï¼");
         }
         return Redirect(redirectUrl);
     }
@@ -127,7 +137,7 @@ public class OAuthController : Controller
                         return Json(authorizeResult);
                     }
                 default:
-                    throw new Exception($"Ã»ÓĞÊµÏÖ¡¾{type}¡¿µÇÂ¼»Øµ÷£¡");
+                    throw new Exception($"æ²¡æœ‰å®ç°ã€{type}ã€‘ç™»å½•å›è°ƒï¼");
             }
         }
         catch (Exception ex)
@@ -141,20 +151,20 @@ public class OAuthController : Controller
 3.`Views`
 
 ```
-<!--ÔÚ´úÂëÖĞ·ÅÖÃÊÚÈ¨°´Å¥-->
-<a href="/oauth/baidu">Baidu µÇÂ¼</a>
-<a href="/oauth/wechat">Wechat É¨ÂëµÇÂ¼</a>
-<!-- //ÆäËûµÇÂ¼·½Ê½ÕÕÑù×ÓÍùÏÂĞ´ -->
+<!--åœ¨ä»£ç ä¸­æ”¾ç½®æˆæƒæŒ‰é’®-->
+<a href="/oauth/baidu">Baidu ç™»å½•</a>
+<a href="/oauth/wechat">Wechat æ‰«ç ç™»å½•</a>
+<!-- //å…¶ä»–ç™»å½•æ–¹å¼ç…§æ ·å­å¾€ä¸‹å†™ -->
 ```
 
 
-#### À©Õ¹
+#### æ‰©å±•
 
-À©Õ¹ÆäËûÆ½Ì¨·Ç³£ÈİÒ×£¬ÄÃ `Gitee` Æ½Ì¨µÄ´úÂëÀ´Ëµ£º[https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Gitee](https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Gitee)
+æ‰©å±•å…¶ä»–å¹³å°éå¸¸å®¹æ˜“ï¼Œæ‹¿ `Gitee` å¹³å°çš„ä»£ç æ¥è¯´ï¼š[https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Gitee](https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Gitee)
 
-##### µÚÒ»²½£ºÕÒÆ½Ì¨¶ÔÓ¦ OAuth ÎÄµµ£¬ÕÒµ½»ñÈ¡ÓÃ»§ĞÅÏ¢½Ó¿Ú·µ»ØJSON£¬×ª»»Îª C# ÊµÌåÀà¡£ÈçÏÂ£º
+##### ç¬¬ä¸€æ­¥ï¼šæ‰¾å¹³å°å¯¹åº” OAuth æ–‡æ¡£ï¼Œæ‰¾åˆ°è·å–ç”¨æˆ·ä¿¡æ¯æ¥å£è¿”å›JSONï¼Œè½¬æ¢ä¸º C# å®ä½“ç±»ã€‚å¦‚ä¸‹ï¼š
 
-> ¸ù¾İ×Ô¼ºĞèÒªºÍ½Ó¿Ú±ê×¼£¬À©Õ¹ÓÃ»§ÊôĞÔ
+> æ ¹æ®è‡ªå·±éœ€è¦å’Œæ¥å£æ ‡å‡†ï¼Œæ‰©å±•ç”¨æˆ·å±æ€§
 
 ```
 public class GiteeUserModel : IUserInfoModel
@@ -174,11 +184,11 @@ public class GiteeUserModel : IUserInfoModel
     [JsonPropertyName("blog")]
     public string Blog { get; set; }
 
-    //...ÆäËûÊôĞÔÀàËÆÈçÉÏ
+    //...å…¶ä»–å±æ€§ç±»ä¼¼å¦‚ä¸Š
 }
 ```
 
-##### µÚ¶ş²½£ºĞ´¶ÔÓ¦Æ½Ì¨µÄÊÚÈ¨½Ó¿Ú
+##### ç¬¬äºŒæ­¥ï¼šå†™å¯¹åº”å¹³å°çš„æˆæƒæ¥å£
 
 ```
 /// <summary>
@@ -193,13 +203,13 @@ public class GiteeOAuth : OAuthLoginBase<GiteeUserModel>
 }
 ```
 
-¼ÓÉÏ×¢ÊÍ£¬×Ü¹²Ê®ĞĞ£¬ÈçÄãËù¼û£¬·Ç³£·½±ã¡£Èç¹û¸ÃÆ½Ì¨Ğ­Òé×ñÑ­ OAuth2 ±ê×¼¿ª·¢£¬ÄÇÃ´¾ÍÕâÃ´¼¸ĞĞ¾ÍºÃÁË¡£
+åŠ ä¸Šæ³¨é‡Šï¼Œæ€»å…±åè¡Œï¼Œå¦‚ä½ æ‰€è§ï¼Œéå¸¸æ–¹ä¾¿ã€‚å¦‚æœè¯¥å¹³å°åè®®éµå¾ª OAuth2 æ ‡å‡†å¼€å‘ï¼Œé‚£ä¹ˆå°±è¿™ä¹ˆå‡ è¡Œå°±å¥½äº†ã€‚
 
-¾ÍÁ¬ĞŞ¸Ä×Ö¶ÎµÄÎ¢ĞÅµÇÂ¼ÊµÏÖ£¬Ò²²»¹ı¸´ÔÓ£¬Ö»ĞèÒª¶¨Òå»ù±¾²ÎÊı¾ÍOK¡£´úÂëÈçÏÂ£º
+å°±è¿ä¿®æ”¹å­—æ®µçš„å¾®ä¿¡ç™»å½•å®ç°ï¼Œä¹Ÿä¸è¿‡å¤æ‚ï¼Œåªéœ€è¦å®šä¹‰åŸºæœ¬å‚æ•°å°±OKã€‚ä»£ç å¦‚ä¸‹ï¼š
 
 ```
 /// <summary>
-/// Wechat OAuth Ïà¹ØÎÄµµ²Î¿¼£º
+/// Wechat OAuth ç›¸å…³æ–‡æ¡£å‚è€ƒï¼š
 /// <para>https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html</para>
 /// </summary>
 public class WechatOAuth : OAuthLoginBase<WechatAccessTokenModel, WechatUserInfoModel>

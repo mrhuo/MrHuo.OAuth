@@ -17,6 +17,7 @@ using System.Text.Unicode;
 using MrHuo.OAuth.Alipay;
 using MrHuo.OAuth.QQ;
 using MrHuo.OAuth.OSChina;
+using MrHuo.OAuth.DouYin;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -35,7 +36,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] SinaWeiboOAuth sinaWeiboOAuth,
             [FromServices] AlipayOAuth alipayOAuth,
             [FromServices] QQOAuth qqOAuth,
-            [FromServices] OSChinaOAuth oschinaOAuth
+            [FromServices] OSChinaOAuth oschinaOAuth,
+            [FromServices] DouYinOAuth douYinOAuth
         )
         {
             var redirectUrl = "";
@@ -96,6 +98,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         redirectUrl = oschinaOAuth.GetAuthorizeUrl();
                         break;
                     }
+                case "douyin":
+                    {
+                        redirectUrl = douYinOAuth.GetAuthorizeUrl();
+                        break;
+                    }
                 default:
                     return ReturnToError($"没有实现【{type}】登录方式！");
             }
@@ -116,6 +123,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] AlipayOAuth alipayOAuth,
             [FromServices] QQOAuth qqOAuth,
             [FromServices] OSChinaOAuth oschinaOAuth,
+            [FromServices] DouYinOAuth douYinOAuth,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -244,6 +252,17 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     case "oschina":
                         {
                             var authorizeResult = await oschinaOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "douyin":
+                        {
+                            var authorizeResult = await douYinOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
                                 throw new Exception(authorizeResult.ErrorMessage);

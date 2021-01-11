@@ -14,6 +14,7 @@
     <ProjectReference Include="..\MrHuo.OAuth.Baidu\MrHuo.OAuth.Baidu.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Coding\MrHuo.OAuth.Coding.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Core\MrHuo.OAuth.Core.csproj" />
+    <ProjectReference Include="..\MrHuo.OAuth.DouYin\MrHuo.OAuth.DouYin.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Gitee\MrHuo.OAuth.Gitee.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Github\MrHuo.OAuth.Github.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Gitlab\MrHuo.OAuth.Gitlab.csproj" />
@@ -22,6 +23,10 @@
     <ProjectReference Include="..\MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.SinaWeibo\MrHuo.OAuth.SinaWeibo.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Wechat\MrHuo.OAuth.Wechat.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\logo\" />
   </ItemGroup>
 
 </Project>

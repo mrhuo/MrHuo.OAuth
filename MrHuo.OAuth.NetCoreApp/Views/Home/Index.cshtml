@@ -1,66 +1,44 @@
 ﻿@{
     ViewData["Title"] = "做最好用的 OAuth 登录组件";
-    var supported = new List<(string plat, bool available, string nuget)>()
+    var supported = new List<(string plat, string platName, bool available, string nuget)>()
     {
-        ("Baidu", true, null),
-        ("Wechat", true, null),
-        ("Gitlab", true, null),
-        ("Gitee", true, null),
-        ("Github", true, null),
-        ("Huawei", true, null),
-        ("Coding", true, null),
-        ("SinaWeibo", true, null),
-        ("Alipay", true, null),
-        ("QQ", false, null),
-        ("OSChina", true, null),
+        ("Baidu", "百度", true, null),
+        ("Wechat", "微信公众号",  true, null),
+        ("Gitlab", "Gitlab",  true, null),
+        ("Gitee", "Gitee",  true, null),
+        ("Github", "Github",  true, null),
+        ("Huawei", "华为",  true, null),
+        ("Coding", "Coding",  true, null),
+        ("SinaWeibo", "新浪微博",  true, null),
+        ("Alipay", "支付宝",  true, null),
+        ("QQ", "QQ",  false, null),
+        ("OSChina", "OSChina",  true, null),
+        ("DouYin", "抖音",  false, null),
     };
 }
 
 <div class="text-center mt-5">
-    <h2>@(ViewData["Title"])</h1>
+    <h2>@(ViewData["Title"])</h2>
 
-    <table class="table table-bordered mt-4">
-        <thead class="thead-light">
-            <tr>
-                <th width="33.33%">登录</th>
-                <th width="33.33%">可用</th>
-                <th width="33.33%">nuget</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                foreach (var item in supported.OrderByDescending(p => p.available))
+    <div class=" mt-5">
+        @{
+            foreach (var item in supported)
+            {
+                if(item.available)
                 {
-                <tr>
-                    <td><a href="/oauth/@(item.plat)" class="btn btn-primary">@(item.plat)</a></td>
-                    <td>
-                        @{
-                            if (item.available)
-                            {
-                            <span class="text-success">可用</span>
-                            }
-                            else
-                            {
-                            <span class="text-warning">待测试</span>
-                            }
-                        }
-                    </td>
-                    <td>
-                        @{
-                            if(item.nuget == null) 
-                            {
-                            <span class="text-danger">未发布</span>
-                            }
-                            else
-                            {
-                            <span class="text-success"><a href="@(item.nuget)" target="_blank">Nuget</a></span>
-                            }
-                        }
-                    </td>
-                </tr>
+                    <a href="/oauth/@(item.plat)" title="使用@(item.platName)账号登录" class="ml-4">
+                        <img src="/logo/@(item.plat.ToLower()).png" width="50" height="50" />
+                    </a>
+                }
+                else
+                {
+                    <a href="/oauth/@(item.plat)" onclick="return confirm('暂未获得该平台应用Id，不保证正确相应您的请求。\n欢迎提供测试信息，感谢！联系QQ：491217650')" title="使用@(item.platName)账号登录" class="ml-4">
+                        <img src="/logo/@(item.plat.ToLower()).png" width="50" height="50" />
+                    </a>
                 }
             }
-        </tbody>
-        <tfoot><tr><td colspan="3" class="text-danger">待测试：未注册应用测试，欢迎提供测试appid。<br />联系邮箱：admin@mrhuo.com </td></tr></tfoot>
-    </table>
+        }
+    </div>
+
+    <h6 class=" mt-4">更多平台，持续开发中...</h6>
 </div>
