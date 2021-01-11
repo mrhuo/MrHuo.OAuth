@@ -1,17 +1,14 @@
 <h1 align="center">MrHuo.OAuth</h1>
 <p align="center">是 .net 项目集成 OAuth2 登录最全面的、最方便的框架</p>
 
+<div align="center">
 
+[![GitHub stars](https://img.shields.io/github/stars/mrhuo/MrHuo.OAuth)](https://github.com/mrhuo/MrHuo.OAuth/stargazers)
+[![GitHub license](https://img.shields.io/github/license/mrhuo/MrHuo.OAuth)](https://github.com/mrhuo/MrHuo.OAuth/blob/main/LICENSE)
 
+</div>
 
-
-# MrHuo.OAuth
-
-致力于做最好的 .net 框架下
-
-> 前置条件：.net core 项目或 .net framework 4.6 以上
-
-快速接入 OAuth 登录。
+> 致力于做最好的 .net 框架下最好的 OAuth2 登录组件，.net core 项目或 .net framework 4.6 项目均可使用
 
 体验网址：[https://oauthlogin.net/](https://oauthlogin.net/)
 
@@ -26,8 +23,8 @@
 - [x] Coding.net（可用）
 - [x] 新浪微博（可用）
 - [x] 支付宝（可用）
-- [x] QQ（待测试）
 - [x] OSChina（可用）
+- [ ] QQ（待测试）
 - [ ] 抖音（待测试）
 
 #### 计划开发
@@ -51,12 +48,11 @@
 - 企业微信二维码登录
 - 企业微信网页登录
 - 酷家乐
-- 美团
 - 饿了么
 - 京东
 - 阿里云
 - 喜马拉雅
-- 喜马拉雅
+- 美团
 ...
 
 ...更多平台持续开发中
