@@ -20,19 +20,19 @@
 <div class="text-center mt-5">
     <h2>@(ViewData["Title"])</h2>
 
-    <div class=" mt-5">
+    <div class="mt-5">
         @{
             foreach (var item in supported)
             {
                 if(item.available)
                 {
-                    <a href="/oauth/@(item.plat)" title="使用@(item.platName)账号登录" class="ml-4">
+                    <a href="/oauth/@(item.plat)" title="使用@(item.platName)账号登录" class="plat-icon ml-2 mr-2 mt-4">
                         <img src="/logo/@(item.plat.ToLower()).png" style="max-width: 50px; max-height: 50px;" />
                     </a>
                 }
                 else
                 {
-                    <a href="/oauth/@(item.plat)" onclick="return confirm('暂未获得该平台应用Id，不保证正确相应您的请求。\n欢迎提供测试信息，感谢！联系QQ：491217650')" title="使用@(item.platName)账号登录" class="ml-4">
+                    <a href="/oauth/@(item.plat)" onclick="return confirm('暂未获得该平台应用Id，不保证正确相应您的请求。\n欢迎提供测试信息，感谢！联系QQ：491217650')" title="使用@(item.platName)账号登录" class="plat-icon ml-2 mr-2 mt-4">
                         <img src="/logo/@(item.plat.ToLower()).png" style="max-width: 50px; max-height: 50px;" />
                     </a>
                 }

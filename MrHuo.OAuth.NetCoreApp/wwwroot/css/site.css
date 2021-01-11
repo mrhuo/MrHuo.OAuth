@@ -74,3 +74,5 @@ a, a:hover {
     text-decoration: none;
     cursor:pointer;
 }
+
+a.plat-icon { height: 50px; display: inline-block }
