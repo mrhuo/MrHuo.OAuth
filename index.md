@@ -1,37 +1,255 @@
-## Welcome to GitHub Pages
+<div align="center">
 
-You can use the [editor on GitHub](https://github.com/mrhuo/MrHuo.OAuth/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+![Travis (.org)](https://img.shields.io/travis/mrhuo/MrHuo.OAuth)
+[![GitHub stars](https://img.shields.io/github/stars/mrhuo/MrHuo.OAuth)](https://github.com/mrhuo/MrHuo.OAuth/stargazers)
+[![GitHub license](https://img.shields.io/github/license/mrhuo/MrHuo.OAuth)](https://github.com/mrhuo/MrHuo.OAuth/blob/main/LICENSE)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+</div>
 
-### Markdown
+> .net core 项目或 .net framework 4.6 项目均可使用
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+体验网址：[https://oauthlogin.net/](https://oauthlogin.net/)
 
-```markdown
-Syntax highlighted code block
+<hr />
 
-# Header 1
-## Header 2
-### Header 3
+## 已支持平台
 
-- Bulleted
-- List
+- [x] 百度（可用）
+- [x] 微信公众号（可用）
+- [x] Gitlab（可用）
+- [x] Gitee（可用）
+- [x] Github（可用）
+- [x] 华为（可用）
+- [x] Coding.net（可用）
+- [x] 新浪微博（可用）
+- [x] 支付宝（可用）
+- [x] OSChina（可用）
+- [ ] QQ（待测试）
+- [ ] 抖音（待测试）
 
-1. Numbered
-2. List
+## 计划
 
-**Bold** and _Italic_ and `Code` text
+- 微信开放平台
+- 钉钉
+- 飞书
+- 淘宝
+- 西瓜
+- 小米
+- 今日头条
+- 人人网
+- 领英
+- 谷歌
+- Facebook
+- 微软
+- Teambition
+- Pinterest
+- Twitter
+- Stack Overflow
+- 企业微信二维码登录
+- 企业微信网页登录
+- 酷家乐
+- 饿了么
+- 京东
+- 阿里云
+- 喜马拉雅
+- 美团...
 
-[Link](url) and ![Image](src)
+## 使用方法
+
+1.`Startup.cs`
+
+```
+public void ConfigureServices(IServiceCollection services)
+{
+    //将第三方登录组件注入进去
+    services.AddSingleton(new Baidu.BaiduOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:baidu")));
+    services.AddSingleton(new Wechat.WechatOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:wechat")));
+    services.AddSingleton(new Gitlab.GitlabOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitlab")));
+    services.AddSingleton(new Gitee.GiteeOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:gitee")));
+    //... 其他登录方式
+}
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+2.`OAuthController.cs` 根据实际需要自行命名
 
-### Jekyll Themes
+```
+public class OAuthController : Controller
+{
+    [HttpGet("oauth/{type}")]
+    public IActionResult Index(
+        string type,
+        [FromServices] BaiduOAuth baiduOAuth,
+        [FromServices] WechatOAuth wechatOAuth
+    )
+    {
+        var redirectUrl = "";
+        switch (type.ToLower())
+        {
+            case "baidu":
+                {
+                    redirectUrl = baiduOAuth.GetAuthorizeUrl();
+                    break;
+                }
+            case "wechat":
+                {
+                    redirectUrl = wechatOAuth.GetAuthorizeUrl();
+                    break;
+                }
+            default:
+                return ReturnToError($"没有实现【{type}】登录方式！");
+        }
+        return Redirect(redirectUrl);
+    }
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mrhuo/MrHuo.OAuth/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+    [HttpGet("oauth/{type}callback")]
+    public async Task<IActionResult> LoginCallback(
+        string type,
+        [FromServices] BaiduOAuth baiduOAuth,
+        [FromServices] WechatOAuth wechatOAuth,
+        [FromQuery] string code,
+        [FromQuery] string state)
+    {
+        try
+        {
+            switch (type.ToLower())
+            {
+                case "baidu":
+                    {
+                        var authorizeResult = await baiduOAuth.AuthorizeCallback(code, state);
+                        if (!authorizeResult.IsSccess)
+                        {
+                            throw new Exception(authorizeResult.ErrorMessage);
+                        }
+                        return Json(authorizeResult);
+                    }
+                case "wechat":
+                    {
+                        var authorizeResult = await wechatOAuth.AuthorizeCallback(code, state);
+                        if (!authorizeResult.IsSccess)
+                        {
+                            throw new Exception(authorizeResult.ErrorMessage);
+                        }
+                        return Json(authorizeResult);
+                    }
+                default:
+                    throw new Exception($"没有实现【{type}】登录回调！");
+            }
+        }
+        catch (Exception ex)
+        {
+            return Content(ex.Message);
+        }
+    }
+}
+```
 
-### Support or Contact
+3.`Views`
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+```
+<!--在代码中放置授权按钮-->
+<a href="/oauth/baidu">Baidu 登录</a>
+<a href="/oauth/wechat">Wechat 扫码登录</a>
+<!-- //其他登录方式照样子往下写 -->
+```
+
+
+#### 扩展
+
+扩展其他平台非常容易，拿 `Gitee` 平台的代码来说：[https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Gitee](https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Gitee)
+
+##### 第一步：找平台对应 OAuth 文档，找到获取用户信息接口返回JSON，转换为 C# 实体类。如下：
+
+> 根据自己需要和接口标准，扩展用户属性
+
+```
+public class GiteeUserModel : IUserInfoModel
+{
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    [JsonPropertyName("avatar_url")]
+    public string Avatar { get; set; }
+
+    [JsonPropertyName("message")]
+    public string ErrorMessage { get; set; }
+
+    [JsonPropertyName("email")]
+    public string Email { get; set; }
+
+    [JsonPropertyName("blog")]
+    public string Blog { get; set; }
+
+    //...其他属性类似如上
+}
+```
+
+##### 第二步：写对应平台的授权接口
+
+```
+/// <summary>
+/// https://gitee.com/api/v5/oauth_doc#/
+/// </summary>
+public class GiteeOAuth : OAuthLoginBase<GiteeUserModel>
+{
+    public GiteeOAuth(OAuthConfig oauthConfig) : base(oauthConfig) { }
+    protected override string AuthorizeUrl => "https://gitee.com/oauth/authorize";
+    protected override string AccessTokenUrl => "https://gitee.com/oauth/token";
+    protected override string UserInfoUrl => "https://gitee.com/api/v5/user";
+}
+```
+
+加上注释，总共十行，如你所见，非常方便。如果该平台协议遵循 OAuth2 标准开发，那么就这么几行就好了。
+
+就连修改字段的微信登录实现，也不过复杂，只需要定义基本参数就OK。代码如下：
+
+```
+/// <summary>
+/// Wechat OAuth 相关文档参考：
+/// <para>https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html</para>
+/// </summary>
+public class WechatOAuth : OAuthLoginBase<WechatAccessTokenModel, WechatUserInfoModel>
+{
+    public WechatOAuth(OAuthConfig oauthConfig) : base(oauthConfig) { }
+    protected override string AuthorizeUrl => "https://open.weixin.qq.com/connect/oauth2/authorize";
+    protected override string AccessTokenUrl => "https://api.weixin.qq.com/sns/oauth2/access_token";
+    protected override string UserInfoUrl => "https://api.weixin.qq.com/sns/userinfo";
+    protected override Dictionary<string, string> BuildAuthorizeParams(string state)
+    {
+        return new Dictionary<string, string>()
+        {
+            ["response_type"] = "code",
+            ["appid"] = oauthConfig.AppId,
+            ["redirect_uri"] = System.Web.HttpUtility.UrlEncode(oauthConfig.RedirectUri),
+            ["scope"] = oauthConfig.Scope,
+            ["state"] = state
+        };
+    }
+    public override string GetAuthorizeUrl(string state = "")
+    {
+        return $"{base.GetAuthorizeUrl(state)}#wechat_redirect";
+    }
+    protected override Dictionary<string, string> BuildGetAccessTokenParams(Dictionary<string, string> authorizeCallbackParams)
+    {
+        return new Dictionary<string, string>()
+        {
+            ["grant_type"] = "authorization_code",
+            ["appid"] = $"{oauthConfig.AppId}",
+            ["secret"] = $"{oauthConfig.AppKey}",
+            ["code"] = $"{authorizeCallbackParams["code"]}"
+        };
+    }
+    protected override Dictionary<string, string> BuildGetUserInfoParams(WechatAccessTokenModel accessTokenModel)
+    {
+        return new Dictionary<string, string>()
+        {
+            ["access_token"] = accessTokenModel.AccessToken,
+            ["openid"] = accessTokenModel.OpenId,
+            ["lang"] = "zh_CN",
+        };
+    }
+}
+```
+
+## License
+
+<a href="/mrhuo/MrHuo.OAuth/blob/main/LICENSE" class="muted-link">Apache-2.0 License</a>
