@@ -1,13 +1,3 @@
-<div align="center">
-
-![Travis (.org)](https://img.shields.io/travis/mrhuo/MrHuo.OAuth)
-
-[![GitHub stars](https://img.shields.io/github/stars/mrhuo/MrHuo.OAuth)](https://github.com/mrhuo/MrHuo.OAuth/stargazers)
-
-[![GitHub license](https://img.shields.io/github/license/mrhuo/MrHuo.OAuth)](https://github.com/mrhuo/MrHuo.OAuth/blob/main/LICENSE)
-
-</div>
-
 > .net core 项目或 .net framework 4.6 项目均可使用
 
 体验网址：[https://oauthlogin.net/](https://oauthlogin.net/)
