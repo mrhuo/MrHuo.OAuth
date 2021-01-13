@@ -6,18 +6,18 @@
 
 ## 已支持平台
 
-- [x] 百度（可用）
-- [x] 微信公众号（可用）
-- [x] Gitlab（可用）
-- [x] Gitee（可用）
-- [x] Github（可用）
-- [x] 华为（可用）
-- [x] Coding.net（可用）
-- [x] 新浪微博（可用）
-- [x] 支付宝（可用）
-- [x] OSChina（可用）
-- [ ] QQ（待测试）
-- [ ] 抖音（待测试）
+- [x]  百度（可用）
+- [x]  微信公众号（可用）
+- [x]  Gitlab（可用）
+- [x]  Gitee（可用）
+- [x]  Github（可用）
+- [x]  华为（可用）
+- [x]  Coding.net（可用）
+- [x]  新浪微博（可用）
+- [x]  支付宝（可用）
+- [x]  OSChina（可用）
+- [ ]  QQ（待测试）
+- [ ]  抖音（待测试）
 
 ## 计划
 
@@ -308,9 +308,9 @@ public class WechatOAuth : OAuthLoginBase<WechatAccessTokenModel, WechatUserInfo
 
 ## Contribution
 
-1、欢迎参与开发，贡献其他未完成平台代码。
-2、欢迎在 issue 里提交需求平台，带上平台链接地址，我们将加入到计划之中。
-3、欢迎提交各种建议，文明交流。
+- 欢迎参与开发，贡献其他未完成平台代码。
+- 欢迎在 issue 里提交需求平台，带上平台链接地址，我们将加入到计划之中。
+- 欢迎提交各种建议，文明交流。
 
 ## License
 
