@@ -5,6 +5,34 @@
     <RootNamespace>MrHuo.OAuth</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Copyright>Apache-2.0</Copyright>
+    <PackageProjectUrl>https://github.com/mrhuo/MrHuo.OAuth</PackageProjectUrl>
+    <FileVersion>1.21.1.13</FileVersion>
+    <PackageTags>MrHuo.OAuth OAuth2 Login</PackageTags>
+    <Company>mrhuo.com</Company>
+    <Authors>霍小平</Authors>
+    <Description>The OAuth Login Component Core. https://oauthlogin.net/</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageId>MrHuo.OAuth.Core</PackageId>
+    <PackageReleaseNotes>The OAuth Login Component Core. https://oauthlogin.net/</PackageReleaseNotes>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <Version>1.0.1</Version>
+    <PackageIcon>logo.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="5.0.0" />

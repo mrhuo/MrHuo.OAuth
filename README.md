@@ -73,6 +73,71 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
+注意：如果用 `appsettings.json` 方式引入，提供了一个快捷方法从配置中加载。
+
+```csharp
+OAuthConfig.LoadFrom(Configuration, "oauth:baidu")
+```
+
+`"oauth:baidu"` 这部分是配置前缀，配置格式如下：
+
+```json
+{
+  "oauth": {
+    "qq": {
+      "app_id": "qq_app_id",
+      "app_key": "qq_app_key",
+      "redirect_uri": "https://oauthlogin.net/oauth/qqcallback",
+      "scope": "get_user_info"
+    },
+    "github": {
+      "app_id": "github_app_id",
+      "app_key": "github_app_key",
+      "redirect_uri": "https://oauthlogin.net/oauth/githubcallback",
+      "scope": "repo"
+    },
+    "wechat": {
+      "app_id": "wechat_app_id",
+      "app_key": "wechat_app_key",
+      "redirect_uri": "https://oauthlogin.net/oauth/wechatcallback",
+      "scope": "snsapi_userinfo"
+    },
+    "huawei": {
+      "app_id": "huawei_app_id",
+      "app_key": "huawei_app_key",
+      "redirect_uri": "https://oauthlogin.net/oauth/huaweicallback",
+      "scope": "https://www.huawei.com/auth/account"
+    },
+    "gitee": {
+      "app_id": "gitee_app_id",
+      "app_key": "gitee_app_key",
+      "redirect_uri": "http://oauthlogin.net/oauth/giteecallback",
+      "scope": "user_info"
+    },
+    "baidu": {
+      "app_id": "baidu_app_id",
+      "app_key": "baidu_app_key",
+      "redirect_uri": "http://oauthlogin.net/oauth/baiducallback",
+      "scope": "basic"
+    },
+    "alipay": {
+      "app_id": "alipay_app_id",
+      "app_key": "alipay_app_key",
+      "redirect_uri": "https://oauthlogin.net/oauth/alipaycallback",
+      "scope": "auth_user",
+      "private_key": "private_key",
+      "public_key": "public_key"
+    },
+    "gitlab": {
+      "app_id": "gitlab_app_id",
+      "app_key": "gitlab_app_key",
+      "redirect_uri": "http://oauthlogin.net/oauth/gitlabcallback",
+      "scope": "read_user"
+    }
+  }
+}
+```
+
 2.`OAuthController.cs` 根据实际需要自行命名
 
 ```csharp
@@ -155,8 +220,7 @@ public class OAuthController : Controller
 <!-- //其他登录方式照样子往下写 -->
 ```
 
-
-#### 扩展
+## 扩展
 
 扩展其他平台非常容易，拿 `Gitee` 平台的代码来说：[https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Gitee](https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Gitee)
 
@@ -252,6 +316,12 @@ public class WechatOAuth : OAuthLoginBase<WechatAccessTokenModel, WechatUserInfo
     }
 }
 ```
+
+## Contribution
+
+1、欢迎参与开发，贡献其他未完成平台代码。
+2、欢迎在 issue 里提交需求平台，带上平台链接地址，我们将加入到计划之中。
+3、欢迎提交各种建议，文明交流。
 
 ## License
 
