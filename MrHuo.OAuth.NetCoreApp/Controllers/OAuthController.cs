@@ -18,6 +18,7 @@ using MrHuo.OAuth.Alipay;
 using MrHuo.OAuth.QQ;
 using MrHuo.OAuth.OSChina;
 using MrHuo.OAuth.DouYin;
+using MrHuo.OAuth.WechatOpen;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -37,7 +38,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] AlipayOAuth alipayOAuth,
             [FromServices] QQOAuth qqOAuth,
             [FromServices] OSChinaOAuth oschinaOAuth,
-            [FromServices] DouYinOAuth douYinOAuth
+            [FromServices] DouYinOAuth douYinOAuth,
+            [FromServices] WechatOpenOAuth wechatOpenOAuth
         )
         {
             var redirectUrl = "";
@@ -103,6 +105,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         redirectUrl = douYinOAuth.GetAuthorizeUrl();
                         break;
                     }
+                case "wechatopen":
+                    {
+                        redirectUrl = wechatOpenOAuth.GetAuthorizeUrl();
+                        break;
+                    }
                 default:
                     return ReturnToError($"没有实现【{type}】登录方式！");
             }
@@ -124,6 +131,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] QQOAuth qqOAuth,
             [FromServices] OSChinaOAuth oschinaOAuth,
             [FromServices] DouYinOAuth douYinOAuth,
+            [FromServices] WechatOpenOAuth wechatOpenOAuth,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -263,6 +271,17 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     case "douyin":
                         {
                             var authorizeResult = await douYinOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "wechatopen":
+                        {
+                            var authorizeResult = await wechatOpenOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
                                 throw new Exception(authorizeResult.ErrorMessage);

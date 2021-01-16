@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace MrHuo.OAuth.WechatOpen
 {
     /// <summary>
     /// https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html
     /// </summary>
-    public class WechatOpenOAuth: OAuthLoginBase<WechatOpenAccessTokenModel, WechatOpenUserInfoModel>
+    public class WechatOpenOAuth : OAuthLoginBase<WechatOpenAccessTokenModel, WechatOpenUserInfoModel>
     {
         public WechatOpenOAuth(OAuthConfig oauthConfig) : base(oauthConfig) { }
 
