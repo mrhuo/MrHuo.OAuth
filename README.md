@@ -30,6 +30,7 @@
 - [ ] QQ（待测试）
 - [ ] 抖音（待测试）
 - [ ] 微信开放平台（待测试）
+- [ ] 美团（待测试）
 
 ## 计划
 
@@ -54,8 +55,7 @@
 - 饿了么
 - 京东
 - 阿里云
-- 喜马拉雅
-- 美团...
+- 喜马拉雅...
 
 ## 使用方法
 
@@ -316,6 +316,15 @@ public class WechatOAuth : OAuthLoginBase<WechatAccessTokenModel, WechatUserInfo
     }
 }
 ```
+
+## 特别贡献
+
+<hr />
+为了能让各位朋友能顺利的使用各种平台登录组件，先急求各种平台的 APPID 做测试，有这方面资源的朋友联系我。
+提供测试的朋友，可以永久出现在项目首页特别贡献列表里，可带链接。
+
+邮件：admin@mrhuo.com
+备注：OAuth Appid
 
 ## Contribution
 

@@ -22,25 +22,25 @@
 <div class="text-center mt-5">
     <h2>@(ViewData["Title"])</h2>
 
-    <div class="mt-5">
+    <div class="offset-md-2 col-md-8 mt-5">
         @{
             foreach (var item in supported)
             {
                 if(item.available)
                 {
                     <a href="/oauth/@(item.plat)" title="使用@(item.platName)账号登录" class="plat-icon ml-2 mr-2 mt-4">
-                        <img src="/logo/@(item.plat.ToLower()).png" style="max-width: 50px; max-height: 50px;" />
+                        <img src="/logo/@(item.plat.ToLower()).png" />
                     </a>
                 }
                 else
                 {
-                    <a href="/oauth/@(item.plat)" onclick="return confirm('暂未获得平台【@(item.platName)】应用Id，不保证正确相应您的请求。\n欢迎提供测试信息，感谢！联系QQ：491217650')" title="使用@(item.platName)账号登录" class="plat-icon ml-2 mr-2 mt-4">
-                        <img src="/logo/@(item.plat.ToLower()).png" style="max-width: 50px; max-height: 50px;" />
+                    <a href="/oauth/@(item.plat)" onclick="return confirm('暂未获得平台【@(item.platName)】应用Id，不保证正确相应您的请求。\n欢迎提供测试信息，感谢！联系QQ：491217650')" title="使用@(item.platName)账号登录" class="plat-icon testing ml-2 mr-2 mt-4">
+                        <img src="/logo/@(item.plat.ToLower()).png" />
                     </a>
                 }
             }
         }
     </div>
 
-    <h6 class=" mt-4">更多平台，持续开发中...</h6>
+    <h6 class=" mt-4">点击以上图标测试登录，更多平台，持续开发中...</h6>
 </div>
