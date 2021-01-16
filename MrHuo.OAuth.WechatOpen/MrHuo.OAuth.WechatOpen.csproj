@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MrHuo.OAuth.Core" Version="1.0.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <Copyright>https://oauthlogin.net/</Copyright>
+    <PackageProjectUrl>https://github.com/mrhuo/MrHuo.OAuth</PackageProjectUrl>
+    <FileVersion>1.21.1.16</FileVersion>
+    <PackageTags>MrHuo.OAuth Wechat WechatOpen Qrcode OAuth2 Login</PackageTags>
+    <Company>mrhuo.com</Company>
+    <Authors>霍小平</Authors>
+    <Description>WechatOpen (https://open.weixin.qq.com/) OAuth Login Component. https://oauthlogin.net/</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageId>MrHuo.OAuth.WechatOpen</PackageId>
+    <PackageReleaseNotes>WechatOpen (https://open.weixin.qq.com/) OAuth Login Component. https://oauthlogin.net/</PackageReleaseNotes>
+    <Version>1.0.0</Version>
+    <PackageIcon>logo.png</PackageIcon>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.WechatOpen</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

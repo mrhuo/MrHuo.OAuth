@@ -41,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.SinaWeibo", "Mr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.OSChina", "MrHuo.OAuth.OSChina\MrHuo.OAuth.OSChina.csproj", "{3763AAFC-E922-453E-B68D-39F3CFD006EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.DouYin", "MrHuo.OAuth.DouYin\MrHuo.OAuth.DouYin.csproj", "{DE55DB46-819B-4D27-9C83-B3A3E86FC778}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.DouYin", "MrHuo.OAuth.DouYin\MrHuo.OAuth.DouYin.csproj", "{DE55DB46-819B-4D27-9C83-B3A3E86FC778}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.WechatOpen", "MrHuo.OAuth.WechatOpen\MrHuo.OAuth.WechatOpen.csproj", "{94E1FC84-81DC-4ACD-90C5-AB32C5897C9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{DE55DB46-819B-4D27-9C83-B3A3E86FC778}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE55DB46-819B-4D27-9C83-B3A3E86FC778}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE55DB46-819B-4D27-9C83-B3A3E86FC778}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94E1FC84-81DC-4ACD-90C5-AB32C5897C9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E1FC84-81DC-4ACD-90C5-AB32C5897C9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E1FC84-81DC-4ACD-90C5-AB32C5897C9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E1FC84-81DC-4ACD-90C5-AB32C5897C9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +130,7 @@ Global
 		{29AC55FA-2FD3-44A1-8A2F-B3716ECB0FA1} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{3763AAFC-E922-453E-B68D-39F3CFD006EB} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{DE55DB46-819B-4D27-9C83-B3A3E86FC778} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
+		{94E1FC84-81DC-4ACD-90C5-AB32C5897C9E} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DE1505-2557-43FC-BF2C-9AAB19B51971}
