@@ -20,6 +20,7 @@ using MrHuo.OAuth.OSChina;
 using MrHuo.OAuth.DouYin;
 using MrHuo.OAuth.WechatOpen;
 using MrHuo.OAuth.MeiTuan;
+using MrHuo.OAuth.XunLei;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -41,80 +42,87 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] OSChinaOAuth oschinaOAuth,
             [FromServices] DouYinOAuth douYinOAuth,
             [FromServices] WechatOpenOAuth wechatOpenOAuth,
-            [FromServices] MeiTuanOAuth meiTuanOAuth
+            [FromServices] MeiTuanOAuth meiTuanOAuth,
+            [FromServices] XunLeiOAuth xunLeiOAuth
         )
         {
             var redirectUrl = "";
+            var state = DefaultStateManager.Instance().RequestState();
             switch (type.ToLower())
             {
                 case "baidu":
                     {
-                        redirectUrl = baiduOAuth.GetAuthorizeUrl();
+                        redirectUrl = baiduOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "wechat":
                     {
-                        redirectUrl = wechatOAuth.GetAuthorizeUrl();
+                        redirectUrl = wechatOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "gitlab":
                     {
-                        redirectUrl = gitlabOAuth.GetAuthorizeUrl();
+                        redirectUrl = gitlabOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "gitee":
                     {
-                        redirectUrl = giteeOAuth.GetAuthorizeUrl();
+                        redirectUrl = giteeOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "github":
                     {
-                        redirectUrl = githubOAuth.GetAuthorizeUrl();
+                        redirectUrl = githubOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "huawei":
                     {
-                        redirectUrl = huaweiOAuth.GetAuthorizeUrl();
+                        redirectUrl = huaweiOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "coding":
                     {
-                        redirectUrl = codingOAuth.GetAuthorizeUrl();
+                        redirectUrl = codingOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "sinaweibo":
                     {
-                        redirectUrl = sinaWeiboOAuth.GetAuthorizeUrl();
+                        redirectUrl = sinaWeiboOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "alipay":
                     {
-                        redirectUrl = alipayOAuth.GetAuthorizeUrl();
+                        redirectUrl = alipayOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "qq":
                     {
-                        redirectUrl = qqOAuth.GetAuthorizeUrl();
+                        redirectUrl = qqOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "oschina":
                     {
-                        redirectUrl = oschinaOAuth.GetAuthorizeUrl();
+                        redirectUrl = oschinaOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "douyin":
                     {
-                        redirectUrl = douYinOAuth.GetAuthorizeUrl();
+                        redirectUrl = douYinOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "wechatopen":
                     {
-                        redirectUrl = wechatOpenOAuth.GetAuthorizeUrl();
+                        redirectUrl = wechatOpenOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 case "meituan":
                     {
-                        redirectUrl = meiTuanOAuth.GetAuthorizeUrl();
+                        redirectUrl = meiTuanOAuth.GetAuthorizeUrl(state);
+                        break;
+                    }
+                case "xunlei":
+                    {
+                        redirectUrl = xunLeiOAuth.GetAuthorizeUrl(state);
                         break;
                     }
                 default:
@@ -140,6 +148,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] DouYinOAuth douYinOAuth,
             [FromServices] WechatOpenOAuth wechatOpenOAuth,
             [FromServices] MeiTuanOAuth meiTuanOAuth,
+            [FromServices] XunLeiOAuth xunLeiOAuth,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -151,6 +160,12 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 {
                     throw new Exception(error_description);
                 }
+                if (!DefaultStateManager.Instance().IsStateExists(state))
+                {
+                    throw new Exception("禁止 CORS 跨站攻击！");
+                }
+                DefaultStateManager.Instance().RemoveState(state);
+
                 HttpContext.Session.SetString("OAuthPlatform", type.ToLower());
                 switch (type.ToLower())
                 {
@@ -301,6 +316,17 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     case "meituan":
                         {
                             var authorizeResult = await meiTuanOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "xunlei":
+                        {
+                            var authorizeResult = await xunLeiOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
                                 throw new Exception(authorizeResult.ErrorMessage);

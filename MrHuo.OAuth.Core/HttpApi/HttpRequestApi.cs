@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
@@ -105,9 +106,50 @@ namespace MrHuo.OAuth
             }
         }
 
+        public static async Task<string> PostJsonBodyAsync(string api, Dictionary<string, string> form = null, Dictionary<string, string> header = null)
+        {
+            using (var httpClient = CreateHttpClient())
+            {
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
+                if (form == null)
+                {
+                    form = new Dictionary<string, string>();
+                }
+                form.RemoveEmptyValueItems();
+                DebugLog($"POST [{api}]");
+                var jsonBody = JsonSerializer.Serialize(form);
+                DebugLog($"POST Body=[{jsonBody}]");
+                if (header == null)
+                {
+                    header = new Dictionary<string, string>();
+                }
+                if (!header.ContainsKey("accept"))
+                {
+                    header.Add("accept", "application/json");
+                }
+                if (!header.ContainsKey("User-Agent"))
+                {
+                    header.Add("User-Agent", DEFAULT_USER_AGENT);
+                }
+                foreach (var headerItem in header)
+                {
+                    httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+                    DebugLog($"POST Header [{headerItem.Key}]=[{headerItem.Value}]");
+                }
+                var response = await httpClient.PostAsync(api, new StringContent(jsonBody, Encoding.UTF8, "application/json"));
+                var responseText = await response.Content.ReadAsStringAsync();
+                DebugLog($"POST [{api}], reponse=[{responseText}]");
+                return responseText;
+            }
+        }
+
         public static async Task<T> PostAsync<T>(string api, Dictionary<string, string> form = null, Dictionary<string, string> header = null)
         {
             return JsonSerializer.Deserialize<T>(await PostStringAsync(api, form, header));
+        }
+        public static async Task<T> PostJsonAsync<T>(string api, Dictionary<string, string> form = null, Dictionary<string, string> header = null)
+        {
+            return JsonSerializer.Deserialize<T>(await PostJsonBodyAsync(api, form, header));
         }
     }
 }

@@ -9,7 +9,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Copyright>Apache-2.0</Copyright>
     <PackageProjectUrl>https://github.com/mrhuo/MrHuo.OAuth</PackageProjectUrl>
-    <FileVersion>1.21.1.13</FileVersion>
+    <FileVersion>1.21.1.17</FileVersion>
     <PackageTags>MrHuo.OAuth OAuth2 Login</PackageTags>
     <Company>mrhuo.com</Company>
     <Authors>霍小平</Authors>
@@ -17,8 +17,8 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageId>MrHuo.OAuth.Core</PackageId>
     <PackageReleaseNotes>The OAuth Login Component Core. https://oauthlogin.net/</PackageReleaseNotes>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <Version>1.0.2</Version>
     <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 

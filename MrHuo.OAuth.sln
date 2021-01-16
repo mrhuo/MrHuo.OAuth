@@ -45,7 +45,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.DouYin", "MrHuo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.WechatOpen", "MrHuo.OAuth.WechatOpen\MrHuo.OAuth.WechatOpen.csproj", "{94E1FC84-81DC-4ACD-90C5-AB32C5897C9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.MeiTuan", "MrHuo.OAuth.MeiTuan\MrHuo.OAuth.MeiTuan.csproj", "{A85E2D4E-A74A-43C3-AE79-150104A48D00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.MeiTuan", "MrHuo.OAuth.MeiTuan\MrHuo.OAuth.MeiTuan.csproj", "{A85E2D4E-A74A-43C3-AE79-150104A48D00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.XunLei", "MrHuo.OAuth.XunLei\MrHuo.OAuth.XunLei.csproj", "{4E9EB37E-2C7A-4809-AAAF-0257F46864BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{A85E2D4E-A74A-43C3-AE79-150104A48D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A85E2D4E-A74A-43C3-AE79-150104A48D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A85E2D4E-A74A-43C3-AE79-150104A48D00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9EB37E-2C7A-4809-AAAF-0257F46864BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9EB37E-2C7A-4809-AAAF-0257F46864BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9EB37E-2C7A-4809-AAAF-0257F46864BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9EB37E-2C7A-4809-AAAF-0257F46864BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +144,7 @@ Global
 		{DE55DB46-819B-4D27-9C83-B3A3E86FC778} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{94E1FC84-81DC-4ACD-90C5-AB32C5897C9E} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{A85E2D4E-A74A-43C3-AE79-150104A48D00} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
+		{4E9EB37E-2C7A-4809-AAAF-0257F46864BE} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DE1505-2557-43FC-BF2C-9AAB19B51971}
