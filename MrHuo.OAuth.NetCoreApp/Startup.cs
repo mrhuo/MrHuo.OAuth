@@ -53,6 +53,7 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton(new OSChina.OSChinaOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:oschina")));
             services.AddSingleton(new DouYin.DouYinOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:douyin")));
             services.AddSingleton(new WechatOpen.WechatOpenOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:wechatopen")));
+            services.AddSingleton(new MeiTuan.MeiTuanOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:meituan")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

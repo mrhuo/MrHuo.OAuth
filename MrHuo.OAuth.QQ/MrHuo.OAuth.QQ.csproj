@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MrHuo.OAuth.Core\MrHuo.OAuth.Core.csproj" />
+    <PackageReference Include="MrHuo.OAuth.Core" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

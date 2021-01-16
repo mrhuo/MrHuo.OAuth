@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:60592",
-      "sslPort": 0
+      "applicationUrl": "http://localhost:56868/",
+      "sslPort": 44338
     }
   },
   "profiles": {
@@ -18,11 +18,10 @@
     "MrHuo.OAuth.NetCoreApp": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:53000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:53000"
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
 }

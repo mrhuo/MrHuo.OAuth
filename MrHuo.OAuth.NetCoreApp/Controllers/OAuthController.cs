@@ -19,6 +19,7 @@ using MrHuo.OAuth.QQ;
 using MrHuo.OAuth.OSChina;
 using MrHuo.OAuth.DouYin;
 using MrHuo.OAuth.WechatOpen;
+using MrHuo.OAuth.MeiTuan;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -39,7 +40,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] QQOAuth qqOAuth,
             [FromServices] OSChinaOAuth oschinaOAuth,
             [FromServices] DouYinOAuth douYinOAuth,
-            [FromServices] WechatOpenOAuth wechatOpenOAuth
+            [FromServices] WechatOpenOAuth wechatOpenOAuth,
+            [FromServices] MeiTuanOAuth meiTuanOAuth
         )
         {
             var redirectUrl = "";
@@ -110,6 +112,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                         redirectUrl = wechatOpenOAuth.GetAuthorizeUrl();
                         break;
                     }
+                case "meituan":
+                    {
+                        redirectUrl = meiTuanOAuth.GetAuthorizeUrl();
+                        break;
+                    }
                 default:
                     return ReturnToError($"没有实现【{type}】登录方式！");
             }
@@ -132,6 +139,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] OSChinaOAuth oschinaOAuth,
             [FromServices] DouYinOAuth douYinOAuth,
             [FromServices] WechatOpenOAuth wechatOpenOAuth,
+            [FromServices] MeiTuanOAuth meiTuanOAuth,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -282,6 +290,17 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     case "wechatopen":
                         {
                             var authorizeResult = await wechatOpenOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "meituan":
+                        {
+                            var authorizeResult = await meiTuanOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
                                 throw new Exception(authorizeResult.ErrorMessage);
