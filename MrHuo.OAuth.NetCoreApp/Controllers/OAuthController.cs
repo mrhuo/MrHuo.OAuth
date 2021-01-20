@@ -26,129 +26,89 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
     public class OAuthController : Controller
     {
-        [HttpGet("oauth/{type}")]
-        public IActionResult Index(
-            string type,
-            [FromServices] BaiduOAuth baiduOAuth,
-            [FromServices] WechatOAuth wechatOAuth,
-            [FromServices] GitlabOAuth gitlabOAuth,
-            [FromServices] GiteeOAuth giteeOAuth,
-            [FromServices] GithubOAuth githubOAuth,
-            [FromServices] HuaweiOAuth huaweiOAuth,
-            [FromServices] CodingOAuth codingOAuth,
-            [FromServices] SinaWeiboOAuth sinaWeiboOAuth,
-            [FromServices] AlipayOAuth alipayOAuth,
-            [FromServices] QQOAuth qqOAuth,
-            [FromServices] OSChinaOAuth oschinaOAuth,
-            [FromServices] DouYinOAuth douYinOAuth,
-            [FromServices] WechatOpenOAuth wechatOpenOAuth,
-            [FromServices] MeiTuanOAuth meiTuanOAuth,
-            [FromServices] XunLeiOAuth xunLeiOAuth
-        )
+        private readonly BaiduOAuth baiduOAuth;
+        private readonly WechatOAuth wechatOAuth;
+        private readonly GitlabOAuth gitlabOAuth;
+        private readonly GiteeOAuth giteeOAuth;
+        private readonly GithubOAuth githubOAuth;
+        private readonly HuaweiOAuth huaweiOAuth;
+        private readonly CodingOAuth codingOAuth;
+        private readonly SinaWeiboOAuth sinaWeiboOAuth;
+        private readonly AlipayOAuth alipayOAuth;
+        private readonly QQOAuth qqOAuth;
+        private readonly OSChinaOAuth oschinaOAuth;
+        private readonly DouYinOAuth douYinOAuth;
+        private readonly WechatOpenOAuth wechatOpenOAuth;
+        private readonly MeiTuanOAuth meiTuanOAuth;
+        private readonly XunLeiOAuth xunLeiOAuth;
+
+        public OAuthController(
+            [FromServices] BaiduOAuth _baiduOAuth,
+            [FromServices] WechatOAuth _wechatOAuth,
+            [FromServices] GitlabOAuth _gitlabOAuth,
+            [FromServices] GiteeOAuth _giteeOAuth,
+            [FromServices] GithubOAuth _githubOAuth,
+            [FromServices] HuaweiOAuth _huaweiOAuth,
+            [FromServices] CodingOAuth _codingOAuth,
+            [FromServices] SinaWeiboOAuth _sinaWeiboOAuth,
+            [FromServices] AlipayOAuth _alipayOAuth,
+            [FromServices] QQOAuth _qqOAuth,
+            [FromServices] OSChinaOAuth _oschinaOAuth,
+            [FromServices] DouYinOAuth _douYinOAuth,
+            [FromServices] WechatOpenOAuth _wechatOpenOAuth,
+            [FromServices] MeiTuanOAuth _meiTuanOAuth,
+            [FromServices] XunLeiOAuth _xunLeiOAuth
+            )
         {
-            var redirectUrl = "";
+            this.baiduOAuth = _baiduOAuth;
+            this.wechatOAuth = _wechatOAuth;
+            this.gitlabOAuth = _gitlabOAuth;
+            this.giteeOAuth = _giteeOAuth;
+            this.githubOAuth = _githubOAuth;
+            this.huaweiOAuth = _huaweiOAuth;
+            this.codingOAuth = _codingOAuth;
+            this.sinaWeiboOAuth = _sinaWeiboOAuth;
+            this.alipayOAuth = _alipayOAuth;
+            this.qqOAuth = _qqOAuth;
+            this.oschinaOAuth = _oschinaOAuth;
+            this.douYinOAuth = _douYinOAuth;
+            this.wechatOpenOAuth = _wechatOpenOAuth;
+            this.meiTuanOAuth = _meiTuanOAuth;
+            this.xunLeiOAuth = _xunLeiOAuth;
+        }
+
+        [HttpGet("oauth/{type}")]
+        public IActionResult Index(string type)
+        {
             var state = DefaultStateManager.Instance().RequestState();
-            switch (type.ToLower())
+            var authorizeUrls = new Dictionary<string, Func<string, string>>()
             {
-                case "baidu":
-                    {
-                        redirectUrl = baiduOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "wechat":
-                    {
-                        redirectUrl = wechatOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "gitlab":
-                    {
-                        redirectUrl = gitlabOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "gitee":
-                    {
-                        redirectUrl = giteeOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "github":
-                    {
-                        redirectUrl = githubOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "huawei":
-                    {
-                        redirectUrl = huaweiOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "coding":
-                    {
-                        redirectUrl = codingOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "sinaweibo":
-                    {
-                        redirectUrl = sinaWeiboOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "alipay":
-                    {
-                        redirectUrl = alipayOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "qq":
-                    {
-                        redirectUrl = qqOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "oschina":
-                    {
-                        redirectUrl = oschinaOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "douyin":
-                    {
-                        redirectUrl = douYinOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "wechatopen":
-                    {
-                        redirectUrl = wechatOpenOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "meituan":
-                    {
-                        redirectUrl = meiTuanOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                case "xunlei":
-                    {
-                        redirectUrl = xunLeiOAuth.GetAuthorizeUrl(state);
-                        break;
-                    }
-                default:
-                    return ReturnToError($"没有实现【{type}】登录方式！");
-            }
-            return Redirect(redirectUrl);
+                ["baidu"] = baiduOAuth.GetAuthorizeUrl,
+                ["wechat"] = wechatOAuth.GetAuthorizeUrl,
+                ["gitlab"] = gitlabOAuth.GetAuthorizeUrl,
+                ["gitee"] = giteeOAuth.GetAuthorizeUrl,
+                ["github"] = githubOAuth.GetAuthorizeUrl,
+                ["huawei"] = huaweiOAuth.GetAuthorizeUrl,
+                ["coding"] = codingOAuth.GetAuthorizeUrl,
+                ["sinaweibo"] = sinaWeiboOAuth.GetAuthorizeUrl,
+                ["alipay"] = alipayOAuth.GetAuthorizeUrl,
+                ["qq"] = qqOAuth.GetAuthorizeUrl,
+                ["oschina"] = oschinaOAuth.GetAuthorizeUrl,
+                ["douyin"] = douYinOAuth.GetAuthorizeUrl,
+                ["wechatopen"] = wechatOpenOAuth.GetAuthorizeUrl,
+                ["meituan"] = meiTuanOAuth.GetAuthorizeUrl,
+                ["xunlei"] = xunLeiOAuth.GetAuthorizeUrl,
+            };
+
+            if (!authorizeUrls.TryGetValue(type.ToLower(), out var redirectUrl))
+                return ReturnToError($"没有实现【{type}】登录方式！");
+
+            return Redirect(redirectUrl(state));
         }
 
         [HttpGet("oauth/{type}callback")]
         public async Task<IActionResult> LoginCallback(
             string type,
-            [FromServices] BaiduOAuth baiduOAuth,
-            [FromServices] WechatOAuth wechatOAuth,
-            [FromServices] GitlabOAuth gitlabOAuth,
-            [FromServices] GiteeOAuth giteeOAuth,
-            [FromServices] GithubOAuth githubOAuth,
-            [FromServices] HuaweiOAuth huaweiOAuth,
-            [FromServices] CodingOAuth codingOAuth,
-            [FromServices] SinaWeiboOAuth sinaWeiboOAuth,
-            [FromServices] AlipayOAuth alipayOAuth,
-            [FromServices] QQOAuth qqOAuth,
-            [FromServices] OSChinaOAuth oschinaOAuth,
-            [FromServices] DouYinOAuth douYinOAuth,
-            [FromServices] WechatOpenOAuth wechatOpenOAuth,
-            [FromServices] MeiTuanOAuth meiTuanOAuth,
-            [FromServices] XunLeiOAuth xunLeiOAuth,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -165,8 +125,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     throw new Exception("禁止 CORS 跨站攻击！");
                 }
                 DefaultStateManager.Instance().RemoveState(state);
-
                 HttpContext.Session.SetString("OAuthPlatform", type.ToLower());
+
                 switch (type.ToLower())
                 {
                     case "baidu":
