@@ -18,6 +18,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Other", "4.Other", "{A1FED815-21ED-431D-AF25-1EBC453AB1B7}"
 	ProjectSection(SolutionItems) = preProject
 		..\.travis.yml = ..\.travis.yml
+		..\LICENSE = ..\LICENSE
+		..\logo.png = ..\logo.png
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.QQ", "MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj", "{A620363F-91AA-4D2B-9A2B-50F02F4CF1B7}"
@@ -49,6 +52,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.XunLei", "MrHuo.OAuth.XunLei\MrHuo.OAuth.XunLei.csproj", "{4E9EB37E-2C7A-4809-AAAF-0257F46864BE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.DingTalk", "MrHuo.OAuth.DingTalk\MrHuo.OAuth.DingTalk.csproj", "{7C45429A-AD99-4B3D-AD80-4CA2A72C5106}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.DingTalkQrcode", "MrHuo.OAuth.DingTalkQrcode\MrHuo.OAuth.DingTalkQrcode.csproj", "{51001FE8-40A7-45DA-B4DD-198E79F28171}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +133,10 @@ Global
 		{7C45429A-AD99-4B3D-AD80-4CA2A72C5106}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C45429A-AD99-4B3D-AD80-4CA2A72C5106}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C45429A-AD99-4B3D-AD80-4CA2A72C5106}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51001FE8-40A7-45DA-B4DD-198E79F28171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51001FE8-40A7-45DA-B4DD-198E79F28171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51001FE8-40A7-45DA-B4DD-198E79F28171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51001FE8-40A7-45DA-B4DD-198E79F28171}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +160,7 @@ Global
 		{A85E2D4E-A74A-43C3-AE79-150104A48D00} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{4E9EB37E-2C7A-4809-AAAF-0257F46864BE} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{7C45429A-AD99-4B3D-AD80-4CA2A72C5106} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
+		{51001FE8-40A7-45DA-B4DD-198E79F28171} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DE1505-2557-43FC-BF2C-9AAB19B51971}

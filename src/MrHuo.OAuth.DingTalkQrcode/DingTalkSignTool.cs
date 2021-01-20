@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace MrHuo.OAuth.DingTalk
+namespace MrHuo.OAuth.DingTalkQrcode
 {
     /// <summary>
     /// https://ding-doc.dingtalk.com/document/app/signature-calculation-for-logon-free-scenarios-1#topic-2021698

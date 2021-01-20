@@ -20,16 +20,13 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\MrHuo.OAuth.DingTalkQrcode\MrHuo.OAuth.DingTalkQrcode.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.DingTalk\MrHuo.OAuth.DingTalk.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.MeiTuan\MrHuo.OAuth.MeiTuan.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.DouYin\MrHuo.OAuth.DouYin.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.WechatOpen\MrHuo.OAuth.WechatOpen.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.XunLei\MrHuo.OAuth.XunLei.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\logo\" />
   </ItemGroup>
 
 </Project>

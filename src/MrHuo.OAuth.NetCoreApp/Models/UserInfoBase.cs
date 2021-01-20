@@ -10,16 +10,4 @@ namespace MrHuo.OAuth.NetCoreApp
         public string Name { get; set; }
         public string Avatar { get; set; }
     }
-
-    public static class IUserInfoModelExtensions
-    {
-        public static UserInfoBase ToUserInfoBase(this IUserInfoModel userInfoModel)
-        {
-            return new UserInfoBase()
-            {
-                Name = userInfoModel.Name,
-                Avatar = userInfoModel.Avatar
-            };
-        }
-    }
 }

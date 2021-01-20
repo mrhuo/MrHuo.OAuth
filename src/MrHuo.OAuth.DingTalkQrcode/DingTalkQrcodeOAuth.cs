@@ -6,20 +6,20 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace MrHuo.OAuth.DingTalk
+namespace MrHuo.OAuth.DingTalkQrcode
 {
     /// <summary>
     /// 文档：
-    /// https://ding-doc.dingtalk.com/document/app/logon-free-third-party-websites#topic-2021767
-    /// 钉钉内部登录时：scope=snsapi_auth
+    /// https://ding-doc.dingtalk.com/document/app/scan-qr-code-to-log-on-to-third-party-websites?spm=a2q3p.21071111.0.0.554c1cfa5tx9v0
+    /// 二维码登录时：scope=snsapi_login
     /// </summary>
-    public class DingTalkOAuth : OAuthLoginBase<DingTalkUserInfoModel>
+    public class DingTalkQrcodeOAuth : OAuthLoginBase<DingTalkUserInfoModel>
     {
-        public DingTalkOAuth(OAuthConfig oauthConfig) : base(oauthConfig)
+        public DingTalkQrcodeOAuth(OAuthConfig oauthConfig) : base(oauthConfig)
         {
         }
 
-        protected override string AuthorizeUrl => "https://oapi.dingtalk.com/connect/oauth2/sns_authorize";
+        protected override string AuthorizeUrl => "https://oapi.dingtalk.com/connect/qrconnect";
 
         protected override string AccessTokenUrl => throw new NotSupportedException();
 
@@ -69,7 +69,7 @@ namespace MrHuo.OAuth.DingTalk
             var api = $"{UserInfoUrl}?{queryString}";
             var responseText = await HttpRequestApi.PostJsonBodyAsync(api, new Dictionary<string, string>
             {
-                //这里的 accessTokenModel.AccessToken 实质是回调页面 code，钉钉应用内登录不支持 access token
+                //这里的 accessTokenModel.AccessToken 实质是回调页面 code，钉钉扫码登录不支持 access token
                 ["tmp_auth_code"] = accessTokenModel.AccessToken
             });
             var userInfoApiResponse = JsonSerializer.Deserialize<DingTalkGetUserInfoApiResponse>(responseText);

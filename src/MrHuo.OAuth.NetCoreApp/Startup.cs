@@ -21,11 +21,6 @@ namespace MrHuo.OAuth.NetCoreApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            //ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-            //AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            //AppContext.SetSwitch("System.Net.Http.UseSocketsHttpHandler", false);
-
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             services.AddSession();
@@ -56,6 +51,7 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton(new MeiTuan.MeiTuanOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:meituan")));
             services.AddSingleton(new XunLei.XunLeiOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:xunlei")));
             services.AddSingleton(new DingTalk.DingTalkOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:dingtalk")));
+            services.AddSingleton(new DingTalkQrcode.DingTalkQrcodeOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:dingtalkqrcode")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
