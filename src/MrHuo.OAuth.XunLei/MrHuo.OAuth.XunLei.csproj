@@ -11,26 +11,26 @@
   <PropertyGroup>
     <Copyright>https://oauthlogin.net/</Copyright>
     <PackageProjectUrl>https://github.com/mrhuo/MrHuo.OAuth</PackageProjectUrl>
-    <FileVersion>1.21.1.13</FileVersion>
-    <PackageTags>MrHuo.OAuth Wechat OAuth2 Login</PackageTags>
+    <FileVersion>1.21.1.17</FileVersion>
+    <PackageTags>MrHuo.OAuth XunLei OAuth2 Login</PackageTags>
     <Company>mrhuo.com</Company>
     <Authors>霍小平</Authors>
-    <Description>Wechat (https://mp.weixin.qq.com/) OAuth Login Component. https://oauthlogin.net/</Description>
+    <Description>XunLei (https://xunlei.com/) OAuth Login Component. https://oauthlogin.net/</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageId>MrHuo.OAuth.Wechat</PackageId>
-    <PackageReleaseNotes>Wechat (https://mp.weixin.qq.com/) OAuth Login Component. https://oauthlogin.net/</PackageReleaseNotes>
+    <PackageId>MrHuo.OAuth.XunLei</PackageId>
+    <PackageReleaseNotes>XunLei (https://xunlei.com/) OAuth Login Component. https://oauthlogin.net/</PackageReleaseNotes>
     <Version>1.0.0</Version>
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Wechat</RepositoryUrl>
+    <RepositoryUrl>https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.XunLei</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE">
+    <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\logo.png">
+    <None Include="..\..\logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

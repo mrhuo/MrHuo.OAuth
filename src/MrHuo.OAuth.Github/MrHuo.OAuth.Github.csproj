@@ -12,25 +12,25 @@
     <Copyright>https://oauthlogin.net/</Copyright>
     <PackageProjectUrl>https://github.com/mrhuo/MrHuo.OAuth</PackageProjectUrl>
     <FileVersion>1.21.1.13</FileVersion>
-    <PackageTags>MrHuo.OAuth OSChina OAuth2 Login</PackageTags>
+    <PackageTags>MrHuo.OAuth Github OAuth2 Login</PackageTags>
     <Company>mrhuo.com</Company>
     <Authors>霍小平</Authors>
-    <Description>OSChina (https://www.oschina.net/) OAuth Login Component. https://oauthlogin.net/</Description>
+    <Description>Github (https://github.com/) OAuth Login Component. https://oauthlogin.net/</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageId>MrHuo.OAuth.OSChina</PackageId>
-    <PackageReleaseNotes>OSChina (https://www.oschina.net/) OAuth Login Component. https://oauthlogin.net/</PackageReleaseNotes>
+    <PackageId>MrHuo.OAuth.Github</PackageId>
+    <PackageReleaseNotes>Github (https://github.com/) OAuth Login Component. https://oauthlogin.net/</PackageReleaseNotes>
     <Version>1.0.0</Version>
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.OSChina</RepositoryUrl>
+    <RepositoryUrl>https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Github</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE">
+    <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\logo.png">
+    <None Include="..\..\logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
