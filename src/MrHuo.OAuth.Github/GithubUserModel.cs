@@ -5,7 +5,7 @@ namespace MrHuo.OAuth.Github
 {
     public class GithubUserModel : IUserInfoModel
     {
-        [JsonPropertyName("name")]
+        [JsonPropertyName("login")]
         public string Name { get; set; }
 
         [JsonPropertyName("avatar_url")]

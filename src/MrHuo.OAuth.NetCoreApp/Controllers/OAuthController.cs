@@ -21,6 +21,7 @@ using MrHuo.OAuth.DouYin;
 using MrHuo.OAuth.WechatOpen;
 using MrHuo.OAuth.MeiTuan;
 using MrHuo.OAuth.XunLei;
+using MrHuo.OAuth.DingTalk;
 
 namespace MrHuo.OAuth.NetCoreApp.Controllers
 {
@@ -41,6 +42,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
         private readonly WechatOpenOAuth wechatOpenOAuth;
         private readonly MeiTuanOAuth meiTuanOAuth;
         private readonly XunLeiOAuth xunLeiOAuth;
+        private readonly DingTalkOAuth dingTalkOAuth;
 
         public OAuthController(
             [FromServices] BaiduOAuth _baiduOAuth,
@@ -57,7 +59,8 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             [FromServices] DouYinOAuth _douYinOAuth,
             [FromServices] WechatOpenOAuth _wechatOpenOAuth,
             [FromServices] MeiTuanOAuth _meiTuanOAuth,
-            [FromServices] XunLeiOAuth _xunLeiOAuth
+            [FromServices] XunLeiOAuth _xunLeiOAuth,
+            [FromServices] DingTalkOAuth _dingTalkOAuth
             )
         {
             this.baiduOAuth = _baiduOAuth;
@@ -75,6 +78,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
             this.wechatOpenOAuth = _wechatOpenOAuth;
             this.meiTuanOAuth = _meiTuanOAuth;
             this.xunLeiOAuth = _xunLeiOAuth;
+            this.dingTalkOAuth = _dingTalkOAuth;
         }
 
         [HttpGet("oauth/{type}")]
@@ -98,6 +102,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 ["wechatopen"] = wechatOpenOAuth.GetAuthorizeUrl,
                 ["meituan"] = meiTuanOAuth.GetAuthorizeUrl,
                 ["xunlei"] = xunLeiOAuth.GetAuthorizeUrl,
+                ["dingtalk"] = dingTalkOAuth.GetAuthorizeUrl,
             };
 
             if (!authorizeUrls.TryGetValue(type.ToLower(), out var redirectUrl))
@@ -287,6 +292,17 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                     case "xunlei":
                         {
                             var authorizeResult = await xunLeiOAuth.AuthorizeCallback(code, state);
+                            if (!authorizeResult.IsSccess)
+                            {
+                                throw new Exception(authorizeResult.ErrorMessage);
+                            }
+                            HttpContext.Session.Set("OAuthUser", authorizeResult.UserInfo.ToUserInfoBase());
+                            HttpContext.Session.Set("OAuthUserDetail", authorizeResult.UserInfo, true);
+                            break;
+                        }
+                    case "dingtalk":
+                        {
+                            var authorizeResult = await dingTalkOAuth.AuthorizeCallback(code, state);
                             if (!authorizeResult.IsSccess)
                             {
                                 throw new Exception(authorizeResult.ErrorMessage);

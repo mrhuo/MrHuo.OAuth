@@ -22,7 +22,7 @@
     <Version>1.0.0</Version>
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/mrhuo/MrHuo.OAuth/tree/main/MrHuo.OAuth.Gitlab</RepositoryUrl>
+    <RepositoryUrl>https://github.com/mrhuo/MrHuo.OAuth/tree/main/src/MrHuo.OAuth.Gitlab</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -55,6 +55,7 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton(new WechatOpen.WechatOpenOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:wechatopen")));
             services.AddSingleton(new MeiTuan.MeiTuanOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:meituan")));
             services.AddSingleton(new XunLei.XunLeiOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:xunlei")));
+            services.AddSingleton(new DingTalk.DingTalkOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:dingtalk")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

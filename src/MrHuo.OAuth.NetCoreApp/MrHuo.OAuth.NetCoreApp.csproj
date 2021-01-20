@@ -20,6 +20,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\MrHuo.OAuth.DingTalk\MrHuo.OAuth.DingTalk.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.MeiTuan\MrHuo.OAuth.MeiTuan.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.QQ\MrHuo.OAuth.QQ.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.DouYin\MrHuo.OAuth.DouYin.csproj" />
