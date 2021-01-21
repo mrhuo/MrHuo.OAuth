@@ -129,7 +129,7 @@ Install-Package MrHuo.OAuth.QQ -Version 1.0.0
 
 #### microsoft.com
 ```
-Install-Package MrHuo.OAuth.Microsoft -Version 1.0.0
+Install-Package MrHuo.OAuth.Microsoft -Version 1.0.1
 ```
 
 
