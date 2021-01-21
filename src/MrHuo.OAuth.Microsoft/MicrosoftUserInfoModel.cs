@@ -23,7 +23,7 @@ namespace MrHuo.OAuth.Microsoft
         public string Avatar { get; set; } = "";
         public string ErrorMessage { get; set; }
 
-        [JsonPropertyName("userPrincipalName")]
+        [JsonPropertyName("error")]
         public MicrosoftApiErrorResponse Error { get; set; }
     }
 
