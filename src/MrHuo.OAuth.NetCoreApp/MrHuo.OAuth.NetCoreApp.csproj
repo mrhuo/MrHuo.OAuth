@@ -26,6 +26,7 @@
     <ProjectReference Include="..\MrHuo.OAuth.DingTalk\MrHuo.OAuth.DingTalk.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.MeiTuan\MrHuo.OAuth.MeiTuan.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.DouYin\MrHuo.OAuth.DouYin.csproj" />
+    <ProjectReference Include="..\MrHuo.OAuth.Microsoft\MrHuo.OAuth.Microsoft.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.WechatOpen\MrHuo.OAuth.WechatOpen.csproj" />
   </ItemGroup>
 

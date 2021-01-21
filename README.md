@@ -30,7 +30,8 @@
 - [x] 迅雷（可用）
 - [x] 钉钉内登录（可用）
 - [x] 钉钉扫码登录（可用）
-- [x] QQ（可用，暂无可用 appid）
+- [x] QQ（可用）
+- [x] 微软（可用）
 - [ ] 抖音（待测试）
 - [ ] 微信开放平台（待测试）
 - [ ] 美团（待测试）
@@ -46,7 +47,6 @@
 - 领英
 - 谷歌
 - Facebook
-- 微软
 - Teambition
 - Pinterest
 - Twitter
@@ -125,6 +125,11 @@ Install-Package MrHuo.OAuth.XunLei -Version 1.0.0
 #### qq.com
 ```
 Install-Package MrHuo.OAuth.QQ -Version 1.0.0
+```
+
+#### microsoft.com
+```
+Install-Package MrHuo.OAuth.Microsoft -Version 1.0.0
 ```
 
 

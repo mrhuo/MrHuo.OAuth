@@ -31,6 +31,7 @@ namespace MrHuo.OAuth.NetCoreApp
                     ("XunLei", "迅雷", typeof(XunLei.XunLeiOAuth), true),
                     ("DingTalk", "钉钉", typeof(DingTalk.DingTalkOAuth), true),
                     ("DingTalkQrcode", "钉钉扫码登录", typeof(DingTalkQrcode.DingTalkQrcodeOAuth), true),
+                    ("Microsoft", "Microsoft", typeof(Microsoft.MicrosoftOAuth), true),
                 };
             }
         }
