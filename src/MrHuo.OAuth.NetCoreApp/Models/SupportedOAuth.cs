@@ -23,7 +23,7 @@ namespace MrHuo.OAuth.NetCoreApp
                     ("Coding", "Coding", typeof(Coding.CodingOAuth), true),
                     ("SinaWeibo", "新浪微博", typeof(SinaWeibo.SinaWeiboOAuth), true),
                     ("Alipay", "支付宝", typeof(Alipay.AlipayOAuth), true),
-                    ("QQ", "QQ", typeof(QQ.QQOAuth), false),
+                    ("QQ", "QQ", typeof(QQ.QQOAuth), true),
                     ("OSChina", "OSChina", typeof(OSChina.OSChinaOAuth), true),
                     ("DouYin", "抖音", typeof(DouYin.DouYinOAuth), false),
                     ("WechatOpen", "微信开放平台", typeof(WechatOpen.WechatOpenOAuth), false),

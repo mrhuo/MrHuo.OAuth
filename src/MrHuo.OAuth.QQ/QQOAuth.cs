@@ -23,7 +23,8 @@ namespace MrHuo.OAuth.QQ
 
         /// <summary>
         /// 如果成功返回，即可在返回包中获取到 Access Token。
-        /// 返回如下字符串：access_token=FE04************************CCE2&expires_in=7776000 。
+        /// 返回如下字符串：
+        /// access_token=B7CA0B6C837C61193A6D64060FE6AB91&expires_in=7776000&refresh_token=BE0D2833834096BEFB7BE85A97CBC453
         /// </summary>
         /// <param name="authorizeCallbackParams"></param>
         /// <returns></returns>
@@ -40,8 +41,9 @@ namespace MrHuo.OAuth.QQ
             var arr = accessTokenModelReponseText.Split('&');
             return new DefaultAccessTokenModel()
             {
-                AccessToken = arr[0],
-                ExpiresIn = int.Parse(arr[1])
+                AccessToken = arr[0].Split('=')[1],
+                ExpiresIn = int.Parse(arr[1].Split('=')[1]),
+                RefreshToken = arr[2].Split('=')[1]
             };
         }
 
@@ -76,7 +78,9 @@ namespace MrHuo.OAuth.QQ
         {
             if (response.Contains("callback"))
             {
-                return response.Substring("callback(".Length, response.Length - 2);
+                var braceStartAt = response.IndexOf("{");
+                var braceEndAt = response.IndexOf("}") + 1;
+                return response.Substring(braceStartAt, braceEndAt - braceStartAt);
             }
             return response;
         }

@@ -30,7 +30,7 @@
 - [x] 迅雷（可用）
 - [x] 钉钉内登录（可用）
 - [x] 钉钉扫码登录（可用）
-- [ ] QQ（待测试）
+- [x] QQ（可用，暂无可用 appid）
 - [ ] 抖音（待测试）
 - [ ] 微信开放平台（待测试）
 - [ ] 美团（待测试）
@@ -60,6 +60,73 @@
 - 喜马拉雅...
 
 ## 使用方法
+
+> 新建项目web项目，安装 `nuget` 包即可使用。
+
+现可用的 `nuget` 包列表如下：
+
+[https://www.nuget.org/packages?q=MrHuo.OAuth](https://www.nuget.org/packages?q=MrHuo.OAuth)
+
+#### Gitlab
+```
+Install-Package MrHuo.OAuth.Gitlab -Version 1.0.0
+```
+
+#### 微信公众号
+```
+Install-Package MrHuo.OAuth.Wechat -Version 1.0.0
+```
+
+#### oschina.net
+```
+Install-Package MrHuo.OAuth.OSChina -Version 1.0.0
+```
+
+#### coding.net
+```
+Install-Package MrHuo.OAuth.Coding -Version 1.0.0
+```
+
+#### github.com
+```
+Install-Package MrHuo.OAuth.Github -Version 1.0.1
+```
+
+#### alipay.com
+```
+Install-Package MrHuo.OAuth.Alipay -Version 1.0.0
+```
+
+#### baidu.com
+```
+Install-Package MrHuo.OAuth.Baidu -Version 1.0.0
+```
+
+#### huawei.com
+```
+Install-Package MrHuo.OAuth.Huawei -Version 1.0.0
+```
+
+#### gitee.com
+```
+Install-Package MrHuo.OAuth.Gitee -Version 1.0.0
+```
+
+#### weibo.com
+```
+Install-Package MrHuo.OAuth.SinaWeibo -Version 1.0.0
+```
+
+#### xunlei.com
+```
+Install-Package MrHuo.OAuth.XunLei -Version 1.0.0
+```
+
+#### qq.com
+```
+Install-Package MrHuo.OAuth.QQ -Version 1.0.0
+```
+
 
 1.`Startup.cs`
 
@@ -321,6 +388,8 @@ public class WechatOAuth : OAuthLoginBase<WechatAccessTokenModel, WechatUserInfo
 
 ## 特别贡献
 
+1. Carl
+
 <hr />
 为了能让各位朋友能顺利的使用各种平台登录组件，先急求各种平台的 APPID 做测试，有这方面资源的朋友联系我。
 提供测试的朋友，可以永久出现在项目首页特别贡献列表里，可带链接。
@@ -330,9 +399,9 @@ public class WechatOAuth : OAuthLoginBase<WechatAccessTokenModel, WechatUserInfo
 
 ## Contribution
 
-1、欢迎参与开发，贡献其他未完成平台代码。
-2、欢迎在 issue 里提交需求平台，带上平台链接地址，我们将加入到计划之中。
-3、欢迎提交各种建议，文明交流。
+1.欢迎参与开发，贡献其他未完成平台代码。
+2.欢迎在 issue 里提交需求平台，带上平台链接地址，我们将加入到计划之中。
+3.欢迎提交各种建议，文明交流。
 
 ## License
 
