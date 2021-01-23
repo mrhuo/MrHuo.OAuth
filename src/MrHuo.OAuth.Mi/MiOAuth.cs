@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace MrHuo.OAuth.Mi
 {
+    /// <summary>
+    /// https://dev.mi.com/docs/passport/oauth2/
+    /// https://dev.mi.com/docs/passport/authorization-code/
+    /// https://dev.mi.com/docs/passport/open-api/
+    /// </summary>
     public class MiOAuth : OAuthLoginBase<MiUserInfoModel>
     {
         public MiOAuth(OAuthConfig oauthConfig) : base(oauthConfig)
