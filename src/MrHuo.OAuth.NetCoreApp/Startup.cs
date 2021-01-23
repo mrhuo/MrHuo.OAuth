@@ -53,6 +53,7 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton(new DingTalk.DingTalkOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:dingtalk")));
             services.AddSingleton(new DingTalkQrcode.DingTalkQrcodeOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:dingtalkqrcode")));
             services.AddSingleton(new Microsoft.MicrosoftOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:microsoft")));
+            services.AddSingleton(new Mi.MiOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:mi")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

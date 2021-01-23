@@ -32,6 +32,7 @@
 - [x] 钉钉扫码登录（可用）
 - [x] QQ（可用）
 - [x] 微软（可用）
+- [x] 小米（可用）
 - [ ] 抖音（待测试）
 - [ ] 微信开放平台（待测试）
 - [ ] 美团（待测试）
@@ -41,7 +42,6 @@
 - 飞书
 - 淘宝
 - 西瓜
-- 小米
 - 今日头条
 - 人人网
 - 领英
@@ -130,6 +130,11 @@ Install-Package MrHuo.OAuth.QQ -Version 1.0.0
 #### microsoft.com
 ```
 Install-Package MrHuo.OAuth.Microsoft -Version 1.0.1
+```
+
+#### mi.com
+```
+Install-Package MrHuo.OAuth.Mi -Version 1.0.0
 ```
 
 
