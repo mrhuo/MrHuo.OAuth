@@ -25,7 +25,8 @@ namespace MrHuo.OAuth.Facebook
                 new Dictionary<string, string>()
                 {
                     ["access_token"] = accessTokenModel.AccessToken,
-                    ["fields"] = accessTokenModel.Scope
+
+                    ["fields"] = string.IsNullOrEmpty(accessTokenModel.Scope) ? "id,email,picture" : accessTokenModel.Scope
                 }
             );
             if (userInfoModel.HasError())
