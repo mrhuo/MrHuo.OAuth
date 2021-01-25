@@ -9,23 +9,20 @@ namespace MrHuo.OAuth.Facebook
     /// <para>https://developers.facebook.com/docs/apis-and-sdks</para>
     /// <para></para>
     /// </summary>
-    public class FacebookOAuth : OAuthLoginBase<FacebookUserModel>
+    public class FacebookOAuth : OAuthLoginBase<FacebookUserInfoModel>
     {
         public FacebookOAuth(OAuthConfig oauthConfig) : base(oauthConfig) { }
         protected override string AuthorizeUrl => "https://www.facebook.com/v9.0/dialog/oauth";
         protected override string AccessTokenUrl => "https://graph.facebook.com/v9.0/oauth/access_token";
         protected override string UserInfoUrl => "https://graph.facebook.com/me";
 
-
-        public override async Task<FacebookUserModel> GetUserInfoAsync(DefaultAccessTokenModel accessTokenModel)
+        public override async Task<FacebookUserInfoModel> GetUserInfoAsync(DefaultAccessTokenModel accessTokenModel)
         {
-
-            var userInfoModel = await HttpRequestApi.GetAsync<FacebookUserModel>(
+            var userInfoModel = await HttpRequestApi.GetAsync<FacebookUserInfoModel>(
                 UserInfoUrl,
                 new Dictionary<string, string>()
                 {
                     ["access_token"] = accessTokenModel.AccessToken,
-
                     ["fields"] = string.IsNullOrEmpty(accessTokenModel.Scope) ? "id,email,picture" : accessTokenModel.Scope
                 }
             );

@@ -18,13 +18,13 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 return ReturnToError($"没有实现【{type}】登录方式！");
             }
             dynamic oauthProvider = HttpContext.RequestServices.GetService(oauth.type);
-            var state = DefaultStateManager.Instance().RequestState();
-            return Redirect(oauthProvider.GetAuthorizeUrl(state));
+            //var state = DefaultStateManager.Instance().RequestState();
+            return Redirect(oauthProvider.GetAuthorizeUrl());
         }
 
         [HttpGet("oauth/{type}callback")]
         public async Task<IActionResult> LoginCallback(
-            string type,
+            [FromQuery] string type,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -36,11 +36,11 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 {
                     throw new Exception(error_description);
                 }
-                if (!DefaultStateManager.Instance().IsStateExists(state))
-                {
-                    throw new Exception("禁止 CORS 跨站攻击！");
-                }
-                DefaultStateManager.Instance().RemoveState(state);
+                //if (!DefaultStateManager.Instance().IsStateExists(state))
+                //{
+                //    throw new Exception("禁止 CORS 跨站攻击！");
+                //}
+                //DefaultStateManager.Instance().RemoveState(state);
                 HttpContext.Session.SetString("OAuthPlatform", type.ToLower());
 
                 var oauth = SupportedOAuth.List.SingleOrDefault(p => p.platform.Equals(type, StringComparison.CurrentCultureIgnoreCase));
@@ -67,6 +67,26 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
                 Console.WriteLine(ex.ToString());
                 return ReturnToError(ex.Message);
             }
+        }
+
+        [HttpGet("oauth/{type}/user")]
+        public async Task<IActionResult> GetUserInfo(
+             [FromRoute] string type,
+             [FromQuery] string token)
+        {
+            Console.WriteLine($"GetUserInfo [{HttpContext.Request.Path}{HttpContext.Request.QueryString.ToString()}]");
+
+            var oauth = SupportedOAuth.List.SingleOrDefault(p => p.platform.Equals(type, StringComparison.CurrentCultureIgnoreCase));
+            if (oauth.type == null)
+            {
+                throw new Exception($"没有实现【{type}】登录！");
+            }
+            dynamic oauthProvider = HttpContext.RequestServices.GetService(oauth.type);
+            var userInfo = await oauthProvider.GetUserInfoAsync(new DefaultAccessTokenModel()
+            {
+                AccessToken = token
+            });
+            return Json(userInfo);
         }
 
         public IActionResult Result()

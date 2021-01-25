@@ -6,11 +6,6 @@
     public interface IAccessTokenErrorModel
     {
         /// <summary>
-        /// 错误代码
-        /// </summary>
-        string Error { get; set; }
-
-        /// <summary>
         /// 错误的详细描述
         /// </summary>
         string ErrorDescription { get; set; }

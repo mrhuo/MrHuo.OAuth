@@ -1,6 +1,6 @@
 ﻿namespace MrHuo.OAuth
 {
-    public interface IApiErrorModel
+    public interface IUserInfoErrorModel
     {
         /// <summary>
         /// 错误的详细描述

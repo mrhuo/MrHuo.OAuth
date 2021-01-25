@@ -54,6 +54,10 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton(new DingTalkQrcode.DingTalkQrcodeOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:dingtalkqrcode")));
             services.AddSingleton(new Microsoft.MicrosoftOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:microsoft")));
             services.AddSingleton(new Mi.MiOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:mi")));
+            services.AddSingleton(new StackOverflow.StackOverflowOAuth(
+                OAuthConfig.LoadFrom(Configuration, "oauth:statckoverflow"),
+                Configuration["oauth:statckoverflow:api_key"])
+            );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

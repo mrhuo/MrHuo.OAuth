@@ -1,33 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace MrHuo.OAuth
 {
+    /// <summary>
+    /// HttpClient 实现的 API 请求工具类
+    /// </summary>
     public class HttpRequestApi
     {
-        public const string DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66";
+        /// <summary>
+        /// 默认用户代理字符串
+        /// </summary>
+        public static string DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66";
+        /// <summary>
+        /// 日志开关
+        /// </summary>
+        public static bool EnableDebugLog = false;
+        /// <summary>
+        /// 默认 HttpClientHandler
+        /// </summary>
+        public static HttpClientHandler DefaultHttpClientHandler = new HttpClientHandler
+        {
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+            ClientCertificateOptions = ClientCertificateOption.Automatic,
+            ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true
+        };
+
+        /// <summary>
+        /// 内部记录日志
+        /// </summary>
+        /// <param name="msg"></param>
         private static void DebugLog(string msg)
         {
-            Console.WriteLine(msg);
+            if (EnableDebugLog)
+            {
+                Console.WriteLine(msg);
+            }
         }
 
+        /// <summary>
+        /// 创建 HttpClient
+        /// </summary>
+        /// <returns></returns>
         public static HttpClient CreateHttpClient()
         {
-            var handler = new HttpClientHandler
-            {
-                AllowAutoRedirect = true,
-                ClientCertificateOptions = ClientCertificateOption.Automatic,
-                ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true
-            };
-            return new HttpClient(handler);
+            return new HttpClient(DefaultHttpClientHandler);
         }
 
+        /// <summary>
+        /// 异步 GET 请求API，返回字符串
+        /// </summary>
+        /// <param name="api"></param>
+        /// <param name="query"></param>
+        /// <param name="header"></param>
+        /// <returns></returns>
         public static async Task<string> GetStringAsync(string api, Dictionary<string, string> query = null, Dictionary<string, string> header = null)
         {
             using (var httpClient = CreateHttpClient())
@@ -37,6 +68,7 @@ namespace MrHuo.OAuth
                     query = new Dictionary<string, string>();
                 }
                 query.RemoveEmptyValueItems();
+                api = $"{api}{(api.Contains("?") ? "&" : "?")}{query.ToQueryString()}";
                 DebugLog($"GET [{api}]");
                 if (header == null)
                 {
@@ -55,7 +87,6 @@ namespace MrHuo.OAuth
                     httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                     DebugLog($"GET Header [{headerItem.Key}]=[{headerItem.Value}]");
                 }
-                api = $"{api}{(api.Contains("?") ? "&" : "?")}{query.ToQueryString()}";
                 var response = await httpClient.GetAsync(api);
                 var responseText = await response.Content.ReadAsStringAsync();
                 DebugLog($"GET [{api}], reponse=[{responseText}]");
@@ -63,11 +94,26 @@ namespace MrHuo.OAuth
             }
         }
 
+        /// <summary>
+        /// 异步 GET 请求API，返回反序列化后的类
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="api"></param>
+        /// <param name="query"></param>
+        /// <param name="header"></param>
+        /// <returns></returns>
         public static async Task<T> GetAsync<T>(string api, Dictionary<string, string> query = null, Dictionary<string, string> header = null)
         {
             return JsonSerializer.Deserialize<T>(await GetStringAsync(api, query, header));
         }
 
+        /// <summary>
+        /// 异步 POST 请求API，返回字符串
+        /// </summary>
+        /// <param name="api"></param>
+        /// <param name="form"></param>
+        /// <param name="header"></param>
+        /// <returns></returns>
         public static async Task<string> PostStringAsync(string api, Dictionary<string, string> form = null, Dictionary<string, string> header = null)
         {
             using (var httpClient = CreateHttpClient())
@@ -106,6 +152,13 @@ namespace MrHuo.OAuth
             }
         }
 
+        /// <summary>
+        /// 异步 POST 请求API，并将 form 字段序列化为 json，放在请求体内。返回字符串
+        /// </summary>
+        /// <param name="api"></param>
+        /// <param name="form"></param>
+        /// <param name="header"></param>
+        /// <returns></returns>
         public static async Task<string> PostJsonBodyAsync(string api, Dictionary<string, string> form = null, Dictionary<string, string> header = null)
         {
             using (var httpClient = CreateHttpClient())
@@ -147,6 +200,7 @@ namespace MrHuo.OAuth
         {
             return JsonSerializer.Deserialize<T>(await PostStringAsync(api, form, header));
         }
+
         public static async Task<T> PostJsonAsync<T>(string api, Dictionary<string, string> form = null, Dictionary<string, string> header = null)
         {
             return JsonSerializer.Deserialize<T>(await PostJsonBodyAsync(api, form, header));

@@ -5,11 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MrHuo.OAuth.Core\MrHuo.OAuth.Core.csproj" />
+    <PackageReference Include="MrHuo.OAuth.Core" Version="1.1.0" />
   </ItemGroup>
 
 </Project>

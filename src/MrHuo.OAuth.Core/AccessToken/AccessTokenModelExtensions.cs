@@ -12,11 +12,10 @@
         /// <returns></returns>
         public static bool HasError(this IAccessTokenModel accessTokenModel)
         {
-            return string.IsNullOrEmpty(accessTokenModel.AccessToken) || 
-                   (    
-                        !string.IsNullOrEmpty(accessTokenModel.Error) &&
-                        !string.IsNullOrEmpty(accessTokenModel.ErrorDescription)
-                   );
+            return
+                accessTokenModel == null ||
+                string.IsNullOrEmpty(accessTokenModel.AccessToken) ||
+                !string.IsNullOrEmpty(accessTokenModel.ErrorDescription);
         }
     }
 }

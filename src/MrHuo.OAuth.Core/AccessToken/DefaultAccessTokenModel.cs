@@ -38,12 +38,6 @@ namespace MrHuo.OAuth
         public virtual dynamic ExpiresIn { get; set; }
 
         /// <summary>
-        /// 错误代码
-        /// </summary>
-        [JsonPropertyName("error")]
-        public virtual string Error { get; set; }
-
-        /// <summary>
         /// 错误的详细描述
         /// </summary>
         [JsonPropertyName("error_description")]

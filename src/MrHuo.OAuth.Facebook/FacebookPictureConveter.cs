@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using static MrHuo.OAuth.Facebook.FacebookUserModel;
+using static MrHuo.OAuth.Facebook.FacebookUserInfoModel;
 
 namespace MrHuo.OAuth.Facebook
 {

@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MrHuo.OAuth
 {
     /// <summary>
     /// 抽象的 OAuth 基类，使用默认的 DefaultAccessTokenModel 作为 AccessToken 模型
-    /// <para>如果需要其他字段，请自行继承 OAuthLoginBase&lt;TAccessTokenModel, TUserInfoModel&gt;</para>
+    /// <para>如果需要其他属性，请自行继承 OAuthLoginBase&lt;TAccessTokenModel, TUserInfoModel&gt;</para>
     /// </summary>
     /// <typeparam name="TUserInfoModel"></typeparam>
     public abstract class OAuthLoginBase<TUserInfoModel> : OAuthLoginBase<DefaultAccessTokenModel, TUserInfoModel>
         where TUserInfoModel : IUserInfoModel
     {
-        public OAuthLoginBase(OAuthConfig oauthConfig) : base(oauthConfig)
-        {
-        }
+        public OAuthLoginBase(OAuthConfig oauthConfig) : base(oauthConfig) { }
     }
 
     /// <summary>
     /// 抽象的 OAuth 基类
     /// </summary>
     /// <typeparam name="TUserInfoModel"></typeparam>
-    public abstract class OAuthLoginBase<TAccessTokenModel, TUserInfoModel> : IOAuthLoginApi<TAccessTokenModel, TUserInfoModel>
-        where TAccessTokenModel : IAccessTokenModel
+    public abstract class OAuthLoginBase<TAccessTokenModel, TUserInfoModel>
+        where TAccessTokenModel : class, IAccessTokenModel, new()
         where TUserInfoModel : IUserInfoModel
     {
         protected readonly OAuthConfig oauthConfig;
@@ -77,8 +76,7 @@ namespace MrHuo.OAuth
                 ["code"] = $"{authorizeCallbackParams["code"]}",
                 ["client_id"] = $"{oauthConfig.AppId}",
                 ["client_secret"] = $"{oauthConfig.AppKey}",
-                ["redirect_uri"] = $"{oauthConfig.RedirectUri}",
-                //["state"] = $"{authorizeCallbackParams["state"]}"
+                ["redirect_uri"] = $"{oauthConfig.RedirectUri}"
             };
         }
 
@@ -111,6 +109,18 @@ namespace MrHuo.OAuth
         }
 
         /// <summary>
+        /// 验证 AccessToken 模型是否具有正确的值
+        /// </summary>
+        /// <param name="accessTokenModel"></param>
+        protected virtual void VerifyAccessTokenModel(TAccessTokenModel accessTokenModel)
+        {
+            if (accessTokenModel.HasError())
+            {
+                throw new Exception(accessTokenModel.ErrorDescription);
+            }
+        }
+
+        /// <summary>
         /// 获取 AccessToken
         /// </summary>
         /// <param name="authorizeCallbackParams">Callback 页面的请求参数</param>
@@ -121,28 +131,71 @@ namespace MrHuo.OAuth
                 AccessTokenUrl,
                 BuildGetAccessTokenParams(authorizeCallbackParams)
             );
-            if (accessTokenModel.HasError())
-            {
-                throw new Exception(accessTokenModel.ErrorDescription);
-            }
+            VerifyAccessTokenModel(accessTokenModel);
             return accessTokenModel;
         }
 
         /// <summary>
-        /// 获取用户信息
+        /// 验证用户信息模型是否具有正确的值
+        /// </summary>
+        /// <param name="userInfoModel"></param>
+        protected virtual void VerifyUserInfoModel(TUserInfoModel userInfoModel)
+        {
+            if (userInfoModel.HasError())
+            {
+                throw new Exception(userInfoModel.ErrorMessage);
+            }
+        }
+
+        /// <summary>
+        /// 异步 POST 方法获取用户信息
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public virtual Task<TUserInfoModel> PostUserInfoAsync(string accessToken)
+        {
+            return PostUserInfoAsync(new TAccessTokenModel() { AccessToken = accessToken });
+        }
+
+        /// <summary>
+        /// 异步 GET 方法获取用户信息
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public virtual Task<TUserInfoModel> GetUserInfoAsync(string accessToken)
+        {
+            return GetUserInfoAsync(new TAccessTokenModel() { AccessToken = accessToken });
+        }
+
+        /// <summary>
+        /// 异步 POST 方法获取用户信息
+        /// </summary>
+        /// <param name="accessTokenModel"></param>
+        /// <returns></returns>
+        public virtual async Task<TUserInfoModel> PostUserInfoAsync(TAccessTokenModel accessTokenModel)
+        {
+            var userInfoJson = await HttpRequestApi.PostStringAsync(
+                UserInfoUrl,
+                BuildGetUserInfoParams(accessTokenModel)
+            );
+            var userInfoModel = JsonSerializer.Deserialize<TUserInfoModel>(userInfoJson);
+            VerifyUserInfoModel(userInfoModel);
+            return userInfoModel;
+        }
+
+        /// <summary>
+        /// 异步 GET 方法获取用户信息
         /// </summary>
         /// <param name="accessTokenModel"></param>
         /// <returns></returns>
         public virtual async Task<TUserInfoModel> GetUserInfoAsync(TAccessTokenModel accessTokenModel)
         {
-            var userInfoModel = await HttpRequestApi.GetAsync<TUserInfoModel>(
+            var userInfoJson = await HttpRequestApi.GetStringAsync(
                 UserInfoUrl,
                 BuildGetUserInfoParams(accessTokenModel)
             );
-            if (userInfoModel.HasError())
-            {
-                throw new Exception(userInfoModel.ErrorMessage);
-            }
+            var userInfoModel = JsonSerializer.Deserialize<TUserInfoModel>(userInfoJson);
+            VerifyUserInfoModel(userInfoModel);
             return userInfoModel;
         }
 
@@ -188,10 +241,19 @@ namespace MrHuo.OAuth
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
                 return AuthorizeResult<TAccessTokenModel, TUserInfoModel>.Error(ex);
             }
         }
         #endregion
+
+        /// <summary>
+        /// 撤销授权方法，默认抛出 NotImplementedException 异常
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        /// <returns></returns>
+        public virtual Task RevokeAuthorize() 
+        {
+            throw new NotImplementedException();
+        }
     }
 }
