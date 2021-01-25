@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MrHuo.OAuth.Facebook
 {
     /// <summary>
-    /// Github OAuth 相关文档参考：
+    /// Facebook OAuth 相关文档参考：
     /// <para>https://developers.facebook.com/docs/apis-and-sdks</para>
     /// <para></para>
     /// </summary>
