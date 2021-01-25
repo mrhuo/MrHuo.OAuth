@@ -69,72 +69,77 @@
 
 #### Gitlab
 ```
-Install-Package MrHuo.OAuth.Gitlab -Version 1.0.0
+Install-Package MrHuo.OAuth.Gitlab -Version 1.1.1
 ```
 
 #### 微信公众号
 ```
-Install-Package MrHuo.OAuth.Wechat -Version 1.0.0
+Install-Package MrHuo.OAuth.Wechat -Version 1.1.1
 ```
 
 #### oschina.net
 ```
-Install-Package MrHuo.OAuth.OSChina -Version 1.0.0
+Install-Package MrHuo.OAuth.OSChina -Version 1.1.1
 ```
 
 #### coding.net
 ```
-Install-Package MrHuo.OAuth.Coding -Version 1.0.0
+Install-Package MrHuo.OAuth.Coding -Version 1.1.1
 ```
 
 #### github.com
 ```
-Install-Package MrHuo.OAuth.Github -Version 1.0.1
+Install-Package MrHuo.OAuth.Github -Version 1.1.1
 ```
 
 #### alipay.com
 ```
-Install-Package MrHuo.OAuth.Alipay -Version 1.0.0
+Install-Package MrHuo.OAuth.Alipay -Version 1.1.1
 ```
 
 #### baidu.com
 ```
-Install-Package MrHuo.OAuth.Baidu -Version 1.0.0
+Install-Package MrHuo.OAuth.Baidu -Version 1.1.1
 ```
 
 #### huawei.com
 ```
-Install-Package MrHuo.OAuth.Huawei -Version 1.0.0
+Install-Package MrHuo.OAuth.Huawei -Version 1.1.1
 ```
 
 #### gitee.com
 ```
-Install-Package MrHuo.OAuth.Gitee -Version 1.0.0
+Install-Package MrHuo.OAuth.Gitee -Version 1.1.1
 ```
 
 #### weibo.com
 ```
-Install-Package MrHuo.OAuth.SinaWeibo -Version 1.0.0
+Install-Package MrHuo.OAuth.SinaWeibo -Version 1.1.1
 ```
 
 #### xunlei.com
 ```
-Install-Package MrHuo.OAuth.XunLei -Version 1.0.0
+Install-Package MrHuo.OAuth.XunLei -Version 1.1.1
 ```
 
 #### qq.com
 ```
-Install-Package MrHuo.OAuth.QQ -Version 1.0.0
+Install-Package MrHuo.OAuth.QQ -Version 1.1.1
 ```
 
 #### microsoft.com
 ```
-Install-Package MrHuo.OAuth.Microsoft -Version 1.0.1
+Install-Package MrHuo.OAuth.Microsoft -Version 1.1.1
 ```
 
 #### mi.com
 ```
-Install-Package MrHuo.OAuth.Mi -Version 1.0.0
+Install-Package MrHuo.OAuth.Mi -Version 1.1.1
+```
+
+#### stackoverflow.com
+```
+Install-Package MrHuo.OAuth.StackOverflow -Version 1.1.1
 ```
 
 

@@ -21,15 +21,6 @@ namespace MrHuo.OAuth
         /// 日志开关
         /// </summary>
         public static bool EnableDebugLog = false;
-        /// <summary>
-        /// 默认 HttpClientHandler
-        /// </summary>
-        public static HttpClientHandler DefaultHttpClientHandler = new HttpClientHandler
-        {
-            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
-            ClientCertificateOptions = ClientCertificateOption.Automatic,
-            ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true
-        };
 
         /// <summary>
         /// 内部记录日志
@@ -49,7 +40,12 @@ namespace MrHuo.OAuth
         /// <returns></returns>
         public static HttpClient CreateHttpClient()
         {
-            return new HttpClient(DefaultHttpClientHandler);
+            return new HttpClient(new HttpClientHandler
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+                ClientCertificateOptions = ClientCertificateOption.Automatic,
+                ServerCertificateCustomValidationCallback = (message, cert, chain, error) => true
+            });
         }
 
         /// <summary>

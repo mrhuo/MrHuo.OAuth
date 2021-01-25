@@ -17,8 +17,8 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageId>MrHuo.OAuth.Core</PackageId>
     <PackageReleaseNotes>The OAuth Login Component Core. https://oauthlogin.net/</PackageReleaseNotes>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <Version>1.1.0</Version>
+    <AssemblyVersion>1.0.1.1</AssemblyVersion>
+    <Version>1.1.1</Version>
     <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 

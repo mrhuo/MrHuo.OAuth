@@ -24,7 +24,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
 
         [HttpGet("oauth/{type}callback")]
         public async Task<IActionResult> LoginCallback(
-            [FromQuery] string type,
+            string type,
             [FromQuery] string code,
             [FromQuery] string state,
             [FromQuery] string error_description = "")
@@ -71,7 +71,7 @@ namespace MrHuo.OAuth.NetCoreApp.Controllers
 
         [HttpGet("oauth/{type}/user")]
         public async Task<IActionResult> GetUserInfo(
-             [FromRoute] string type,
+             string type,
              [FromQuery] string token)
         {
             Console.WriteLine($"GetUserInfo [{HttpContext.Request.Path}{HttpContext.Request.QueryString.ToString()}]");

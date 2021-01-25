@@ -55,8 +55,8 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddSingleton(new Microsoft.MicrosoftOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:microsoft")));
             services.AddSingleton(new Mi.MiOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:mi")));
             services.AddSingleton(new StackOverflow.StackOverflowOAuth(
-                OAuthConfig.LoadFrom(Configuration, "oauth:statckoverflow"),
-                Configuration["oauth:statckoverflow:api_key"])
+                OAuthConfig.LoadFrom(Configuration, "oauth:stackoverflow"),
+                Configuration["oauth:stackoverflow:api_key"])
             );
             services.AddSingleton(new Facebook.FacebookOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:facebook")));
         }

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MrHuo.OAuth.Core" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.Core" Version="1.1.1" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -19,7 +19,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageId>MrHuo.OAuth.Baidu</PackageId>
     <PackageReleaseNotes>Baidu (https://www.baidu.com/) OAuth Login Component. https://oauthlogin.net/</PackageReleaseNotes>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/mrhuo/MrHuo.OAuth/tree/main/src/MrHuo.OAuth.Baidu</RepositoryUrl>
