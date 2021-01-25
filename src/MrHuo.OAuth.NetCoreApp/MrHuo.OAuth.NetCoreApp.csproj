@@ -6,18 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MrHuo.OAuth.Alipay" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.Baidu" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.Coding" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.Gitee" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.Github" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.Gitlab" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.Huawei" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.OSChina" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.SinaWeibo" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.Wechat" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.QQ" Version="1.0.0" />
-    <PackageReference Include="MrHuo.OAuth.XunLei" Version="1.0.0" />
+    <PackageReference Include="MrHuo.OAuth.Alipay" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.Baidu" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.Coding" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.Gitee" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.Github" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.Gitlab" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.Huawei" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.OSChina" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.SinaWeibo" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.Wechat" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.QQ" Version="1.1.0" />
+    <PackageReference Include="MrHuo.OAuth.XunLei" Version="1.1.0" />
     <PackageReference Include="System.Text.Encodings.Web" Version="5.0.0" />
   </ItemGroup>
   

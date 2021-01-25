@@ -58,6 +58,7 @@ namespace MrHuo.OAuth.NetCoreApp
                 OAuthConfig.LoadFrom(Configuration, "oauth:statckoverflow"),
                 Configuration["oauth:statckoverflow:api_key"])
             );
+            services.AddSingleton(new Facebook.FacebookOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:facebook")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

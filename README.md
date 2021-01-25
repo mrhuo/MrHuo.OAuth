@@ -33,9 +33,11 @@
 - [x] QQ（可用）
 - [x] 微软（可用）
 - [x] 小米（可用）
+- [x] StackOverflow（可用）
 - [ ] 抖音（待测试）
 - [ ] 微信开放平台（待测试）
 - [ ] 美团（待测试）
+- [ ] Facebook（待测试）
 
 ## 计划
 
@@ -46,11 +48,9 @@
 - 人人网
 - 领英
 - 谷歌
-- Facebook
 - Teambition
 - Pinterest
 - Twitter
-- Stack Overflow
 - 企业微信二维码登录
 - 企业微信网页登录
 - 酷家乐
