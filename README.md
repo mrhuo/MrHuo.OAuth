@@ -34,10 +34,10 @@
 - [x] 微软（可用）
 - [x] 小米（可用）
 - [x] StackOverflow（可用）
+- [x] Facebook（可用） by [Donma Hsu](https://github.com/donma)
 - [ ] 抖音（待测试）
 - [ ] 微信开放平台（待测试）
 - [ ] 美团（待测试）
-- [ ] Facebook（待测试）
 
 ## 计划
 
@@ -140,6 +140,11 @@ Install-Package MrHuo.OAuth.Mi -Version 1.1.1
 #### stackoverflow.com
 ```
 Install-Package MrHuo.OAuth.StackOverflow -Version 1.1.1
+```
+
+#### facebook.com
+```
+Install-Package MrHuo.OAuth.Facebook -Version 1.1.1
 ```
 
 
