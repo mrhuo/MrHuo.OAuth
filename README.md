@@ -404,6 +404,7 @@ public class WechatOAuth : OAuthLoginBase<WechatAccessTokenModel, WechatUserInfo
 ## 特别贡献
 
 1. Carl
+2. [Donma Hsu](https://github.com/donma)
 
 <hr />
 为了能让各位朋友能顺利的使用各种平台登录组件，先急求各种平台的 APPID 做测试，有这方面资源的朋友联系我。

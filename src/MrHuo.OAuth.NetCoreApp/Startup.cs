@@ -29,6 +29,8 @@ namespace MrHuo.OAuth.NetCoreApp
                 options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
             }); ;
 
+            HttpRequestApi.EnableDebugLog = true;
+
             //将第三方登录组件注入进去
             services.AddSingleton(new Baidu.BaiduOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:baidu")));
             services.AddSingleton(new Wechat.WechatOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:wechat")));
