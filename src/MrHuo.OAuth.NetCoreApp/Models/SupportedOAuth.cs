@@ -35,6 +35,7 @@ namespace MrHuo.OAuth.NetCoreApp
                     ("Mi", "小米", typeof(Mi.MiOAuth), true),
                     ("StackOverflow", "StackOverflow", typeof(StackOverflow.StackOverflowOAuth), true),
                     ("Facebook", "Facebook", typeof(Facebook.FacebookOAuth), true),
+                    ("Google", "Google", typeof(Google.GoogleOAuth), true),
                 };
             }
         }

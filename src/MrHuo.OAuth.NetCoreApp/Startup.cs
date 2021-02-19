@@ -61,6 +61,7 @@ namespace MrHuo.OAuth.NetCoreApp
                 Configuration["oauth:stackoverflow:api_key"])
             );
             services.AddSingleton(new Facebook.FacebookOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:facebook")));
+            services.AddSingleton(new Google.GoogleOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:google")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

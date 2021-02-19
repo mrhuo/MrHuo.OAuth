@@ -63,6 +63,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.StackOverflow",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.Facebook", "MrHuo.OAuth.Facebook\MrHuo.OAuth.Facebook.csproj", "{E33A1C9A-A39C-4813-B9AA-BAD45DE3076D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.Google", "MrHuo.OAuth.Google\MrHuo.OAuth.Google.csproj", "{6F4EF5A0-771D-492F-9DEF-1C979A5E6DCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,6 +163,10 @@ Global
 		{E33A1C9A-A39C-4813-B9AA-BAD45DE3076D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E33A1C9A-A39C-4813-B9AA-BAD45DE3076D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E33A1C9A-A39C-4813-B9AA-BAD45DE3076D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F4EF5A0-771D-492F-9DEF-1C979A5E6DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F4EF5A0-771D-492F-9DEF-1C979A5E6DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F4EF5A0-771D-492F-9DEF-1C979A5E6DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F4EF5A0-771D-492F-9DEF-1C979A5E6DCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,6 +195,7 @@ Global
 		{A67686EF-4D6D-4F60-9B90-0E82F12A2CEF} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{F47048A7-FE48-47B7-A5F7-05E001C72A4B} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{E33A1C9A-A39C-4813-B9AA-BAD45DE3076D} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
+		{6F4EF5A0-771D-492F-9DEF-1C979A5E6DCB} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DE1505-2557-43FC-BF2C-9AAB19B51971}
