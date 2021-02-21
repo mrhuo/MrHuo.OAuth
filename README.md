@@ -35,6 +35,7 @@
 - [x] 小米（可用）
 - [x] StackOverflow（可用）
 - [x] Facebook（可用） by [Donma Hsu](https://github.com/donma)
+- [x] Google（可用）
 - [ ] 抖音（待测试）
 - [ ] 微信开放平台（待测试）
 - [ ] 美团（待测试）
@@ -47,7 +48,6 @@
 - 今日头条
 - 人人网
 - 领英
-- 谷歌
 - Teambition
 - Pinterest
 - Twitter
@@ -145,6 +145,11 @@ Install-Package MrHuo.OAuth.StackOverflow -Version 1.1.1
 #### facebook.com
 ```
 Install-Package MrHuo.OAuth.Facebook -Version 1.1.1
+```
+
+#### google.com
+```
+Install-Package MrHuo.OAuth.Google -Version 1.0.0
 ```
 
 
