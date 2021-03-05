@@ -27,6 +27,7 @@ namespace MrHuo.OAuth.NetCoreApp
             services.AddControllersWithViews().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
+                //options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
             }); ;
 
             HttpRequestApi.EnableDebugLog = true;
@@ -62,6 +63,7 @@ namespace MrHuo.OAuth.NetCoreApp
             );
             services.AddSingleton(new Facebook.FacebookOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:facebook")));
             services.AddSingleton(new Google.GoogleOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:google")));
+            services.AddSingleton(new LinkedIn.LinkedInOAuth(OAuthConfig.LoadFrom(Configuration, "oauth:linkedin")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

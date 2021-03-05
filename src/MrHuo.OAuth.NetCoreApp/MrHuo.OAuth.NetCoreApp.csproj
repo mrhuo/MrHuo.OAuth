@@ -26,6 +26,7 @@
     <ProjectReference Include="..\MrHuo.OAuth.DingTalk\MrHuo.OAuth.DingTalk.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Facebook\MrHuo.OAuth.Facebook.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Google\MrHuo.OAuth.Google.csproj" />
+    <ProjectReference Include="..\MrHuo.OAuth.LinkedIn\MrHuo.OAuth.LinkedIn.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.MeiTuan\MrHuo.OAuth.MeiTuan.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.DouYin\MrHuo.OAuth.DouYin.csproj" />
     <ProjectReference Include="..\MrHuo.OAuth.Microsoft\MrHuo.OAuth.Microsoft.csproj" />

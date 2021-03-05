@@ -36,6 +36,7 @@
 - [x] StackOverflow（可用）
 - [x] Facebook（可用） by [Donma Hsu](https://github.com/donma)
 - [x] Google（可用）
+- [x] LinkedIn（可用，待发布 nuget）
 - [ ] 抖音（待测试）
 - [ ] 微信开放平台（待测试）
 - [ ] 美团（待测试）
@@ -47,7 +48,6 @@
 - 西瓜
 - 今日头条
 - 人人网
-- 领英
 - Teambition
 - Pinterest
 - Twitter
