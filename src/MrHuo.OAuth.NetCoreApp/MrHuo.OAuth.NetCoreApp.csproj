@@ -18,7 +18,7 @@
     <PackageReference Include="MrHuo.OAuth.Wechat" Version="1.1.0" />
     <PackageReference Include="MrHuo.OAuth.QQ" Version="1.1.0" />
     <PackageReference Include="MrHuo.OAuth.XunLei" Version="1.1.0" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.1" />
   </ItemGroup>
   
   <ItemGroup>
