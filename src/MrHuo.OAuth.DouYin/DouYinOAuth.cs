@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,7 +43,7 @@ namespace MrHuo.OAuth.DouYin
 
         public override async Task<DouYinAccessTokenModel> GetAccessTokenAsync(Dictionary<string, string> authorizeCallbackParams)
         {
-            var accessTokenModel = (await HttpRequestApi.PostAsync<DouYinApiResponse<DouYinAccessTokenModel>>(
+            var accessTokenModel = (await HttpRequestApi.GetAsync<DouYinApiResponse<DouYinAccessTokenModel>>(
                 AccessTokenUrl,
                 BuildGetAccessTokenParams(authorizeCallbackParams)
             )).Data;
@@ -56,9 +56,11 @@ namespace MrHuo.OAuth.DouYin
 
         public override async Task<DouYinUserInfoModel> GetUserInfoAsync(DouYinAccessTokenModel accessTokenModel)
         {
+            var query = BuildGetUserInfoParams(accessTokenModel);
+            query.Add("open_id", accessTokenModel.OpenId);
             var userInfoModel = (await HttpRequestApi.GetAsync<DouYinApiResponse<DouYinUserInfoModel>>(
                 UserInfoUrl,
-                BuildGetUserInfoParams(accessTokenModel)
+                query
             )).Data;
             if (userInfoModel.HasError())
             {
