@@ -9,5 +9,8 @@ namespace MrHuo.OAuth.DouYin
     {
         [JsonPropertyName("open_id")]
         public string OpenId { get; set; }
+        
+        [JsonPropertyName("expires_in")]
+        public new int ExpiresIn { get; set; }
     }
 }
