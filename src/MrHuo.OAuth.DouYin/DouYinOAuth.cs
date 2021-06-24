@@ -54,13 +54,18 @@ namespace MrHuo.OAuth.DouYin
             return accessTokenModel;
         }
 
-        public override async Task<DouYinUserInfoModel> GetUserInfoAsync(DouYinAccessTokenModel accessTokenModel)
+        protected override Dictionary<string, string> BuildGetUserInfoParams(DouYinAccessTokenModel accessTokenModel)
         {
-            var query = BuildGetUserInfoParams(accessTokenModel);
+            var query = base.BuildGetUserInfoParams(accessTokenModel);
             query.Add("open_id", accessTokenModel.OpenId);
+            return query;
+        }
+
+        public override async Task<DouYinUserInfoModel> GetUserInfoAsync(DouYinAccessTokenModel accessTokenModel)
+        {            
             var userInfoModel = (await HttpRequestApi.GetAsync<DouYinApiResponse<DouYinUserInfoModel>>(
                 UserInfoUrl,
-                query
+                BuildGetUserInfoParams(accessTokenModel)
             )).Data;
             if (userInfoModel.HasError())
             {
