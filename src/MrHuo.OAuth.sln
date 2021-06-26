@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31410.414
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.Github", "MrHuo.OAuth.Github\MrHuo.OAuth.Github.csproj", "{08BF7584-2CB9-4500-A6D9-7A14F7ED199D}"
 EndProject
@@ -65,7 +65,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.Facebook", "MrH
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.Google", "MrHuo.OAuth.Google\MrHuo.OAuth.Google.csproj", "{6F4EF5A0-771D-492F-9DEF-1C979A5E6DCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrHuo.OAuth.LinkedIn", "MrHuo.OAuth.LinkedIn\MrHuo.OAuth.LinkedIn.csproj", "{E89C4ABF-B066-423A-9812-758C6A89F124}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.LinkedIn", "MrHuo.OAuth.LinkedIn\MrHuo.OAuth.LinkedIn.csproj", "{E89C4ABF-B066-423A-9812-758C6A89F124}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrHuo.OAuth.KuaiShou", "MrHuo.OAuth.KuaiShou\MrHuo.OAuth.KuaiShou.csproj", "{A94C3236-FAA7-4655-9695-42935C99A46B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,6 +175,10 @@ Global
 		{E89C4ABF-B066-423A-9812-758C6A89F124}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E89C4ABF-B066-423A-9812-758C6A89F124}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E89C4ABF-B066-423A-9812-758C6A89F124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A94C3236-FAA7-4655-9695-42935C99A46B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A94C3236-FAA7-4655-9695-42935C99A46B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A94C3236-FAA7-4655-9695-42935C99A46B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A94C3236-FAA7-4655-9695-42935C99A46B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -203,6 +209,7 @@ Global
 		{E33A1C9A-A39C-4813-B9AA-BAD45DE3076D} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{6F4EF5A0-771D-492F-9DEF-1C979A5E6DCB} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 		{E89C4ABF-B066-423A-9812-758C6A89F124} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
+		{A94C3236-FAA7-4655-9695-42935C99A46B} = {2421B9DA-FA42-4412-8ED6-452B745294A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24DE1505-2557-43FC-BF2C-9AAB19B51971}
